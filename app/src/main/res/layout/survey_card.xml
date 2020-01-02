@@ -24,6 +24,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
+                android:clickable="false"
                 android:background="@drawable/white_circle"
                 android:src="@drawable/ic_box" />
 
@@ -81,6 +82,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
+                android:clickable="false"
                 android:background="@drawable/white_circle"
                 android:src="@drawable/ic_arrow2" />
 
