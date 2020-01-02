@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import com.google.android.libraries.places.api.Places;
@@ -179,8 +181,23 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
          */
         try {
             if (mLocationPermissionGranted) {
-                Task locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener() {
+                Task locationResult = mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+
+                        if (location != null) {
+                            // Logic to handle location object
+                            mLastKnownLocation = location;
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                        }
+
+
+                    }
+                });
+                /*locationResult.addOnCompleteListener(this, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
@@ -196,9 +213,9 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
-                });
+                });*/
             }
-        } catch(SecurityException e)  {
+        } catch(Exception e)  {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -210,12 +227,12 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
          * onRequestPermissionsResult.
          */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
