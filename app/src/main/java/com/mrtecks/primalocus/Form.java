@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -16,18 +17,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.innovattic.rangeseekbar.RangeSeekBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
+    private static final String TAG = "Form";
     Toolbar toolbar;
     Spinner property , datasource , state , city , landusage;
 
@@ -37,10 +50,25 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     Button submit;
 
+    double lat , lng;
+
+    GoogleMap mMap;
+
+    TextView change;
+
+    private static final int DEFAULT_ZOOM = 15;
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
+
+    TextView start , end;
+    RangeSeekBar range;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        lat = getIntent().getDoubleExtra("lat" , 0);
+        lng = getIntent().getDoubleExtra("lng" , 0);
 
         pro = new ArrayList<>();
         dat = new ArrayList<>();
@@ -49,6 +77,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        change = findViewById(R.id.change);
         property = findViewById(R.id.property);
         datasource = findViewById(R.id.datasource);
         state = findViewById(R.id.state);
@@ -56,6 +85,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         landusage = findViewById(R.id.landusage);
         date = findViewById(R.id.date);
         submit = findViewById(R.id.button);
+        range = findViewById(R.id.rangeSeekBar);
+        start = findViewById(R.id.start);
+        end = findViewById(R.id.end);
 
         setSupportActionBar(toolbar);
 
@@ -179,10 +211,76 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+
+// Start the autocomplete intent.
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .build(Form.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+
+            }
+        });
+
+        range.setSeekBarChangeListener(new RangeSeekBar.SeekBarChangeListener() {
+            @Override
+            public void onStartedSeeking() {
+
+            }
+
+            @Override
+            public void onStoppedSeeking() {
+
+            }
+
+            @Override
+            public void onValueChanged(int i, int i1) {
+
+                start.setText(String.valueOf(i));
+                end.setText(String.valueOf(i1));
+
+            }
+        });
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        mMap = googleMap;
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(lat,
+                        lng), DEFAULT_ZOOM));
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(place.getLatLng().latitude,
+                                place.getLatLng().longitude), DEFAULT_ZOOM));
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
+
 }

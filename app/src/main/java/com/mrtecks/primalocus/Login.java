@@ -10,10 +10,19 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.mrtecks.primalocus.loginPOJO.loginBean;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class Login extends AppCompatActivity {
 
     Button login;
-    EditText phone;
+    EditText username , password;
     ProgressBar progress;
 
     @Override
@@ -22,77 +31,83 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         login = findViewById(R.id.button);
-        phone = findViewById(R.id.editText);
+        username = findViewById(R.id.editText);
+        password = findViewById(R.id.editText2);
         progress = findViewById(R.id.progressBar);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Login.this , OTP.class);
-                startActivity(intent);
-                //Toast.makeText(Login.this, "Please verify your mobile number", Toast.LENGTH_SHORT).show();
-                finish();
 
-                /*String p = phone.getText().toString();
+                String u = username.getText().toString();
+                String p = password.getText().toString();
 
-                if (p.length() == 10)
+                if (u.length() > 0)
                 {
 
-                    Intent intent = new Intent(Login.this , OTP.class);
-                    startActivity(intent);
-                    Toast.makeText(Login.this, "Please verify your mobile number", Toast.LENGTH_SHORT).show();
-                    finish();
+                    if (p.length() > 0)
+                    {
+                        progress.setVisibility(View.VISIBLE);
 
-                    *//*progress.setVisibility(View.VISIBLE);
+                        Bean b = (Bean) getApplicationContext();
 
-                    Bean b = (Bean) getApplicationContext();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(b.baseurl)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                        Call<loginBean> call = cr.login(u , p , SharePreferenceUtils.getInstance().getString("token"));
+                        call.enqueue(new Callback<loginBean>() {
+                            @Override
+                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
 
-                    Call<loginBean> call = cr.login(p , SharePreferenceUtils.getInstance().getString("token"));
-                    call.enqueue(new Callback<loginBean>() {
-                        @Override
-                        public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+                                if (response.body().getStatus().equals("1"))
+                                {
 
-                            if (response.body().getStatus().equals("1"))
-                            {
+                                    Intent intent = new Intent(Login.this , MainActivity.class);
+                                    SharePreferenceUtils.getInstance().saveString("id" , response.body().getData().getId());
+                                    SharePreferenceUtils.getInstance().saveString("name" , response.body().getData().getName());
+                                    SharePreferenceUtils.getInstance().saveString("phone" , response.body().getData().getPhone());
+                                    SharePreferenceUtils.getInstance().saveString("username" , response.body().getData().getUsername());
+                                    SharePreferenceUtils.getInstance().saveString("password" , response.body().getData().getPassword());
 
-                                Intent intent = new Intent(Login.this , OTP.class);
-                                SharePreferenceUtils.getInstance().saveString("phone" , response.body().getPhone());
-                                //SharePreferenceUtils.getInstance().saveString("id" , response.body().getMessage());
-                                startActivity(intent);
-                                Toast.makeText(Login.this, "Please verify your phone number", Toast.LENGTH_SHORT).show();
-                                finish();
+                                    startActivity(intent);
+                                    Toast.makeText(Login.this, response.body().getMessage() , Toast.LENGTH_SHORT).show();
+                                    finishAffinity();
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                progress.setVisibility(View.GONE);
 
                             }
-                            else
-                            {
-                                Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            @Override
+                            public void onFailure(Call<loginBean> call, Throwable t) {
+                                progress.setVisibility(View.GONE);
+                                t.printStackTrace();
                             }
+                        });
+                    }
+                    else
+                    {
+                        Toast.makeText(Login.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                    }
 
-                            progress.setVisibility(View.GONE);
 
-                        }
-
-                        @Override
-                        public void onFailure(Call<loginBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                            t.printStackTrace();
-                        }
-                    });*//*
 
                 }
                 else
                 {
-                    Toast.makeText(Login.this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
-                }*/
+                    Toast.makeText(Login.this, "Invalid username", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

@@ -59,28 +59,29 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#ffffff"
         app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="LOGIN"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
@@ -95,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:text="MOBILE NUMBER"
+                android:text="USERNAME"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -107,10 +108,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/stroke_back_round"
-                android:ems="10"
                 android:hint="tap to enter"
-                android:inputType="phone"
-                android:maxLength="10"
+                android:inputType="textPersonName"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,9 +117,12 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/primary_back_round"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
@@ -128,11 +130,39 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="10dp"
-                android:text="SEND OTP"
+                android:text="LOGIN"
                 android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="PASSWORD"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/stroke_back_round"
+                android:hint="tap to enter"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

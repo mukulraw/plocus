@@ -121,7 +121,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:id="@+id/change"
                 android:textSize="12sp"
+                android:padding="8dp"
                 android:text="Tap here to adjust Location on Map"
                 android:textStyle="italic" />
 
@@ -279,33 +281,48 @@
                 android:layout_marginEnd="16dp"
                 android:text="Price Range"/>
 
-            <com.warkiz.widget.IndicatorSeekBar
+            <com.innovattic.rangeseekbar.RangeSeekBar
+                android:id="@+id/rangeSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:isb_max="1000000"
-                app:isb_min="200000"
-                app:isb_progress="25"
-                app:isb_seek_smoothly="true"
-                app:isb_ticks_count="2"
-                app:isb_show_tick_marks_type="oval"
-                app:isb_tick_marks_size="13dp"
-                app:isb_show_tick_texts="true"
-                app:isb_tick_texts_size="15sp"
-                app:isb_tick_texts_color="@color/colorPrimary"
-                app:isb_thumb_color="@color/colorPrimary"
+                app:rsb_minRange="100000"
+                app:rsb_max="500000"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:rsb_trackSelectedColor="#000000"
+                app:rsb_trackColor="#cdcdcd"
+                app:rsb_minThumbDrawable="@drawable/ic_circular_shape_silhouette"
+                app:rsb_maxThumbDrawable="@drawable/ic_circular_shape_silhouette"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:isb_thumb_size="20dp"
-                app:isb_show_indicator="rounded_rectangle"
-                app:isb_indicator_color="@color/colorPrimary"
-                app:isb_indicator_text_color="@color/white"
-                app:isb_indicator_text_size="18sp"
-                app:isb_track_background_color="@color/colorPrimary"
-                app:isb_track_background_size="2dp"
-                app:isb_track_progress_color="@color/colorPrimary"
-                app:isb_track_progress_size="4dp"
-                app:isb_only_thumb_draggable="false"/>
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100000"
+                    android:id="@+id/start"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5000000"
+                    android:id="@+id/end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"

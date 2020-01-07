@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="Contact Us"
-        android:id="@+id/profile"
+        android:id="@+id/contact"
         android:visibility="visible"
         />
 

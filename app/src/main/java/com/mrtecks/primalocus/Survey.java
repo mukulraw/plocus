@@ -75,6 +75,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
 
     LinearLayout enterData , endSession;
 
+    View bottom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,7 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
         fab = findViewById(R.id.floatingActionButton);
         enterData = findViewById(R.id.enterdata);
         endSession = findViewById(R.id.endsession);
+        bottom = findViewById(R.id.textView7);
 
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(this);
@@ -122,8 +125,23 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Survey.this , Form.class);
-                startActivity(intent);
+                if (mLastKnownLocation != null)
+                {
+                    Intent intent = new Intent(Survey.this , Form.class);
+                    intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                    intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                    startActivity(intent);
+
+                }
+                else
+                {
+                    Intent intent = new Intent(Survey.this , Form.class);
+                    intent.putExtra("lat" , 0);
+                    intent.putExtra("lng" , 0);
+                    startActivity(intent);
+
+                }
+
 
             }
         });
@@ -162,6 +180,16 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
             if (mLocationPermissionGranted) {
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                bottom.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        bottom.invalidate();
+                        mMap.setPadding(0 , 0 , 0 , bottom.getHeight() + 18);
+
+                    }
+                }, 1);
+
 
             } else {
                 mMap.setMyLocationEnabled(false);
