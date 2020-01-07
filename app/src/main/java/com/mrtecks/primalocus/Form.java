@@ -42,11 +42,9 @@ import java.util.Objects;
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner property , datasource , state , city , landusage;
+    Spinner datasource , state , city , landusage;
 
-    List<String> pro , dat , sta , cit , lan;
-
-    EditText date;
+    List<String> dat , sta , cit , lan;
 
     Button submit;
 
@@ -61,6 +59,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView start , end;
     RangeSeekBar range;
+    String pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +68,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         lat = getIntent().getDoubleExtra("lat" , 0);
         lng = getIntent().getDoubleExtra("lng" , 0);
+        pid = getIntent().getStringExtra("pid");
 
-        pro = new ArrayList<>();
+
         dat = new ArrayList<>();
         sta = new ArrayList<>();
         cit = new ArrayList<>();
@@ -78,12 +78,12 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         toolbar = findViewById(R.id.toolbar2);
         change = findViewById(R.id.change);
-        property = findViewById(R.id.property);
+
         datasource = findViewById(R.id.datasource);
         state = findViewById(R.id.state);
         city = findViewById(R.id.city);
         landusage = findViewById(R.id.landusage);
-        date = findViewById(R.id.date);
+
         submit = findViewById(R.id.button);
         range = findViewById(R.id.rangeSeekBar);
         start = findViewById(R.id.start);
@@ -103,16 +103,12 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        toolbar.setTitle("Add Property");
+        toolbar.setTitle(pid);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        pro.add("Warehouse");
-        pro.add("Retail");
-        pro.add("Office");
-        pro.add("Others");
 
         dat.add("Survey");
         dat.add("Reference");
@@ -124,9 +120,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan.add("Institutional/ Industrial");
         lan.add("Residential");
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , pro);
-        property.setAdapter(adapter1);
+
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1 , dat);
@@ -136,46 +130,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 android.R.layout.simple_list_item_1 , lan);
         landusage.setAdapter(adapter5);
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(Form.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.date_dialog);
-                dialog.show();
-
-
-                final DatePicker picker = dialog.findViewById(R.id.date);
-                Button ok = dialog.findViewById(R.id.ok);
-
-                long now = System.currentTimeMillis() - 1000;
-                picker.setMinDate(now);
-
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        int year = picker.getYear();
-                        int month = picker.getMonth();
-                        int day = picker.getDayOfMonth();
-
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(year, month, day);
-
-                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
-                        String strDate = format.format(calendar.getTime());
-
-                        date.setText(strDate);
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

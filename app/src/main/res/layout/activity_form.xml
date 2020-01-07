@@ -33,81 +33,10 @@
             android:orientation="vertical"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Property Type"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/property"
-                    />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Date"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:id="@+id/date"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/white2"
-                android:text="Property ID"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:id="@+id/propertyid"
-                android:background="@drawable/white_back_round"
-                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:textColor="@color/colorAccent"
                 android:textAllCaps="true"

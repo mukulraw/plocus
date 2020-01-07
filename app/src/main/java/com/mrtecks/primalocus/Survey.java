@@ -6,13 +6,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,6 +45,9 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Survey extends AppCompatActivity implements OnMapReadyCallback {
@@ -78,7 +90,7 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
     View bottom;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -125,22 +137,198 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-                if (mLastKnownLocation != null)
-                {
-                    Intent intent = new Intent(Survey.this , Form.class);
-                    intent.putExtra("lat" , mLastKnownLocation.getLatitude());
-                    intent.putExtra("lng" , mLastKnownLocation.getLongitude());
-                    startActivity(intent);
+                final Dialog dialog = new Dialog(Survey.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.add_property_dialog);
+                dialog.show();
 
-                }
-                else
-                {
-                    Intent intent = new Intent(Survey.this , Form.class);
-                    intent.putExtra("lat" , 0);
-                    intent.putExtra("lng" , 0);
-                    startActivity(intent);
+                final Spinner property = dialog.findViewById(R.id.property);
+                final EditText date = dialog.findViewById(R.id.date);
+                final EditText propertyid = dialog.findViewById(R.id.propertyid);
+                Button submit = dialog.findViewById(R.id.button);
 
-                }
+                final List<String> pro = new ArrayList<>();
+
+                pro.add("Warehouse");
+                pro.add("Retail");
+                pro.add("Office");
+                pro.add("Others");
+
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(Survey.this ,
+                        android.R.layout.simple_list_item_1 , pro);
+                property.setAdapter(adapter1);
+
+                property.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        String item = pro.get(position);
+
+                        String da = date.getText().toString();
+
+                        if (da.length() > 0)
+                        {
+
+                            String s = item.substring(0,2);
+
+                            s = s.toUpperCase();
+
+                            propertyid.setText(s + "-" + da + "-" + SharePreferenceUtils.getInstance().getString("id"));
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final Dialog dialog = new Dialog(Survey.this);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setCancelable(true);
+                        dialog.setContentView(R.layout.date_dialog);
+                        dialog.show();
+
+
+                        final DatePicker picker = dialog.findViewById(R.id.date);
+                        Button ok = dialog.findViewById(R.id.ok);
+
+                        long now = System.currentTimeMillis() - 1000;
+                        picker.setMinDate(now);
+
+                        ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                int year = picker.getYear();
+                                int month = picker.getMonth();
+                                int day = picker.getDayOfMonth();
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, month, day);
+
+                                SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                                String strDate = format.format(calendar.getTime());
+
+
+
+                                String sel = (String) property.getSelectedItem();
+
+                                String s = sel.substring(0,2);
+
+                                s = s.toUpperCase();
+
+                                propertyid.setText(s + "-" + strDate + "-" + SharePreferenceUtils.getInstance().getString("id"));
+
+                                date.setText(strDate);
+
+                                dialog.dismiss();
+
+                            }
+                        });
+
+                    }
+                });
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String dd = date.getText().toString();
+
+                        if (dd.length() > 0)
+                        {
+                            String sel = (String) property.getSelectedItem();
+                            switch (sel) {
+                                case "Warehouse":
+                                    if (mLastKnownLocation != null)
+                                    {
+                                        Intent intent = new Intent(Survey.this , Warehouse.class);
+                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(Survey.this , Warehouse.class);
+                                        intent.putExtra("lat" , 0);
+                                        intent.putExtra("lng" , 0);
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    break;
+                                case "Office":
+                                    if (mLastKnownLocation != null)
+                                    {
+                                        Intent intent = new Intent(Survey.this , Office.class);
+                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(Survey.this , Office.class);
+                                        intent.putExtra("lat" , 0);
+                                        intent.putExtra("lng" , 0);
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    break;
+                                case "Retail":
+                                default:
+                                    if (mLastKnownLocation != null)
+                                    {
+                                        Intent intent = new Intent(Survey.this , Form.class);
+                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(Survey.this , Form.class);
+                                        intent.putExtra("lat" , 0);
+                                        intent.putExtra("lng" , 0);
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    break;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(Survey.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+
 
 
             }
