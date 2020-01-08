@@ -2,6 +2,7 @@ package com.mrtecks.primalocus;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -42,11 +44,11 @@ import java.util.Objects;
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource , state , city , landusage;
+    Spinner datasource , state , city , availability , landusage;
 
-    List<String> dat , sta , cit , lan;
+    List<String> dat , sta , cit , ava , lan;
 
-    Button submit;
+    Button submit , add;
 
     double lat , lng;
 
@@ -57,9 +59,14 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
 
-    TextView start , end;
-    RangeSeekBar range;
-    String pid;
+    String pid , type , date;
+
+    String ds ,st , ci , av , la;
+
+    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname;
+    EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
+    RecyclerView images;
+    RadioGroup condition , partition , tenant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +76,14 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lat = getIntent().getDoubleExtra("lat" , 0);
         lng = getIntent().getDoubleExtra("lng" , 0);
         pid = getIntent().getStringExtra("pid");
+        type = getIntent().getStringExtra("type");
+        date = getIntent().getStringExtra("date");
 
 
         dat = new ArrayList<>();
         sta = new ArrayList<>();
         cit = new ArrayList<>();
+        ava = new ArrayList<>();
         lan = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
@@ -83,11 +93,46 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         state = findViewById(R.id.state);
         city = findViewById(R.id.city);
         landusage = findViewById(R.id.landusage);
+        add = findViewById(R.id.add);
+
+        location = findViewById(R.id.location);
+        address = findViewById(R.id.address);
+        min = findViewById(R.id.min);
+        max = findViewById(R.id.max);
+        floor = findViewById(R.id.floor);
+        unit = findViewById(R.id.unit);
+        chargeable = findViewById(R.id.chargeable);
+        covered = findViewById(R.id.covered);
+        carpet = findViewById(R.id.carpet);
+        rent = findViewById(R.id.rent);
+        security = findViewById(R.id.security);
+        common = findViewById(R.id.common);
+        ceiling = findViewById(R.id.ceiling);
+        facade = findViewById(R.id.facade);
+        tenantname = findViewById(R.id.tenantname);
+
+        fdf = findViewById(R.id.fdf);
+        fdc = findViewById(R.id.fdc);
+        fwo = findViewById(R.id.fwo);
+        tdf = findViewById(R.id.tdf);
+        tdc = findViewById(R.id.tdc);
+        two = findViewById(R.id.two);
+        mobile = findViewById(R.id.mobile);
+        secondary = findViewById(R.id.secondary);
+        owned = findViewById(R.id.owned);
+        email = findViewById(R.id.email);
+        caretaker = findViewById(R.id.caretaker);
+        caretakerphone = findViewById(R.id.caretakerphone);
+        emailcaretaker = findViewById(R.id.emailcaretaker);
+        remarks = findViewById(R.id.remarks);
+
+        images = findViewById(R.id.images);
+        condition = findViewById(R.id.condition);
+        partition = findViewById(R.id.partition);
+        tenant = findViewById(R.id.tenant);
 
         submit = findViewById(R.id.button);
-        range = findViewById(R.id.rangeSeekBar);
-        start = findViewById(R.id.start);
-        end = findViewById(R.id.end);
+
 
         setSupportActionBar(toolbar);
 
@@ -120,11 +165,19 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan.add("Institutional/ Industrial");
         lan.add("Residential");
 
+        ava.add("Ready to move in (RTM)");
+        ava.add("Under Construction");
+        ava.add("Built to Suit (BTS)");
+
 
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1 , dat);
         datasource.setAdapter(adapter2);
+
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1 , ava);
+        availability.setAdapter(adapter1);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1 , lan);
@@ -183,25 +236,76 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        range.setSeekBarChangeListener(new RangeSeekBar.SeekBarChangeListener() {
+        datasource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onStartedSeeking() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ds = dat.get(position);
 
             }
 
             @Override
-            public void onStoppedSeeking() {
-
-            }
-
-            @Override
-            public void onValueChanged(int i, int i1) {
-
-                start.setText(String.valueOf(i));
-                end.setText(String.valueOf(i1));
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                st = sta.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ci = cit.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                av = ava.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        landusage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                la = lan.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 

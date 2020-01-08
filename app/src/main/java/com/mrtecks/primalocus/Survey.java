@@ -247,6 +247,32 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                         {
                             String sel = (String) property.getSelectedItem();
                             switch (sel) {
+                                case "Retail":
+                                    if (mLastKnownLocation != null)
+                                    {
+                                        Intent intent = new Intent(Survey.this , Form.class);
+                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(Survey.this , Form.class);
+                                        intent.putExtra("lat" , 0);
+                                        intent.putExtra("lng" , 0);
+                                        intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
+                                        dialog.dismiss();
+                                        startActivity(intent);
+
+                                    }
+                                    break;
                                 case "Warehouse":
                                     if (mLastKnownLocation != null)
                                     {
@@ -254,6 +280,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , mLastKnownLocation.getLatitude());
                                         intent.putExtra("lng" , mLastKnownLocation.getLongitude());
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 
@@ -265,6 +293,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , 0);
                                         intent.putExtra("lng" , 0);
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 
@@ -277,6 +307,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , mLastKnownLocation.getLatitude());
                                         intent.putExtra("lng" , mLastKnownLocation.getLongitude());
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 
@@ -287,12 +319,13 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , 0);
                                         intent.putExtra("lng" , 0);
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 
                                     }
                                     break;
-                                case "Retail":
                                 default:
                                     if (mLastKnownLocation != null)
                                     {
@@ -300,6 +333,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , mLastKnownLocation.getLatitude());
                                         intent.putExtra("lng" , mLastKnownLocation.getLongitude());
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 
@@ -310,6 +345,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                         intent.putExtra("lat" , 0);
                                         intent.putExtra("lng" , 0);
                                         intent.putExtra("pid" , propertyid.getText().toString());
+                                        intent.putExtra("date" , date.getText().toString());
+                                        intent.putExtra("type" , sel);
                                         dialog.dismiss();
                                         startActivity(intent);
 

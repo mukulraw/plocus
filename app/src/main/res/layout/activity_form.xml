@@ -201,6 +201,55 @@
                 android:background="@color/colorPrimaryDark"
                 android:padding="10dp"/>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Availability"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/availability"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Floor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/floor"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -210,48 +259,71 @@
                 android:layout_marginEnd="16dp"
                 android:text="Price Range"/>
 
-            <com.innovattic.rangeseekbar.RangeSeekBar
-                android:id="@+id/rangeSeekBar"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Min. Price"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/min"
+                    android:inputType="number"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:rsb_minRange="100000"
-                app:rsb_max="500000"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                app:rsb_trackSelectedColor="#000000"
-                app:rsb_trackColor="#cdcdcd"
-                app:rsb_minThumbDrawable="@drawable/ic_circular_shape_silhouette"
-                app:rsb_maxThumbDrawable="@drawable/ic_circular_shape_silhouette"
-                />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                >
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="100000"
-                    android:id="@+id/start"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Max. Price"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="5000000"
-                    android:id="@+id/end"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/max"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
 
-            </RelativeLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -462,7 +534,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Common Area Maintenence -(Rs./Sq.Ft.)"/>
+                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -504,7 +576,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Façade/Frontage Length (in feet) "/>
+                android:text="Façade/ Frontage Length (in feet) "/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -702,6 +774,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/fdf"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
@@ -732,6 +805,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/fdc"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
@@ -762,6 +836,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/fwo"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
@@ -793,6 +868,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/tdf"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
@@ -823,6 +899,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/tdc"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
@@ -853,6 +930,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:id="@+id/two"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
