@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.innovattic.rangeseekbar.RangeSeekBar;
+import com.mrtecks.primalocus.loginPOJO.loginBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +51,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
@@ -76,6 +85,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
     RecyclerView images;
     RadioGroup condition , partition , tenant;
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +107,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         toolbar = findViewById(R.id.toolbar2);
         change = findViewById(R.id.change);
+        progress = findViewById(R.id.progressBar);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
@@ -282,131 +293,37 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
 
 
-                final Dialog dialog = new Dialog(Form.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.submit_popup);
-                dialog.show();
+                final String lo = location.getText().toString();
+                final String ad = address.getText().toString();
+                final String fl = floor.getText().toString();
+                final String mi = min.getText().toString();
+                final String ma = max.getText().toString();
+                final String un = unit.getText().toString();
+                final String ch = chargeable.getText().toString();
+                final String co = covered.getText().toString();
+                final String ca = carpet.getText().toString();
+                final String re = rent.getText().toString();
+                final String se = security.getText().toString();
+                final String com = common.getText().toString();
+                final String ce = ceiling.getText().toString();
+                final String fa = facade.getText().toString();
+                final String tn = tenantname.getText().toString();
+                final String ff = fdf.getText().toString();
+                final String fc = fdc.getText().toString();
+                final String fo = fwo.getText().toString();
+                final String tf = tdf.getText().toString();
+                final String tc = tdc.getText().toString();
+                final String to = two.getText().toString();
+                final String mo = mobile.getText().toString();
+                final String sec = secondary.getText().toString();
+                final String ow = owned.getText().toString();
+                final String em = email.getText().toString();
+                final String car = caretaker.getText().toString();
+                final String cph = caretakerphone.getText().toString();
+                final String cem = emailcaretaker.getText().toString();
+                final String rem = remarks.getText().toString();
 
-                ImageButton ok = dialog.findViewById(R.id.imageButton3);
-                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(Form.this , Survey.class);
-                        startActivity(intent);
-                        finishAffinity();
-                    }
-                });
-
-            }
-        });
-
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-
-// Start the autocomplete intent.
-                Intent intent = new Autocomplete.IntentBuilder(
-                        AutocompleteActivityMode.FULLSCREEN, fields)
-                        .build(Form.this);
-                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
-
-
-            }
-        });
-
-        datasource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ds = dat.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                av = ava.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        landusage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                la = lan.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                String lo = location.getText().toString();
-                String ad = address.getText().toString();
-                String fl = floor.getText().toString();
-                String mi = min.getText().toString();
-                String ma = max.getText().toString();
-                String un = unit.getText().toString();
-                String ch = chargeable.getText().toString();
-                String co = covered.getText().toString();
-                String ca = carpet.getText().toString();
-                String re = rent.getText().toString();
-                String se = security.getText().toString();
-                String com = common.getText().toString();
-                String ce = ceiling.getText().toString();
-                String fa = facade.getText().toString();
-                String tn = tenantname.getText().toString();
-                String ff = fdf.getText().toString();
-                String fc = fdc.getText().toString();
-                String fo = fwo.getText().toString();
-                String tf = tdf.getText().toString();
-                String tc = tdc.getText().toString();
-                String to = two.getText().toString();
-                String mo = mobile.getText().toString();
-                String sec = secondary.getText().toString();
-                String ow = owned.getText().toString();
-                String em = email.getText().toString();
-                String car = caretaker.getText().toString();
-                String cph = caretakerphone.getText().toString();
-                String cem = emailcaretaker.getText().toString();
-                String rem = remarks.getText().toString();
-
-                String cpro , par;
+                final String cpro , par , ten;
 
 
                 if (lo.length() > 0)
@@ -451,7 +368,122 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                             if (fa.length() > 0)
                                                                             {
 
+                                                                                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                                                                                ten = tb.getText().toString();
+
+                                                                                final Dialog dialog = new Dialog(Form.this);
+                                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                                                dialog.setCancelable(false);
+                                                                                dialog.setContentView(R.layout.submit_popup);
+                                                                                dialog.show();
+
+                                                                                ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                                                                                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+
+                                                                                cancel.setOnClickListener(new View.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(View v) {
+                                                                                        dialog.dismiss();
+                                                                                    }
+                                                                                });
+
+                                                                                ok.setOnClickListener(new View.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(View v) {
+                                                                                        dialog.dismiss();
+
+                                                                                        progress.setVisibility(View.VISIBLE);
+
+                                                                                        Bean b = (Bean) getApplicationContext();
+
+                                                                                        Retrofit retrofit = new Retrofit.Builder()
+                                                                                                .baseUrl(b.baseurl)
+                                                                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                                                                .addConverterFactory(GsonConverterFactory.create())
+                                                                                                .build();
+
+                                                                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                                                        Call<loginBean> call = cr.add_retail(
+                                                                                                SharePreferenceUtils.getInstance().getString("id"),
+                                                                                                type,
+                                                                                                date,
+                                                                                                pid,
+                                                                                                String.valueOf(lat),
+                                                                                                String.valueOf(lng),
+                                                                                                ds,
+                                                                                                st,
+                                                                                                ci,
+                                                                                                lo,
+                                                                                                ad,
+                                                                                                mi,
+                                                                                                ma,
+                                                                                                av,
+                                                                                                fl,
+                                                                                                un,
+                                                                                                cpro,
+                                                                                                ch,
+                                                                                                co,
+                                                                                                ca,
+                                                                                                par,
+                                                                                                re,
+                                                                                                se,
+                                                                                                com,
+                                                                                                ce,
+                                                                                                fa,
+                                                                                                ten,
+                                                                                                tn,
+                                                                                                la,
+                                                                                                ff,
+                                                                                                fc,
+                                                                                                fo,
+                                                                                                tf,
+                                                                                                tc,
+                                                                                                to,
+                                                                                                mo,
+                                                                                                sec,
+                                                                                                ow,
+                                                                                                em,
+                                                                                                car,
+                                                                                                cph,
+                                                                                                cem,
+                                                                                                rem
+                                                                                        );
+
+                                                                                        call.enqueue(new Callback<loginBean>() {
+                                                                                            @Override
+                                                                                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                                                                                if (response.body().getStatus().equals("1"))
+                                                                                                {
+                                                                                                    Intent intent = new Intent(Form.this , Survey.class);
+                                                                                                    startActivity(intent);
+                                                                                                    finishAffinity();
+                                                                                                }
+
+                                                                                                Toast.makeText(Form.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                                                                                progress.setVisibility(View.GONE);
+                                                                                            }
+
+                                                                                            @Override
+                                                                                            public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                                                                                progress.setVisibility(View.GONE);
+
+                                                                                            }
+                                                                                        });
+
+                                                                                    }
+                                                                                });
+
                                                                                 // validations done
+
+
+
+
+
 
 
                                                                             }
@@ -539,8 +571,72 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 }
 
 
+
+
             }
         });
+
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+
+// Start the autocomplete intent.
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .build(Form.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+
+            }
+        });
+
+        datasource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ds = dat.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                av = ava.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        landusage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                la = lan.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
 
     }
