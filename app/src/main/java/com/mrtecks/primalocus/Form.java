@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.mbms.MbmsErrors;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,9 +18,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +37,12 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.innovattic.rangeseekbar.RangeSeekBar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,6 +99,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         change = findViewById(R.id.change);
 
         datasource = findViewById(R.id.datasource);
+        availability = findViewById(R.id.availability);
         state = findViewById(R.id.state);
         city = findViewById(R.id.city);
         landusage = findViewById(R.id.landusage);
@@ -184,6 +194,88 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         landusage.setAdapter(adapter5);
 
 
+        try
+        {
+
+            JSONObject jsonObject=new JSONObject(getJson());
+            JSONArray array=jsonObject.getJSONArray("array");
+            for(int i=0;i<array.length();i++)
+            {
+                JSONObject object=array.getJSONObject(i);
+                String state=object.getString("state");
+                sta.add(state);
+            }
+
+            ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Form.this,
+                    android.R.layout.simple_list_item_1 , sta);
+            state.setAdapter(adapter3);
+
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                st = sta.get(position);
+
+                Log.d("state" , st);
+
+                try
+                {
+
+                    cit.clear();
+
+                    JSONObject jsonObject=new JSONObject(getJson());
+                    JSONArray array=jsonObject.getJSONArray("array");
+                    for(int i=0;i<array.length();i++)
+                    {
+                        JSONObject object=array.getJSONObject(i);
+                        String state=object.getString("state");
+
+                        if (st.equals(state))
+                        {
+                            String name=object.getString("name");
+                            cit.add(name);
+                        }
+
+
+                    }
+
+                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Form.this,
+                            android.R.layout.simple_list_item_1 , cit);
+                    city.setAdapter(adapter4);
+
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ci = cit.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,34 +342,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                st = sta.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ci = cit.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -302,6 +366,178 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String lo = location.getText().toString();
+                String ad = address.getText().toString();
+                String fl = floor.getText().toString();
+                String mi = min.getText().toString();
+                String ma = max.getText().toString();
+                String un = unit.getText().toString();
+                String ch = chargeable.getText().toString();
+                String co = covered.getText().toString();
+                String ca = carpet.getText().toString();
+                String re = rent.getText().toString();
+                String se = security.getText().toString();
+                String com = common.getText().toString();
+                String ce = ceiling.getText().toString();
+                String fa = facade.getText().toString();
+                String tn = tenantname.getText().toString();
+                String ff = fdf.getText().toString();
+                String fc = fdc.getText().toString();
+                String fo = fwo.getText().toString();
+                String tf = tdf.getText().toString();
+                String tc = tdc.getText().toString();
+                String to = two.getText().toString();
+                String mo = mobile.getText().toString();
+                String sec = secondary.getText().toString();
+                String ow = owned.getText().toString();
+                String em = email.getText().toString();
+                String car = caretaker.getText().toString();
+                String cph = caretakerphone.getText().toString();
+                String cem = emailcaretaker.getText().toString();
+                String rem = remarks.getText().toString();
+
+                String cpro , par;
+
+
+                if (lo.length() > 0)
+                {
+                    if (ad.length() > 0)
+                    {
+                        if (fl.length() > 0)
+                        {
+                            if (mi.length() > 0)
+                            {
+                                if (ma.length() > 0)
+                                {
+                                    if (un.length() > 0)
+                                    {
+                                        int coid = condition.getCheckedRadioButtonId();
+                                        if (coid > -1)
+                                        {
+                                            RadioButton cb = condition.findViewById(coid);
+                                            cpro = cb.getText().toString();
+
+                                            if (ch.length() > 0)
+                                            {
+                                                if (co.length() > 0)
+                                                {
+                                                    if (ca.length() > 0)
+                                                    {
+                                                        int paid = partition.getCheckedRadioButtonId();
+                                                        if (paid > -1)
+                                                        {
+                                                            RadioButton pb = partition.findViewById(paid);
+                                                            par = pb.getText().toString();
+
+                                                            if (re.length() > 0)
+                                                            {
+
+                                                                if (se.length() > 0)
+                                                                {
+                                                                    if (com.length() > 0)
+                                                                    {
+                                                                        if (ce.length() > 0)
+                                                                        {
+                                                                            if (fa.length() > 0)
+                                                                            {
+
+                                                                                // validations done
+
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                Toast.makeText(Form.this, "Invalid facade length", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            Toast.makeText(Form.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Toast.makeText(Form.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    Toast.makeText(Form.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
+                                                                }
+
+                                                            }
+                                                            else
+                                                            {
+                                                                Toast.makeText(Form.this, "Invalid rent", Toast.LENGTH_SHORT).show();
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            Toast.makeText(Form.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Toast.makeText(Form.this, "Invalid carpet area", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(Form.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(Form.this, "Invalid chargeable area", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(Form.this, "Invalid condition property", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(Form.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(Form.this, "Invalid max. price", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(Form.this, "Invalid min. price", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(Form.this, "Invalid floor", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(Form.this, "Invalid address", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(Form.this, "Invalid location", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -340,6 +576,31 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 // The user canceled the operation.
             }
         }
+    }
+
+    public String getJson()
+    {
+        String json=null;
+        try
+        {
+            // Opening cities.json file
+            InputStream is = getAssets().open("cities.json");
+            // is there any content in the file
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            // read values in the byte array
+            is.read(buffer);
+            // close the stream --- very important
+            is.close();
+            // convert byte to string
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            return json;
+        }
+        return json;
     }
 
 }
