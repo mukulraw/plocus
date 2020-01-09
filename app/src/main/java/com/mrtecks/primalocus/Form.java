@@ -999,11 +999,18 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
             Uri item = ulist.get(position);
 
             holder.image.setImageURI(item);
+
+            holder.close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeData(position);
+                }
+            });
 
         }
 
@@ -1015,10 +1022,12 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         class ViewHolder extends RecyclerView.ViewHolder
         {
             ImageView image;
+            ImageButton close;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
+                close = itemView.findViewById(R.id.close);
             }
         }
     }

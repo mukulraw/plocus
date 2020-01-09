@@ -145,6 +145,7 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
 
                 final Spinner property = dialog.findViewById(R.id.property);
                 final EditText date = dialog.findViewById(R.id.date);
+                final EditText type = dialog.findViewById(R.id.type);
                 final EditText propertyid = dialog.findViewById(R.id.propertyid);
                 Button submit = dialog.findViewById(R.id.button);
 
@@ -162,6 +163,15 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                 property.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        if (position == 3)
+                        {
+                            type.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            type.setVisibility(View.GONE);
+                        }
 
                         String item = pro.get(position);
 
@@ -242,124 +252,262 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(View v) {
 
                         String dd = date.getText().toString();
-
-                        if (dd.length() > 0)
+                        String sel = (String) property.getSelectedItem();
+                        if (!sel.equals("Others"))
                         {
-                            String sel = (String) property.getSelectedItem();
-                            switch (sel) {
-                                case "Retail":
-                                    if (mLastKnownLocation != null)
-                                    {
-                                        Intent intent = new Intent(Survey.this , Form.class);
-                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
-                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                            if (dd.length() > 0)
+                            {
 
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(Survey.this , Form.class);
-                                        intent.putExtra("lat" , 0);
-                                        intent.putExtra("lng" , 0);
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                switch (sel) {
+                                    case "Retail":
+                                        if (mLastKnownLocation != null)
+                                        {
+                                            Intent intent = new Intent(Survey.this , Form.class);
+                                            intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                            intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    break;
-                                case "Warehouse":
-                                    if (mLastKnownLocation != null)
-                                    {
-                                        Intent intent = new Intent(Survey.this , Warehouse.class);
-                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
-                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Intent intent = new Intent(Survey.this , Form.class);
+                                            intent.putExtra("lat" , 0);
+                                            intent.putExtra("lng" , 0);
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
+
+                                        }
+                                        break;
+                                    case "Warehouse":
+                                        if (mLastKnownLocation != null)
+                                        {
+                                            Intent intent = new Intent(Survey.this , Warehouse.class);
+                                            intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                            intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
 
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(Survey.this , Warehouse.class);
-                                        intent.putExtra("lat" , 0);
-                                        intent.putExtra("lng" , 0);
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Intent intent = new Intent(Survey.this , Warehouse.class);
+                                            intent.putExtra("lat" , 0);
+                                            intent.putExtra("lng" , 0);
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    break;
-                                case "Office":
-                                    if (mLastKnownLocation != null)
-                                    {
-                                        Intent intent = new Intent(Survey.this , Office.class);
-                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
-                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        break;
+                                    case "Office":
+                                        if (mLastKnownLocation != null)
+                                        {
+                                            Intent intent = new Intent(Survey.this , Office.class);
+                                            intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                            intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(Survey.this , Office.class);
-                                        intent.putExtra("lat" , 0);
-                                        intent.putExtra("lng" , 0);
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Intent intent = new Intent(Survey.this , Office.class);
+                                            intent.putExtra("lat" , 0);
+                                            intent.putExtra("lng" , 0);
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , sel);
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    break;
-                                default:
-                                    if (mLastKnownLocation != null)
-                                    {
-                                        Intent intent = new Intent(Survey.this , Form.class);
-                                        intent.putExtra("lat" , mLastKnownLocation.getLatitude());
-                                        intent.putExtra("lng" , mLastKnownLocation.getLongitude());
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        break;
+                                    default:
+                                        if (mLastKnownLocation != null)
+                                        {
+                                            Intent intent = new Intent(Survey.this , Form.class);
+                                            intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                            intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , type.getText().toString());
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(Survey.this , Form.class);
-                                        intent.putExtra("lat" , 0);
-                                        intent.putExtra("lng" , 0);
-                                        intent.putExtra("pid" , propertyid.getText().toString());
-                                        intent.putExtra("date" , date.getText().toString());
-                                        intent.putExtra("type" , sel);
-                                        dialog.dismiss();
-                                        startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Intent intent = new Intent(Survey.this , Form.class);
+                                            intent.putExtra("lat" , 0);
+                                            intent.putExtra("lng" , 0);
+                                            intent.putExtra("pid" , propertyid.getText().toString());
+                                            intent.putExtra("date" , date.getText().toString());
+                                            intent.putExtra("type" , type.getText().toString());
+                                            dialog.dismiss();
+                                            startActivity(intent);
 
-                                    }
-                                    break;
+                                        }
+                                        break;
+                                }
+
+
                             }
-
-
+                            else
+                            {
+                                Toast.makeText(Survey.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else
                         {
-                            Toast.makeText(Survey.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+
+                            String ty = type.getText().toString();
+
+                            if (ty.length() > 0)
+                            {
+
+                                if (dd.length() > 0)
+                                {
+
+                                    switch (sel) {
+                                        case "Retail":
+                                            if (mLastKnownLocation != null)
+                                            {
+                                                Intent intent = new Intent(Survey.this , Form.class);
+                                                intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                                intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            else
+                                            {
+                                                Intent intent = new Intent(Survey.this , Form.class);
+                                                intent.putExtra("lat" , 0);
+                                                intent.putExtra("lng" , 0);
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            break;
+                                        case "Warehouse":
+                                            if (mLastKnownLocation != null)
+                                            {
+                                                Intent intent = new Intent(Survey.this , Warehouse.class);
+                                                intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                                intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+
+                                            }
+                                            else
+                                            {
+                                                Intent intent = new Intent(Survey.this , Warehouse.class);
+                                                intent.putExtra("lat" , 0);
+                                                intent.putExtra("lng" , 0);
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            break;
+                                        case "Office":
+                                            if (mLastKnownLocation != null)
+                                            {
+                                                Intent intent = new Intent(Survey.this , Office.class);
+                                                intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                                intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            else
+                                            {
+                                                Intent intent = new Intent(Survey.this , Office.class);
+                                                intent.putExtra("lat" , 0);
+                                                intent.putExtra("lng" , 0);
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , sel);
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            break;
+                                        default:
+                                            if (mLastKnownLocation != null)
+                                            {
+                                                Intent intent = new Intent(Survey.this , Form.class);
+                                                intent.putExtra("lat" , mLastKnownLocation.getLatitude());
+                                                intent.putExtra("lng" , mLastKnownLocation.getLongitude());
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , type.getText().toString());
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            else
+                                            {
+                                                Intent intent = new Intent(Survey.this , Form.class);
+                                                intent.putExtra("lat" , 0);
+                                                intent.putExtra("lng" , 0);
+                                                intent.putExtra("pid" , propertyid.getText().toString());
+                                                intent.putExtra("date" , date.getText().toString());
+                                                intent.putExtra("type" , type.getText().toString());
+                                                dialog.dismiss();
+                                                startActivity(intent);
+
+                                            }
+                                            break;
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(Survey.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                            else
+                            {
+                                Toast.makeText(Survey.this, "Invalid property type", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
+
+
 
                     }
                 });
