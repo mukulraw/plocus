@@ -1,16 +1,33 @@
 package com.mrtecks.primalocus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.telephony.mbms.MbmsErrors;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +35,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -43,15 +61,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,13 +108,26 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname;
     EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
     RecyclerView images;
+    GridLayoutManager manager;
     RadioGroup condition , partition , tenant;
     ProgressBar progress;
+
+    File f1;
+    Uri uri;
+
+    List<MultipartBody.Part> list;
+    List<Uri> ulist;
+
+    ImageAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        list = new ArrayList<>();
+        ulist = new ArrayList<>();
 
         lat = getIntent().getDoubleExtra("lat" , 0);
         lng = getIntent().getDoubleExtra("lng" , 0);
@@ -175,6 +212,10 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        adapter = new ImageAdapter(this , list);
+        manager = new GridLayoutManager(this , 3);
+        images.setAdapter(adapter);
+        images.setLayoutManager(manager);
 
         dat.add("Survey");
         dat.add("Reference");
@@ -196,7 +237,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 android.R.layout.simple_list_item_1 , dat);
         datasource.setAdapter(adapter2);
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1 , ava);
         availability.setAdapter(adapter1);
 
@@ -227,6 +268,59 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             e.printStackTrace();
         }
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Form.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f1 = new File(file);
+                            try {
+                                f1.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri = FileProvider.getUriForFile(Objects.requireNonNull(Form.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 1);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+
+            }
+        });
 
         state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -447,7 +541,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                 car,
                                                                                                 cph,
                                                                                                 cem,
-                                                                                                rem
+                                                                                                rem,
+                                                                                                adapter.getList()
                                                                                         );
 
                                                                                         call.enqueue(new Callback<loginBean>() {
@@ -652,28 +747,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(place.getLatLng().latitude,
-                                place.getLatLng().longitude), DEFAULT_ZOOM));
-
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-        }
-    }
-
     public String getJson()
     {
         String json=null;
@@ -697,6 +770,257 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             return json;
         }
         return json;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(place.getLatLng().latitude,
+                                place.getLatLng().longitude), DEFAULT_ZOOM));
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
+            uri = data.getData();
+
+            Log.d("uri" , String.valueOf(uri));
+
+            String ypath = getPath(Form.this , uri);
+            assert ypath != null;
+            f1 = new File(ypath);
+
+            Log.d("path" , ypath);
+
+            MultipartBody.Part body = null;
+
+            try {
+
+                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+
+
+                adapter.addData(body , uri);
+
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+
+
+
+
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Log.d("uri" , String.valueOf(uri));
+
+            MultipartBody.Part body = null;
+
+            try {
+
+                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+
+                adapter.addData(body , uri);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+
+
+        }
+
+
+    }
+
+    private static Bitmap decodeUriToBitmap(Context mContext, Uri sendUri) {
+        Bitmap getBitmap = null;
+        try {
+            InputStream image_stream;
+            try {
+                image_stream = mContext.getContentResolver().openInputStream(sendUri);
+                getBitmap = BitmapFactory.decodeStream(image_stream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getBitmap;
+    }
+
+
+    private static String getPath(final Context context, final Uri uri) {
+
+        // DocumentProvider
+        if (DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{
+                        split[1]
+                };
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+
+    private static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    private static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    private static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    private static String getDataColumn(Context context, Uri uri, String selection,
+                                        String[] selectionArgs) {
+
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        }
+        return null;
+    }
+
+    class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
+    {
+        Context context;
+        List<MultipartBody.Part> list = new ArrayList<>();
+        List<Uri> ulist = new ArrayList<>();
+
+        ImageAdapter(Context context, List<MultipartBody.Part> list)
+        {
+            this.context = context;
+            this.list = list;
+        }
+
+        void addData(MultipartBody.Part item , Uri uri)
+        {
+            list.add(item);
+            ulist.add(uri);
+            notifyDataSetChanged();
+        }
+
+        void removeData(int pos)
+        {
+            list.remove(pos);
+            ulist.remove(pos);
+            notifyDataSetChanged();
+        }
+
+        List<MultipartBody.Part> getList() {
+            return list;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.image_list_model , parent , false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+            Uri item = ulist.get(position);
+
+            holder.image.setImageURI(item);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder
+        {
+            ImageView image;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                image = itemView.findViewById(R.id.image);
+            }
+        }
     }
 
 }

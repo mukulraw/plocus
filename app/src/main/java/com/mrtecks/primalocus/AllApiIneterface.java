@@ -2,6 +2,8 @@ package com.mrtecks.primalocus;
 
 import com.mrtecks.primalocus.loginPOJO.loginBean;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -66,7 +68,8 @@ public interface AllApiIneterface {
             @Part("caretaker") String caretaker,
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
-            @Part("remarks") String remarks
+            @Part("remarks") String remarks,
+            @Part List<MultipartBody.Part> files
     );
 
     /*@Multipart
