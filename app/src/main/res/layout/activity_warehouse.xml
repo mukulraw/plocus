@@ -4,6 +4,1323 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     tools:context=".Warehouse">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Location Data"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:id="@+id/change"
+                android:textSize="12sp"
+                android:padding="8dp"
+                android:text="Tap here to adjust Location on Map"
+                android:textStyle="italic" />
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Data Source"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/datasource"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="State"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/state"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="City"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/city"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Location"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/location"
+                android:inputType="textPostalAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Address"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/address"
+                android:inputType="textPostalAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Property Details"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Availability"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/availability"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Date of Possesion"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/posession"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Under Construction"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/under_construction"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Warehouse Type"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/warehouse"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Construction Type"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/construction"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Price Range"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Min. Price"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/min"
+                    android:inputType="number"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Max. Price"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/max"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Total Plot Area (in sq. ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/plot"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Covered Area(Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/covered"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Total available area (in sq ft)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/available"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Partition Lease Area"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/partition"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:checked="true"
+                    android:id="@+id/yes"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/no"
+                    />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/rent"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Security Deposit  (in months of Rent)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/security"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/common"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Eaves Height or Clear Height (in feet) (Floor to shoulder of ceiling)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/eaves"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Centre Height (in feet) Floor to centre of the roofing structure)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/center_height"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Total no. of Openings/Docks available"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/opening_docks"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Plinth Height"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/plinth"
+                    />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Approved Plan from local authorities"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/plan"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:id="@+id/yes1"
+                    android:checked="true"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/no1"
+                    />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Fire NOC"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/firenoc"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Fire Safety Eqpt."/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/safety"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Availability of Ventilation"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/ventilation"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Insulation"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/insulation"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Dock Leveler"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/leveler"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Images &amp; Tenants"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/tenant"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Occupied"
+                    android:checked="true"
+                    android:id="@+id/occupied"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Vacant"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/vacant"
+                    />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant Name"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/tenantname"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="Property Images"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/add"
+                    android:text="Add Image"/>
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/images"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Additional Information"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Current Land Usage"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/landusage"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Agreement to CLU"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/agreement"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Flooring"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/flooring"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Parking"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="4 wheeler"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/fwh"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Large Transport"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/large"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Mobile Phone #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/mobile"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Secondary Phone #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/secondary"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Owned by"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/owned"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Email (Property Owner)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Caretaker "/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/caretaker"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Caretaker Ph #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/caretakerphone"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Email (Caretaker)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/emailcaretaker"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Remark/ Notes"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/remarks"
+                android:lines="3"
+                android:gravity="start"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/primary_back_round"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:text="SUBMIT"
+                android:textColor="#ffffff" />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,6 +125,62 @@ public interface AllApiIneterface {
             @Part List<MultipartBody.Part> files
     );
 
+    @Multipart
+    @POST("prima/api/add_warehouse.php")
+    Call<loginBean> add_warehouse(
+            @Part("user_id") String user_id,
+            @Part("property_type") String property_type,
+            @Part("date") String date,
+            @Part("property_id") String property_id,
+            @Part("latitude") String latitude,
+            @Part("longitude") String longitude,
+            @Part("data_source") String data_source,
+            @Part("state") String state,
+            @Part("city") String city,
+            @Part("location") String location,
+            @Part("address") String address,
+            @Part("property_availability") String property_availability,
+            @Part("posession") String posession,
+            @Part("under_construction") String under_construction,
+            @Part("warehouse") String warehouse,
+            @Part("construction") String construction,
+            @Part("min_price") String min_price,
+            @Part("max_price") String max_price,
+            @Part("plot") String plot,
+            @Part("covered_area") String covered_area,
+            @Part("available") String available,
+            @Part("partition_lease_area") String partition_lease_area,
+            @Part("rent") String rent,
+            @Part("security_deposit") String security_deposit,
+            @Part("maintenance") String maintenance,
+            @Part("eaves") String eaves,
+            @Part("centerheight") String centerheight,
+            @Part("docks") String docks,
+            @Part("plinth") String plinth,
+            @Part("plan") String plan,
+            @Part("firenoc") String firenoc,
+            @Part("safety") String safety,
+            @Part("ventilation") String ventilation,
+            @Part("insulation") String insulation,
+            @Part("leveler") String leveler,
+            @Part("tenant") String tenant,
+            @Part("tenant_name") String tenant_name,
+            @Part("land_usage") String land_usage,
+            @Part("agreement") String agreement,
+            @Part("flooring") String flooring,
+            @Part("fwh") String fwh,
+            @Part("large") String large,
+            @Part("mobile") String mobile,
+            @Part("secondary_phone") String secondary_phone,
+            @Part("owned_by") String owned_by,
+            @Part("owner_email") String owner_email,
+            @Part("caretaker") String caretaker,
+            @Part("caretaker_phone") String caretaker_phone,
+            @Part("caretaker_email") String caretaker_email,
+            @Part("remarks") String remarks,
+            @Part List<MultipartBody.Part> files
+    );
+
     /*@Multipart
     @POST("prima/api/verify.php")
     Call<verifyBean> verify(
