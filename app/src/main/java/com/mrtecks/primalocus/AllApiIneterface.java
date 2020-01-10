@@ -1,5 +1,6 @@
 package com.mrtecks.primalocus;
 
+import com.mrtecks.primalocus.getSurveyPOJO.getSurveyBean;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
 
 import java.util.List;
@@ -179,6 +180,12 @@ public interface AllApiIneterface {
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
             @Part List<MultipartBody.Part> files
+    );
+
+    @Multipart
+    @POST("prima/api/getSueveys.php")
+    Call<getSurveyBean> getSurveyBean(
+            @Part("user_id") String user_id
     );
 
     /*@Multipart

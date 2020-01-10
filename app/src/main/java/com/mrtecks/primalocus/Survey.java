@@ -20,7 +20,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,11 +46,19 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mrtecks.primalocus.getSurveyPOJO.getSurveyBean;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Survey extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -88,6 +98,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
     LinearLayout enterData , endSession;
 
     View bottom;
+    ProgressBar progress;
+    TextView total;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -102,7 +114,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
         enterData = findViewById(R.id.enterdata);
         endSession = findViewById(R.id.endsession);
         bottom = findViewById(R.id.textView7);
-
+        total = findViewById(R.id.total);
+        progress = findViewById(R.id.progressBar);
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         mPlacesClient = Places.createClient(this);
 
@@ -658,4 +671,47 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
         updateLocationUI();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<getSurveyBean> call = cr.getSurveyBean(SharePreferenceUtils.getInstance().getString("id"));
+        call.enqueue(new Callback<getSurveyBean>() {
+            @Override
+            public void onResponse(Call<getSurveyBean> call, Response<getSurveyBean> response) {
+
+                if (response.body().getStatus().equals("1"))
+                {
+                    total.setText(String.valueOf(response.body().getData().size()));
+                }
+                else
+                {
+                    total.setText("0");
+                    Toast.makeText(Survey.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<getSurveyBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+                t.printStackTrace();
+            }
+        });
+
+    }
 }
