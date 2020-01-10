@@ -23,6 +23,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.telephony.mbms.MbmsErrors;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -321,6 +323,33 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
+
+        covered.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.length() > 0)
+                {
+
+                    float act = Float.parseFloat(s.toString());
+                    float tp = act / 10;
+                    carpet.setText(String.valueOf(act - tp));
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -676,7 +705,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
 
 
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
 
 // Start the autocomplete intent.
                 Intent intent = new Autocomplete.IntentBuilder(
@@ -778,7 +807,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + " , " + place.getLatLng().latitude);
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(place.getLatLng().latitude,

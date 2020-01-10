@@ -4,6 +4,1294 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     tools:context=".Office">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Location Data"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:id="@+id/change"
+                android:textSize="12sp"
+                android:padding="8dp"
+                android:text="Tap here to adjust Location on Map"
+                android:textStyle="italic" />
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Data Source"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/datasource"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="State"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/state"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="City"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/city"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Location"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/location"
+                android:inputType="textPostalAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Address"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/address"
+                android:inputType="textPostalAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Property Details"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Floor"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/floor"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Price Range"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Min. Price"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/min"
+                    android:inputType="number"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Max. Price"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/max"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Unit Number"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/unit"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Condition Property to be provided in"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/condition"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/condition_hide"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/white2"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Condition Details"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="No. of Workstations"
+                        />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:id="@+id/workstations"
+                        android:hint="tap to enter"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/white_back_round"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="No. of Cabins"
+                        />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:id="@+id/cabins"
+                        android:hint="tap to enter"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/white_back_round"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="No.  of conference room"
+                        />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:id="@+id/conference"
+                        android:hint="tap to enter"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/white_back_round"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="No. of meeting rooms"
+                        />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:id="@+id/meeting"
+                        android:hint="tap to enter"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/white_back_round"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Pantry(ies)"
+                        />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:id="@+id/pantry"
+                        android:hint="tap to enter"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/white_back_round"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Chargeable Area (Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/chargeable"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Covered Area(Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/covered"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Carpet Area (Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:id="@+id/carpet"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Partition Lease Area"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/partition"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:checked="true"
+                    android:id="@+id/yes"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/no"
+                    />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/rent"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Security Deposit  (in months of Rent)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/security"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/common"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Ceiling Height (in feet) (Floor to below the beam)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/ceiling"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Façade/ Frontage Length (in feet) "/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/facade"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Images &amp; Tenants"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/tenant"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Occupied"
+                    android:checked="true"
+                    android:id="@+id/occupied"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Vacant"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/vacant"
+                    />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant Name"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/tenantname"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="Property Images"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/add"
+                    android:text="Add Image"/>
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/images"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:text="Additional Information"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Land Usage"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/landusage"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Parking"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="4 wheeler- Dedicated parking (free of cost)"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/fdf"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="4-wheeler - Dedicated parking (chargeable)"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/fdc"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="4- wheeler - Open / First cum first serve"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/fwo"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="2- wheeler Dedicated parking (free of cost)"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/tdf"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="2- wheeler Dedicated parking (chargeable)"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/tdc"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="2-wheeler Open / First cum first serve"
+                    />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:id="@+id/two"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Mobile Phone #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/mobile"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Secondary Phone #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/secondary"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Owned by"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/owned"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Email (Property Owner)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Caretaker "/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/caretaker"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property Caretaker Ph #"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/caretakerphone"
+                android:inputType="phone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Email (Caretaker)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/emailcaretaker"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Remark/ Notes"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/remarks"
+                android:lines="3"
+                android:gravity="start"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/primary_back_round"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:text="SUBMIT"
+                android:textColor="#ffffff" />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

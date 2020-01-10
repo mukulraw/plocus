@@ -72,6 +72,59 @@ public interface AllApiIneterface {
             @Part List<MultipartBody.Part> files
     );
 
+    @Multipart
+    @POST("prima/api/add_office.php")
+    Call<loginBean> add_office(
+            @Part("user_id") String user_id,
+            @Part("property_type") String property_type,
+            @Part("date") String date,
+            @Part("property_id") String property_id,
+            @Part("latitude") String latitude,
+            @Part("longitude") String longitude,
+            @Part("data_source") String data_source,
+            @Part("state") String state,
+            @Part("city") String city,
+            @Part("location") String location,
+            @Part("address") String address,
+            @Part("min_price") String min_price,
+            @Part("max_price") String max_price,
+            @Part("floor") String floor,
+            @Part("unit") String unit,
+            @Part("condition_property") String condition_property,
+            @Part("workstations") String workstations,
+            @Part("cabins") String cabins,
+            @Part("conference") String conference,
+            @Part("meeting") String meeting,
+            @Part("pantry") String pantry,
+            @Part("chargeable_area") String chargeable_area,
+            @Part("covered_area") String covered_area,
+            @Part("carpet_area") String carpet_area,
+            @Part("partition_lease_area") String partition_lease_area,
+            @Part("rent") String rent,
+            @Part("security_deposit") String security_deposit,
+            @Part("maintenance") String maintenance,
+            @Part("ceiling") String ceiling,
+            @Part("facade") String facade,
+            @Part("tenant") String tenant,
+            @Part("tenant_name") String tenant_name,
+            @Part("land_usage") String land_usage,
+            @Part("fdf") String fdf,
+            @Part("fdc") String fdc,
+            @Part("fwo") String fwo,
+            @Part("tdf") String tdf,
+            @Part("tdc") String tdc,
+            @Part("two") String two,
+            @Part("mobile") String mobile,
+            @Part("secondary_phone") String secondary_phone,
+            @Part("owned_by") String owned_by,
+            @Part("owner_email") String owner_email,
+            @Part("caretaker") String caretaker,
+            @Part("caretaker_phone") String caretaker_phone,
+            @Part("caretaker_email") String caretaker_email,
+            @Part("remarks") String remarks,
+            @Part List<MultipartBody.Part> files
+    );
+
     /*@Multipart
     @POST("prima/api/verify.php")
     Call<verifyBean> verify(
