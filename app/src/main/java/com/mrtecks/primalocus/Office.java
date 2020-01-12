@@ -102,7 +102,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     String ds ,st , ci , la , con;
 
-    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname;
+    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , tenantname;
     EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -173,7 +173,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         security = findViewById(R.id.security);
         common = findViewById(R.id.common);
         ceiling = findViewById(R.id.ceiling);
-        facade = findViewById(R.id.facade);
+
         tenantname = findViewById(R.id.tenantname);
         condition_hide = findViewById(R.id.condition_hide);
 
@@ -463,7 +463,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String se = security.getText().toString();
                 final String com = common.getText().toString();
                 final String ce = ceiling.getText().toString();
-                final String fa = facade.getText().toString();
+
                 final String tn = tenantname.getText().toString();
                 final String ff = fdf.getText().toString();
                 final String fc = fdc.getText().toString();
@@ -522,8 +522,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                                                     {
                                                                         if (ce.length() > 0)
                                                                         {
-                                                                            if (fa.length() > 0)
-                                                                            {
 
                                                                                 RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                                                                                 ten = tb.getText().toString();
@@ -591,7 +589,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                 se,
                                                                                                 com,
                                                                                                 ce,
-                                                                                                fa,
+                                                                                                "",
                                                                                                 ten,
                                                                                                 tn,
                                                                                                 la,
@@ -647,12 +645,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                Toast.makeText(Office.this, "Invalid facade length", Toast.LENGTH_SHORT).show();
-                                                                            }
                                                                         }
                                                                         else
                                                                         {
