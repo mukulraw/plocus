@@ -1,6 +1,7 @@
 package com.mrtecks.primalocus;
 
 import com.mrtecks.primalocus.getSurveyPOJO.getSurveyBean;
+import com.mrtecks.primalocus.getworkPOJO.getWorkBean;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
 
 import java.util.List;
@@ -185,6 +186,12 @@ public interface AllApiIneterface {
     @Multipart
     @POST("prima/api/getSueveys.php")
     Call<getSurveyBean> getSurveyBean(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("prima/api/getWork.php")
+    Call<getWorkBean> getWork(
             @Part("user_id") String user_id
     );
 
