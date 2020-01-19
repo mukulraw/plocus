@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -54,6 +55,9 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.sucho.placepicker.AddressData;
+import com.sucho.placepicker.Constants;
+import com.sucho.placepicker.PlacePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -731,13 +735,12 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
 
 
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
-
-// Start the autocomplete intent.
-                Intent intent = new Autocomplete.IntentBuilder(
-                        AutocompleteActivityMode.FULLSCREEN, fields)
+                Intent intent = new PlacePicker.IntentBuilder()
+                        .setLatLong(lat , lng)
+                        .showLatLong(true)  // Show Coordinates in the Activity
+                        .setMapZoom(12.0f)
                         .build(Office.this);
-                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
 
 
             }
@@ -831,6 +834,19 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 // The user canceled the operation.
             }
         }
+        if (requestCode == Constants.PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
+
+                lat = addressData.getLatitude();
+                lng = addressData.getLongitude();
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(lat,
+                                lng), DEFAULT_ZOOM));
+            }
+        }
+
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
             uri = data.getData();
 
