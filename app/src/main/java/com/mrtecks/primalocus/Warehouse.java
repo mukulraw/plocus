@@ -68,7 +68,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -363,6 +366,16 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 String state = object.getString("state");
                 sta.add(state);
             }
+
+            HashSet<String> sstt = new HashSet<>(sta);
+            sta.clear();
+            sta.addAll(sstt);
+            Collections.sort(sta, new Comparator<String>() {
+                @Override
+                public int compare(String text1, String text2) {
+                    return text1.compareToIgnoreCase(text2);
+                }
+            });
 
             ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Warehouse.this,
                     android.R.layout.simple_list_item_1, sta);
