@@ -113,6 +113,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle;
     RelativeLayout plinthlayout, firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
+    RelativeLayout constructionlayout , warehouselayout , under_constructionlayout;
     LinearLayout price;
 
     private static final int DEFAULT_ZOOM = 15;
@@ -214,6 +215,36 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         caretakerphone = findViewById(R.id.caretakerphone);
         emailcaretaker = findViewById(R.id.emailcaretaker);
         remarks = findViewById(R.id.remarks);
+
+        under_constructiontitle = findViewById(R.id.under_constructiontitle);
+        constructiontitle = findViewById(R.id.constructiontitle);
+        pricetitle = findViewById(R.id.pricetitle);
+        coveredtitle = findViewById(R.id.coveredtitle);
+        availabletitle = findViewById(R.id.availabletitle);
+        partitiontitle = findViewById(R.id.partitiontitle);
+        renttitle = findViewById(R.id.renttitle);
+        securitytitle = findViewById(R.id.securitytitle);
+        commontitle = findViewById(R.id.commontitle);
+        eavestitle = findViewById(R.id.eavestitle);
+        center_heighttitle = findViewById(R.id.center_heighttitle);
+        opening_dockstitle = findViewById(R.id.opening_dockstitle);
+        plinthtitle = findViewById(R.id.plinthtitle);
+        plantitle = findViewById(R.id.plantitle);
+        firenoctitle = findViewById(R.id.firenoctitle);
+        safetytitle = findViewById(R.id.safetytitle);
+        ventilationtitle = findViewById(R.id.ventilationtitle);
+        insulationtitle = findViewById(R.id.insulationtitle);
+        levelertitle = findViewById(R.id.levelertitle);
+        plinthlayout = findViewById(R.id.plinthlayout);
+        firenoclayout = findViewById(R.id.firenoclayout);
+        safetylayout = findViewById(R.id.safetylayout);
+        ventilationlayout = findViewById(R.id.ventilationlayout);
+        insulationlayout = findViewById(R.id.insulationlayout);
+        levelerlayout = findViewById(R.id.levelerlayout);
+        price = findViewById(R.id.price);
+        constructionlayout = findViewById(R.id.constructionlayout);
+        warehouselayout = findViewById(R.id.warehouselayout);
+        under_constructionlayout = findViewById(R.id.under_constructionlayout);
 
         images = findViewById(R.id.images);
         plot = findViewById(R.id.plot);
@@ -787,16 +818,161 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     poss = "-";
                     posession.setVisibility(View.GONE);
                     postitle.setVisibility(View.GONE);
+
+                    under_construction.setVisibility(View.VISIBLE);
+                    under_constructiontitle.setVisibility(View.VISIBLE);
+                    under_constructionlayout.setVisibility(View.VISIBLE);
+                    construction.setVisibility(View.VISIBLE);
+                    constructiontitle.setVisibility(View.VISIBLE);
+                    constructionlayout.setVisibility(View.VISIBLE);
+                    price.setVisibility(View.VISIBLE);
+                    pricetitle.setVisibility(View.VISIBLE);
+                    covered.setVisibility(View.VISIBLE);
+                    coveredtitle.setVisibility(View.VISIBLE);
+                    available.setVisibility(View.VISIBLE);
+                    availabletitle.setVisibility(View.VISIBLE);
+                    partition.setVisibility(View.VISIBLE);
+                    partitiontitle.setVisibility(View.VISIBLE);
+                    rent.setVisibility(View.VISIBLE);
+                    renttitle.setVisibility(View.VISIBLE);
+                    security.setVisibility(View.VISIBLE);
+                    securitytitle.setVisibility(View.VISIBLE);
+                    common.setVisibility(View.VISIBLE);
+                    commontitle.setVisibility(View.VISIBLE);
+                    eaves.setVisibility(View.VISIBLE);
+                    eavestitle.setVisibility(View.VISIBLE);
+                    center_height.setVisibility(View.VISIBLE);
+                    center_heighttitle.setVisibility(View.VISIBLE);
+                    opening_docks.setVisibility(View.VISIBLE);
+                    opening_dockstitle.setVisibility(View.VISIBLE);
+                    plinth.setVisibility(View.VISIBLE);
+                    plinthtitle.setVisibility(View.VISIBLE);
+                    plinthlayout.setVisibility(View.VISIBLE);
+                    plan.setVisibility(View.VISIBLE);
+                    plantitle.setVisibility(View.VISIBLE);
+                    firenoc.setVisibility(View.VISIBLE);
+                    firenoclayout.setVisibility(View.VISIBLE);
+                    firenoctitle.setVisibility(View.VISIBLE);
+                    safety.setVisibility(View.VISIBLE);
+                    safetylayout.setVisibility(View.VISIBLE);
+                    safetytitle.setVisibility(View.VISIBLE);
+                    ventilation.setVisibility(View.VISIBLE);
+                    ventilationlayout.setVisibility(View.VISIBLE);
+                    ventilationtitle.setVisibility(View.VISIBLE);
+                    insulation.setVisibility(View.VISIBLE);
+                    insulationtitle.setVisibility(View.VISIBLE);
+                    insulationlayout.setVisibility(View.VISIBLE);
+                    leveler.setVisibility(View.VISIBLE);
+                    levelertitle.setVisibility(View.VISIBLE);
+                    levelerlayout.setVisibility(View.VISIBLE);
+
                 }
                 else if(position == 0)
                 {
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
+
+
+                    under_construction.setVisibility(View.VISIBLE);
+                    under_constructiontitle.setVisibility(View.VISIBLE);
+                    under_constructionlayout.setVisibility(View.VISIBLE);
+                    construction.setVisibility(View.VISIBLE);
+                    constructiontitle.setVisibility(View.VISIBLE);
+                    constructionlayout.setVisibility(View.VISIBLE);
+                    price.setVisibility(View.VISIBLE);
+                    pricetitle.setVisibility(View.VISIBLE);
+                    covered.setVisibility(View.VISIBLE);
+                    coveredtitle.setVisibility(View.VISIBLE);
+                    available.setVisibility(View.VISIBLE);
+                    availabletitle.setVisibility(View.VISIBLE);
+                    partition.setVisibility(View.VISIBLE);
+                    partitiontitle.setVisibility(View.VISIBLE);
+                    rent.setVisibility(View.VISIBLE);
+                    renttitle.setVisibility(View.VISIBLE);
+                    security.setVisibility(View.VISIBLE);
+                    securitytitle.setVisibility(View.VISIBLE);
+                    common.setVisibility(View.VISIBLE);
+                    commontitle.setVisibility(View.VISIBLE);
+                    eaves.setVisibility(View.VISIBLE);
+                    eavestitle.setVisibility(View.VISIBLE);
+                    center_height.setVisibility(View.VISIBLE);
+                    center_heighttitle.setVisibility(View.VISIBLE);
+                    opening_docks.setVisibility(View.VISIBLE);
+                    opening_dockstitle.setVisibility(View.VISIBLE);
+                    plinth.setVisibility(View.VISIBLE);
+                    plinthtitle.setVisibility(View.VISIBLE);
+                    plinthlayout.setVisibility(View.VISIBLE);
+                    plan.setVisibility(View.VISIBLE);
+                    plantitle.setVisibility(View.VISIBLE);
+                    firenoc.setVisibility(View.VISIBLE);
+                    firenoclayout.setVisibility(View.VISIBLE);
+                    firenoctitle.setVisibility(View.VISIBLE);
+                    safety.setVisibility(View.VISIBLE);
+                    safetylayout.setVisibility(View.VISIBLE);
+                    safetytitle.setVisibility(View.VISIBLE);
+                    ventilation.setVisibility(View.VISIBLE);
+                    ventilationlayout.setVisibility(View.VISIBLE);
+                    ventilationtitle.setVisibility(View.VISIBLE);
+                    insulation.setVisibility(View.VISIBLE);
+                    insulationtitle.setVisibility(View.VISIBLE);
+                    insulationlayout.setVisibility(View.VISIBLE);
+                    leveler.setVisibility(View.VISIBLE);
+                    levelertitle.setVisibility(View.VISIBLE);
+                    levelerlayout.setVisibility(View.VISIBLE);
+
                 }
                 else
                 {
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
+
+                    under_construction.setVisibility(View.GONE);
+                    under_constructiontitle.setVisibility(View.GONE);
+                    under_constructionlayout.setVisibility(View.GONE);
+                    construction.setVisibility(View.GONE);
+                    constructiontitle.setVisibility(View.GONE);
+                    constructionlayout.setVisibility(View.GONE);
+                    price.setVisibility(View.GONE);
+                    pricetitle.setVisibility(View.GONE);
+                    covered.setVisibility(View.GONE);
+                    coveredtitle.setVisibility(View.GONE);
+                    available.setVisibility(View.GONE);
+                    availabletitle.setVisibility(View.GONE);
+                    partition.setVisibility(View.GONE);
+                    partitiontitle.setVisibility(View.GONE);
+                    rent.setVisibility(View.GONE);
+                    renttitle.setVisibility(View.GONE);
+                    security.setVisibility(View.GONE);
+                    securitytitle.setVisibility(View.GONE);
+                    common.setVisibility(View.GONE);
+                    commontitle.setVisibility(View.GONE);
+                    eaves.setVisibility(View.GONE);
+                    eavestitle.setVisibility(View.GONE);
+                    center_height.setVisibility(View.GONE);
+                    center_heighttitle.setVisibility(View.GONE);
+                    opening_docks.setVisibility(View.GONE);
+                    opening_dockstitle.setVisibility(View.GONE);
+                    plinth.setVisibility(View.GONE);
+                    plinthtitle.setVisibility(View.GONE);
+                    plinthlayout.setVisibility(View.GONE);
+                    plan.setVisibility(View.GONE);
+                    plantitle.setVisibility(View.GONE);
+                    firenoc.setVisibility(View.GONE);
+                    firenoclayout.setVisibility(View.GONE);
+                    firenoctitle.setVisibility(View.GONE);
+                    safety.setVisibility(View.GONE);
+                    safetylayout.setVisibility(View.GONE);
+                    safetytitle.setVisibility(View.GONE);
+                    ventilation.setVisibility(View.GONE);
+                    ventilationlayout.setVisibility(View.GONE);
+                    ventilationtitle.setVisibility(View.GONE);
+                    insulation.setVisibility(View.GONE);
+                    insulationtitle.setVisibility(View.GONE);
+                    insulationlayout.setVisibility(View.GONE);
+                    leveler.setVisibility(View.GONE);
+                    levelertitle.setVisibility(View.GONE);
+                    levelerlayout.setVisibility(View.GONE);
+
                 }
 
             }

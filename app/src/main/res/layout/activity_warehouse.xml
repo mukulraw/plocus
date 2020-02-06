@@ -267,6 +267,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
+                android:id="@+id/under_constructionlayout"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
@@ -293,6 +294,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
+                android:id="@+id/warehouselayout"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -323,6 +325,7 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:id="@+id/constructionlayout"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
                 >
@@ -346,14 +349,17 @@
                 android:layout_marginEnd="16dp"
                 android:text="Price Range"/>
 
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/price"
+                android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/price"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -410,6 +416,7 @@
 
             </LinearLayout>
 
+            </LinearLayout>
 
 
             <TextView
