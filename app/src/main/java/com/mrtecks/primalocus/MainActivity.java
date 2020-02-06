@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSlideComplete(SlideToActView slideToActView) {
 
+                SharePreferenceUtils.getInstance().saveString("mode" , "1");
+
                 Intent intent = new Intent(MainActivity.this , Survey.class);
                 startActivity(intent);
                 slideToActView.resetSlider();

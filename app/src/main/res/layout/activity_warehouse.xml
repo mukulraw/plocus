@@ -347,7 +347,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/pricetitle"
                 android:layout_marginEnd="16dp"
-                android:text="Price Range"/>
+                android:text="Rent"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -369,7 +369,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Min. Price"
+                    android:text="Rent/ sqft."
                     />
 
                 <EditText
@@ -400,7 +400,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Max. Price"
+                    android:text="Lumpsum Amount"
                     />
 
                 <EditText
@@ -870,6 +870,28 @@
                     />
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/dockleverernumbertitle"
+                android:text="No. of Dock Levelers"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/dockleverernumber"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
 
             <TextView
                 android:layout_width="match_parent"

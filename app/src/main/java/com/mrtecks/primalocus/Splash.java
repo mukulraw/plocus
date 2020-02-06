@@ -134,25 +134,29 @@ public class Splash extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<loginBean> call, Response<loginBean> response) {
 
-                    if (response.body().getStatus().equals("1"))
-                    {
+                    Intent intent = null;
+                    if (response.body().getStatus().equals("1")) {
 
-                        Intent intent = new Intent(Splash.this , MainActivity.class);
-                        SharePreferenceUtils.getInstance().saveString("id" , response.body().getData().getId());
-                        SharePreferenceUtils.getInstance().saveString("name" , response.body().getData().getName());
-                        SharePreferenceUtils.getInstance().saveString("phone" , response.body().getData().getPhone());
-                        SharePreferenceUtils.getInstance().saveString("username" , response.body().getData().getUsername());
-                        SharePreferenceUtils.getInstance().saveString("password" , response.body().getData().getPassword());
+                        if (SharePreferenceUtils.getInstance().getString("mode").equals("1")) {
+                            intent = new Intent(Splash.this, Survey.class);
+                        } else {
+                            intent = new Intent(Splash.this, MainActivity.class);
+                        }
+
+
+                        SharePreferenceUtils.getInstance().saveString("id", response.body().getData().getId());
+                        SharePreferenceUtils.getInstance().saveString("name", response.body().getData().getName());
+                        SharePreferenceUtils.getInstance().saveString("phone", response.body().getData().getPhone());
+                        SharePreferenceUtils.getInstance().saveString("username", response.body().getData().getUsername());
+                        SharePreferenceUtils.getInstance().saveString("password", response.body().getData().getPassword());
 
                         startActivity(intent);
-                        Toast.makeText(Splash.this, response.body().getMessage() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Splash.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         finishAffinity();
 
-                    }
-                    else
-                    {
+                    } else {
                         SharePreferenceUtils.getInstance().deletePref();
-                        Intent intent = new Intent(Splash.this , Login.class);
+                        intent = new Intent(Splash.this, Login.class);
                         Toast.makeText(Splash.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }

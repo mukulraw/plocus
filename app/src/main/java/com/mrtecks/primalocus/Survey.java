@@ -139,6 +139,8 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
+                SharePreferenceUtils.getInstance().saveString("mode" , "0");
+
                 Intent intent = new Intent(Survey.this , MainActivity.class);
                 startActivity(intent);
                 finishAffinity();
