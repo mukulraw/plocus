@@ -59,9 +59,12 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.innovattic.rangeseekbar.RangeSeekBar;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.shivtechs.maplocationpicker.LocationPickerActivity;
+import com.shivtechs.maplocationpicker.MapUtility;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 import com.sucho.placepicker.PlacePicker;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,13 +99,15 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource , state , city , availability , landusage;
+    Spinner datasource  , availability , landusage;
 
     List<String> dat , sta , cit , ava , lan;
 
     Button submit , add;
 
     double lat , lng;
+
+    SearchableSpinner state, city;
 
     GoogleMap mMap;
 
@@ -256,15 +261,13 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         landusage.setAdapter(adapter5);
 
 
-        try
-        {
+        try {
 
-            JSONObject jsonObject=new JSONObject(getJson());
-            JSONArray array=jsonObject.getJSONArray("array");
-            for(int i=0;i<array.length();i++)
-            {
-                JSONObject object=array.getJSONObject(i);
-                String state=object.getString("state");
+            JSONArray array = new JSONArray(getJson());
+            //JSONArray array = jsonObject.getJSONArray("array");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                String state = object.getString("admin");
                 sta.add(state);
             }
 
@@ -278,14 +281,11 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 }
             });
 
-
             ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Form.this,
-                    android.R.layout.simple_list_item_1 , sta);
+                    android.R.layout.simple_list_item_1, sta);
             state.setAdapter(adapter3);
 
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -376,36 +376,42 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 st = sta.get(position);
 
-                Log.d("state" , st);
+                Log.d("state", st);
 
-                try
-                {
+                try {
 
                     cit.clear();
 
-                    JSONObject jsonObject=new JSONObject(getJson());
-                    JSONArray array=jsonObject.getJSONArray("array");
-                    for(int i=0;i<array.length();i++)
-                    {
-                        JSONObject object=array.getJSONObject(i);
-                        String state=object.getString("state");
+                    JSONArray array = new JSONArray(getJson());
+                    //JSONArray array = jsonObject.getJSONArray("array");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+                        String state = object.getString("admin");
 
-                        if (st.equals(state))
-                        {
-                            String name=object.getString("name");
+                        if (st.equals(state)) {
+                            String name = object.getString("city");
                             cit.add(name);
                         }
 
 
                     }
 
+                    HashSet<String> sstt1 = new HashSet<>(cit);
+                    cit.clear();
+                    cit.addAll(sstt1);
+                    Collections.sort(cit, new Comparator<String>() {
+                        @Override
+                        public int compare(String text1, String text2) {
+                            return text1.compareToIgnoreCase(text2);
+                        }
+                    });
+
+
                     ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Form.this,
-                            android.R.layout.simple_list_item_1 , cit);
+                            android.R.layout.simple_list_item_1, cit);
                     city.setAdapter(adapter4);
 
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -723,11 +729,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new PlacePicker.IntentBuilder()
-                        .setLatLong(lat , lng)
-                        .showLatLong(true)  // Show Coordinates in the Activity
-                        .setMapZoom(12.0f)
-                        .build(Form.this);
+                Intent intent = new Intent(Form.this, LocationPickerActivity.class);
+                intent.putExtra(MapUtility.LATITUDE, lat);
+                intent.putExtra(MapUtility.LONGITUDE, lng);
                 startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
 
                 /*List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
@@ -849,10 +853,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
 
-                lat = addressData.getLatitude();
-                lng = addressData.getLongitude();
+                lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
+                lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(lat,
