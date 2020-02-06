@@ -100,7 +100,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="State"/>
+                android:text="State/ UT"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -236,25 +236,22 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/postitle"
                 android:text="Date of Possesion"/>
 
-            <RelativeLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:padding="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:id="@+id/posession"
+                android:inputType="textPostalAddress"
                 android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/posession"
-                    />
-
-            </RelativeLayout>
+                android:hint="tap to enter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -262,6 +259,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/under_constructiontitle"
                 android:layout_marginEnd="16dp"
                 android:text="Under Construction"/>
 
@@ -316,6 +314,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/constructiontitle"
                 android:layout_marginEnd="16dp"
                 android:text="Construction Type"/>
 
@@ -343,6 +342,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/pricetitle"
                 android:layout_marginEnd="16dp"
                 android:text="Price Range"/>
 
@@ -353,6 +353,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/price"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -438,6 +439,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/coveredtitle"
                 android:layout_marginEnd="16dp"
                 android:text="Covered Area(Sq.Ft.)"/>
 
@@ -459,6 +461,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/availabletitle"
                 android:layout_marginEnd="16dp"
                 android:text="Total available area (in sq ft)"/>
 
@@ -480,6 +483,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/partitiontitle"
                 android:layout_marginEnd="16dp"
                 android:text="Partition Lease Area"/>
 
@@ -519,6 +523,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/renttitle"
                 android:layout_marginEnd="16dp"
                 android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
 
@@ -539,6 +544,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
+                android:id="@+id/securitytitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Security Deposit  (in months of Rent)"/>
@@ -561,6 +567,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/commontitle"
                 android:layout_marginEnd="16dp"
                 android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
 
@@ -581,6 +588,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
+                android:id="@+id/eavestitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Eaves Height or Clear Height (in feet) (Floor to shoulder of ceiling)"/>
@@ -601,6 +609,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:id="@+id/center_heighttitle"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -623,6 +632,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
+                android:id="@+id/opening_dockstitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Total no. of Openings/Docks available"/>
@@ -644,6 +654,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
+                android:id="@+id/plinthtitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Plinth Height"/>
@@ -653,6 +664,7 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:id="@+id/plinthlayout"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
                 >
@@ -673,6 +685,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/plantitle"
                 android:layout_marginEnd="16dp"
                 android:text="Approved Plan from local authorities"/>
 
@@ -712,6 +725,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/firenoctitle"
                 android:layout_marginEnd="16dp"
                 android:text="Fire NOC"/>
 
@@ -720,6 +734,7 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:id="@+id/firenoclayout"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
                 >
@@ -740,6 +755,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/safetytitle"
                 android:text="Fire Safety Eqpt."/>
 
             <RelativeLayout
@@ -748,6 +764,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/safetylayout"
                 android:background="@drawable/white_back_round"
                 >
 
@@ -766,6 +783,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/ventilationtitle"
                 android:layout_marginEnd="16dp"
                 android:text="Availability of Ventilation"/>
 
@@ -775,6 +793,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/ventilationlayout"
                 android:background="@drawable/white_back_round"
                 >
 
@@ -794,6 +813,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/insulationtitle"
                 android:text="Insulation"/>
 
             <RelativeLayout
@@ -801,6 +821,7 @@
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:id="@+id/insulationlayout"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
                 >
@@ -820,6 +841,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/levelertitle"
                 android:layout_marginEnd="16dp"
                 android:text="Dock Leveler"/>
 
@@ -827,6 +849,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_marginTop="8dp"
+                android:id="@+id/levelerlayout"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"

@@ -33,12 +33,15 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +57,8 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.shivtechs.maplocationpicker.LocationPickerActivity;
+import com.shivtechs.maplocationpicker.MapUtility;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 import com.sucho.placepicker.PlacePicker;
@@ -67,8 +72,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -90,9 +97,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource, availability, landusage, posession, under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
+    Spinner datasource, availability, landusage,under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
     List<String> dat, sta, cit, ava, lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
     Button submit, add;
+
+    EditText posession;
 
     SearchableSpinner state, city;
 
@@ -100,7 +109,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mMap;
 
-    TextView change;
+    TextView change , postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle;
+    TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
+    TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle;
+    RelativeLayout plinthlayout, firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
+    LinearLayout price;
 
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
@@ -128,6 +141,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warehouse);
+
+        MapUtility.apiKey = getResources().getString(R.string.google_maps_key);
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
@@ -160,6 +175,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         toolbar = findViewById(R.id.toolbar2);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
+        postitle = findViewById(R.id.postitle);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
@@ -311,10 +327,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 android.R.layout.simple_list_item_1, lan);
         landusage.setAdapter(adapter5);
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, pos);
-        posession.setAdapter(adapter6);
-
         ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, und);
         under_construction.setAdapter(adapter7);
@@ -362,11 +374,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
         try {
 
-            JSONObject jsonObject = new JSONObject(getJson());
-            JSONArray array = jsonObject.getJSONArray("array");
+            JSONArray array = new JSONArray(getJson());
+            //JSONArray array = jsonObject.getJSONArray("array");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
-                String state = object.getString("state");
+                String state = object.getString("admin");
                 sta.add(state);
             }
 
@@ -455,14 +467,14 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
                     cit.clear();
 
-                    JSONObject jsonObject = new JSONObject(getJson());
-                    JSONArray array = jsonObject.getJSONArray("array");
+                    JSONArray array = new JSONArray(getJson());
+                    //JSONArray array = jsonObject.getJSONArray("array");
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
-                        String state = object.getString("state");
+                        String state = object.getString("admin");
 
                         if (st.equals(state)) {
-                            String name = object.getString("name");
+                            String name = object.getString("city");
                             cit.add(name);
                         }
 
@@ -734,13 +746,17 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(Warehouse.this, LocationPickerActivity.class);
+                intent.putExtra(MapUtility.LATITUDE, lat);
+                intent.putExtra(MapUtility.LONGITUDE, lng);
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
 
-                Intent intent = new PlacePicker.IntentBuilder()
+               /* Intent intent = new PlacePicker.IntentBuilder()
                         .setLatLong(lat , lng)
                         .showLatLong(true)  // Show Coordinates in the Activity
                         .setMapZoom(12.0f)
                         .build(Warehouse.this);
-                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);*/
 
 
             }
@@ -766,6 +782,23 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
                 avai = ava.get(position);
 
+                if (position == 1)
+                {
+                    poss = "-";
+                    posession.setVisibility(View.GONE);
+                    postitle.setVisibility(View.GONE);
+                }
+                else if(position == 0)
+                {
+                    posession.setVisibility(View.VISIBLE);
+                    postitle.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    posession.setVisibility(View.VISIBLE);
+                    postitle.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override
@@ -788,19 +821,49 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        posession.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        posession.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
 
-                poss = pos.get(position);
+                final Dialog dialog = new Dialog(Warehouse.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.date_dialog);
+                dialog.show();
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                final DatePicker picker = dialog.findViewById(R.id.date);
+                Button ok = dialog.findViewById(R.id.ok);
+
+                long now = System.currentTimeMillis() - 1000;
+                picker.setMinDate(now);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int year = picker.getYear();
+                        int month = picker.getMonth();
+                        int day = picker.getDayOfMonth();
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, day);
+
+                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                        String strDate = format.format(calendar.getTime());
+
+
+                        poss = strDate;
+                        posession.setText(strDate);
+
+                        dialog.dismiss();
+
+                    }
+                });
 
             }
         });
+
 
         under_construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1013,10 +1076,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
 
-                lat = addressData.getLatitude();
-                lng = addressData.getLongitude();
+                lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
+                lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(lat,
