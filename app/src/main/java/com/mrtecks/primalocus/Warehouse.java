@@ -57,6 +57,7 @@ import com.mrtecks.primalocus.loginPOJO.loginBean;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 import com.sucho.placepicker.PlacePicker;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,9 +90,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource, state, city, availability, landusage, posession, under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
+    Spinner datasource, availability, landusage, posession, under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
     List<String> dat, sta, cit, ava, lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
     Button submit, add;
+
+    SearchableSpinner state, city;
 
     double lat, lng;
 
@@ -465,6 +468,17 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
 
                     }
+
+                    HashSet<String> sstt1 = new HashSet<>(cit);
+                    cit.clear();
+                    cit.addAll(sstt1);
+                    Collections.sort(cit, new Comparator<String>() {
+                        @Override
+                        public int compare(String text1, String text2) {
+                            return text1.compareToIgnoreCase(text2);
+                        }
+                    });
+
 
                     ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Warehouse.this,
                             android.R.layout.simple_list_item_1, cit);
