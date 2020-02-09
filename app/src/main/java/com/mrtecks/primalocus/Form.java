@@ -104,7 +104,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     List<String> dat, sta, cit, ava, lan, ele;
 
-    Button submit, add;
+    Button submit, add , add1;
 
     double lat, lng;
 
@@ -120,6 +120,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     String pid, type, date;
 
     String ds, st, ci, av, la, elec, dgspa, back;
+
+    ImageView image1;
 
     TextView minimumtitle, postitle;
 
@@ -137,6 +139,10 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     List<Uri> ulist;
 
     ImageAdapter adapter;
+
+
+    File f2;
+    Uri uri2;
 
 
     @Override
@@ -163,6 +169,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         toolbar = findViewById(R.id.toolbar2);
         electricity = findViewById(R.id.electricity);
+        add1 = findViewById(R.id.add1);
+        image1 = findViewById(R.id.image1);
         opearational = findViewById(R.id.opearational);
         dgspace = findViewById(R.id.dgspace);
         backup = findViewById(R.id.backup);
@@ -453,6 +461,62 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+
+        add1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Form.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(Objects.requireNonNull(Form.this), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+
+            }
+        });
+
+
         city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -619,6 +683,21 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                 public void onClick(View v) {
                                                                                                     dialog.dismiss();
 
+                                                                                                    MultipartBody.Part body2 = null;
+
+                                                                                                    try {
+
+                                                                                                        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                                                                                        body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                                                                                                        adapter.addData(body2, uri2);
+
+
+                                                                                                    } catch (Exception e1) {
+                                                                                                        e1.printStackTrace();
+                                                                                                    }
+
                                                                                                     progress.setVisibility(View.VISIBLE);
 
                                                                                                     Bean b = (Bean) getApplicationContext();
@@ -683,6 +762,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                             cph,
                                                                                                             cem,
                                                                                                             rem,
+                                                                                                            body2,
                                                                                                             adapter.getList()
                                                                                                     );
 
@@ -1012,6 +1092,31 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+
+
+        }
+
+
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri1", String.valueOf(uri));
+
+            String ypath = getPath(Form.this, uri2);
+            assert ypath != null;
+            f2 = new File(ypath);
+
+            Log.d("path1", ypath);
+
+            image1.setImageURI(uri2);
+
+
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri2));
+
+            image1.setImageURI(uri2);
 
 
         }

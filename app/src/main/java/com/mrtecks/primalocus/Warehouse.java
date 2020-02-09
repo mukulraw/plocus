@@ -99,7 +99,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     Toolbar toolbar;
     Spinner datasource, availability, landusage,under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
     List<String> dat, sta, cit, ava, lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
-    Button submit, add;
+    Button submit, add , add1;
 
     EditText posession;
 
@@ -122,7 +122,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
     String pid, type, date;
 
-    String ds, st, ci, avai, lann, poss, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo;
+    String ds, st, ci, avai, lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo;
     EditText location, address, min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
@@ -133,7 +133,14 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     File f1;
     Uri uri;
 
+    File f2;
+    Uri uri2;
+
+
     List<MultipartBody.Part> list;
+
+    ImageView image1;
+
     List<Uri> ulist;
 
     ImageAdapter adapter;
@@ -175,6 +182,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         flo = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        add1 = findViewById(R.id.add1);
+        image1 = findViewById(R.id.image1);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
         postitle = findViewById(R.id.postitle);
@@ -498,6 +507,60 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
+        add1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Warehouse.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(Objects.requireNonNull(Warehouse.this), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                            dialog.dismiss();
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+
+            }
+        });
+
         state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -593,6 +656,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 final String cph = caretakerphone.getText().toString();
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
+                final String poss = posession.getText().toString();
 
 
                 if (!leve.equals("No"))
@@ -616,6 +680,10 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                                                         if (ea.length() > 0) {
                                                             if (ce.length() > 0) {
                                                                 if (op.length() > 0) {
+
+
+
+
 
                                                                     RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                                                                     ten = tb.getText().toString();
@@ -646,6 +714,21 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                                                                         @Override
                                                                         public void onClick(View v) {
                                                                             dialog.dismiss();
+
+                                                                            MultipartBody.Part body2 = null;
+
+                                                                            try {
+
+                                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                                                                body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                                                                                adapter.addData(body2, uri2);
+
+
+                                                                            } catch (Exception e1) {
+                                                                                e1.printStackTrace();
+                                                                            }
 
                                                                             progress.setVisibility(View.VISIBLE);
 
@@ -710,6 +793,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                                                                                     cph,
                                                                                     cem,
                                                                                     rem,
+                                                                                    body2,
                                                                                     adapter.getList()
                                                                             );
 
@@ -871,8 +955,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                         SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
                         String strDate = format.format(calendar.getTime());
 
-
-                        poss = strDate;
                         posession.setText(strDate);
 
                         dialog.dismiss();
@@ -1060,7 +1142,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
                 if (position == 1)
                 {
-                    poss = "-";
+                    posession.setText("-");
                     posession.setVisibility(View.GONE);
                     postitle.setVisibility(View.GONE);
 
@@ -1128,6 +1210,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else if(position == 0)
                 {
+                    posession.setText("");
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
 
@@ -1196,6 +1279,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else
                 {
+
+                    posession.setText("");
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
 
@@ -1394,10 +1479,36 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
             }
 
 
+
         }
 
 
-    }
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+
+            Log.d("uri1", String.valueOf(uri));
+
+            String ypath = getPath(Warehouse.this, uri2);
+            assert ypath != null;
+            f2 = new File(ypath);
+
+            Log.d("path1", ypath);
+
+            image1.setImageURI(uri2);
+
+
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+
+            Log.d("uri1", String.valueOf(uri2));
+
+            image1.setImageURI(uri2);
+
+
+        }
+
+
+   }
 
     private static Bitmap decodeUriToBitmap(Context mContext, Uri sendUri) {
         Bitmap getBitmap = null;

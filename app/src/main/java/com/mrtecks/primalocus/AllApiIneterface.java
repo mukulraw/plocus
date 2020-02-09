@@ -79,6 +79,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
 
@@ -95,6 +96,7 @@ public interface AllApiIneterface {
             @Part("state") String state,
             @Part("city") String city,
             @Part("location") String location,
+            @Part("landmark") String landmark,
             @Part("address") String address,
             @Part("min_price") String min_price,
             @Part("max_price") String max_price,
@@ -143,6 +145,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
 
@@ -199,6 +202,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
 
