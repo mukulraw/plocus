@@ -51,7 +51,9 @@ import com.mrtecks.primalocus.getSurveyPOJO.getSurveyBean;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -210,6 +212,18 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
 
                     }
                 });
+
+                String date2 = new SimpleDateFormat("EEE, MMM dd, YYYY", Locale.getDefault()).format(new Date());
+
+                String sel = (String) property.getSelectedItem();
+
+                String s = sel.substring(0,2);
+
+                s = s.toUpperCase();
+
+                propertyid.setText(s + "-" + date2 + "-" + SharePreferenceUtils.getInstance().getString("id"));
+
+                date.setText(date2);
 
                 date.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -323,24 +323,28 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         con.add("RCC & Old Shed Combined");
         con.add("RCC + PEB");
 
-        pli.add("Ground");
         pli.add("1 ft.");
-        pli.add("2, 3 ft.");
+        pli.add("2 ft.");
+        pli.add("3 ft.");
         pli.add("4 ft.");
+        pli.add("more than 4 ft.");
 
         fir.add("Available");
         fir.add("Not Available");
-        fir.add("Currently not available but agreeable be procure.");
+        fir.add("Currently not available but agreeable be procure");
+        fir.add("Kota Stone flooring");
 
         saf.add("Fire Sprinkler + Hydrant");
         saf.add("Only Fire Hydrant");
 
-        ven.add("Yes");
+        ven.add("Ridge");
+        ven.add("Turbo");
         ven.add("No");
 
         ins.add("Cladding");
         ins.add("Roof");
         ins.add("Both Cladding and Roof");
+        ins.add("Not Available");
 
         lev.add("Yes");
         lev.add("No");
@@ -351,6 +355,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         flo.add("Industrial");
         flo.add("VDF");
         flo.add("FM2");
+        flo.add("Kota Stone flooring");
 
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,

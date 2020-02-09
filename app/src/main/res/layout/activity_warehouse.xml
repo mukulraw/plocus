@@ -470,7 +470,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/availabletitle"
                 android:layout_marginEnd="16dp"
-                android:text="Total available area (in sq ft)"/>
+                android:text="Total available area for leasing (in sq ft)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -532,7 +532,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/renttitle"
                 android:layout_marginEnd="16dp"
-                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
+                android:text="Rent - Covered area(in Rs./Sq.Ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"

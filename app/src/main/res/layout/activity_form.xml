@@ -100,7 +100,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="State"/>
+                android:text="State/ UT"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -164,6 +164,27 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/location"
+                android:inputType="textPostalAddress"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Landmark"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/landmark"
                 android:inputType="textPostalAddress"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
@@ -257,7 +278,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Price Range"/>
+                android:text="Rent"/>
 
 
             <LinearLayout
@@ -275,7 +296,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Min. Price"
+                    android:text="Rent/ sqft."
                     />
 
                 <EditText
@@ -306,7 +327,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Max. Price"
+                    android:text="Lumpsum Amount"
                     />
 
                 <EditText
@@ -489,6 +510,32 @@
 
             </RadioGroup>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/minimumtitle"
+                android:text="Minimum Lease Area (Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:id="@+id/minimum"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -548,6 +595,27 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/common"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Lumpsum Common Area Maintenance/ Month"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/commonlumpsum"
                 android:inputType="number"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>

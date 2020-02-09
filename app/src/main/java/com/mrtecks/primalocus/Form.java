@@ -120,7 +120,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     String ds ,st , ci , av , la;
 
-    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname;
+    TextView minimumtitle;
+
+    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname , landmark , minimum , commonlumpsum;
     EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -134,6 +136,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     List<Uri> ulist;
 
     ImageAdapter adapter;
+
 
 
     @Override
@@ -160,12 +163,15 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         toolbar = findViewById(R.id.toolbar2);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
+        commonlumpsum = findViewById(R.id.commonlumpsum);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
         state = findViewById(R.id.state);
         city = findViewById(R.id.city);
         landusage = findViewById(R.id.landusage);
+        minimumtitle = findViewById(R.id.minimumtitle);
+        minimum = findViewById(R.id.minimum);
         add = findViewById(R.id.add);
 
         location = findViewById(R.id.location);
@@ -175,6 +181,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         floor = findViewById(R.id.floor);
         unit = findViewById(R.id.unit);
         chargeable = findViewById(R.id.chargeable);
+        landmark = findViewById(R.id.landmark);
         covered = findViewById(R.id.covered);
         carpet = findViewById(R.id.carpet);
         rent = findViewById(R.id.rent);
@@ -239,7 +246,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         lan.add("Commercial");
         lan.add("Mix Land");
-        lan.add("Institutional/ Industrial");
+        lan.add("Institutional");
+        lan.add("Industrial");
         lan.add("Residential");
 
         ava.add("Ready to move in (RTM)");
@@ -436,12 +444,33 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
+        partition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.yes)
+                {
+                    minimum.setVisibility(View.VISIBLE);
+                    minimumtitle.setVisibility(View.VISIBLE);
+                    minimum.setText("");
+                }
+                else
+                {
+                    minimum.setVisibility(View.GONE);
+                    minimumtitle.setVisibility(View.GONE);
+                    minimum.setText("-");
+                }
+
+            }
+        });
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 final String lo = location.getText().toString();
+                final String la = landmark.getText().toString();
                 final String ad = address.getText().toString();
                 final String fl = floor.getText().toString();
                 final String mi = min.getText().toString();
@@ -453,6 +482,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String re = rent.getText().toString();
                 final String se = security.getText().toString();
                 final String com = common.getText().toString();
+                final String lcom = commonlumpsum.getText().toString();
                 final String ce = ceiling.getText().toString();
                 final String fa = facade.getText().toString();
                 final String tn = tenantname.getText().toString();
@@ -470,249 +500,282 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String cph = caretakerphone.getText().toString();
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
+                final String mini = minimum.getText().toString();
 
                 final String cpro , par , ten;
 
 
                 if (lo.length() > 0)
                 {
-                    if (ad.length() > 0)
+                    
+                    if (la.length() > 0)
                     {
-                        if (fl.length() > 0)
+                        if (ad.length() > 0)
                         {
-                            if (mi.length() > 0)
+                            if (fl.length() > 0)
                             {
-                                if (ma.length() > 0)
+                                if (mi.length() > 0)
                                 {
-                                    if (un.length() > 0)
+                                    if (ma.length() > 0)
                                     {
-                                        int coid = condition.getCheckedRadioButtonId();
-                                        if (coid > -1)
+                                        if (un.length() > 0)
                                         {
-                                            RadioButton cb = condition.findViewById(coid);
-                                            cpro = cb.getText().toString();
-
-                                            if (ch.length() > 0)
+                                            int coid = condition.getCheckedRadioButtonId();
+                                            if (coid > -1)
                                             {
-                                                if (co.length() > 0)
-                                                {
-                                                    if (ca.length() > 0)
-                                                    {
-                                                        int paid = partition.getCheckedRadioButtonId();
-                                                        if (paid > -1)
-                                                        {
-                                                            RadioButton pb = partition.findViewById(paid);
-                                                            par = pb.getText().toString();
+                                                RadioButton cb = condition.findViewById(coid);
+                                                cpro = cb.getText().toString();
 
-                                                            if (re.length() > 0)
+                                                if (ch.length() > 0)
+                                                {
+                                                    if (co.length() > 0)
+                                                    {
+                                                        if (ca.length() > 0)
+                                                        {
+                                                            int paid = partition.getCheckedRadioButtonId();
+                                                            if (paid > -1)
                                                             {
 
-                                                                if (se.length() > 0)
+                                                                if (mini.length() > 0)
                                                                 {
-                                                                    if (com.length() > 0)
+                                                                    RadioButton pb = partition.findViewById(paid);
+                                                                    par = pb.getText().toString();
+
+                                                                    if (re.length() > 0)
                                                                     {
-                                                                        if (ce.length() > 0)
+
+                                                                        if (se.length() > 0)
                                                                         {
-                                                                            if (fa.length() > 0)
+                                                                            if (com.length() > 0)
                                                                             {
 
-                                                                                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
-                                                                                ten = tb.getText().toString();
+                                                                                if (lcom.length() > 0)
+                                                                                {
+                                                                                    if (ce.length() > 0)
+                                                                                    {
+                                                                                        if (fa.length() > 0)
+                                                                                        {
 
-                                                                                final Dialog dialog = new Dialog(Form.this);
-                                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                                                                dialog.setCancelable(false);
-                                                                                dialog.setContentView(R.layout.submit_popup);
-                                                                                dialog.show();
+                                                                                            RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                                                                                            ten = tb.getText().toString();
 
-                                                                                ImageButton ok = dialog.findViewById(R.id.imageButton3);
-                                                                                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+                                                                                            final Dialog dialog = new Dialog(Form.this);
+                                                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                                                            dialog.setCancelable(false);
+                                                                                            dialog.setContentView(R.layout.submit_popup);
+                                                                                            dialog.show();
 
-                                                                                cancel.setOnClickListener(new View.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(View v) {
-                                                                                        dialog.dismiss();
-                                                                                    }
-                                                                                });
+                                                                                            ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                                                                                            ImageButton cancel = dialog.findViewById(R.id.imageButton4);
 
-                                                                                ok.setOnClickListener(new View.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(View v) {
-                                                                                        dialog.dismiss();
-
-                                                                                        progress.setVisibility(View.VISIBLE);
-
-                                                                                        Bean b = (Bean) getApplicationContext();
-
-                                                                                        Retrofit retrofit = new Retrofit.Builder()
-                                                                                                .baseUrl(b.baseurl)
-                                                                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                .addConverterFactory(GsonConverterFactory.create())
-                                                                                                .build();
-
-                                                                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                                        Call<loginBean> call = cr.add_retail(
-                                                                                                SharePreferenceUtils.getInstance().getString("id"),
-                                                                                                type,
-                                                                                                date,
-                                                                                                pid,
-                                                                                                String.valueOf(lat),
-                                                                                                String.valueOf(lng),
-                                                                                                ds,
-                                                                                                st,
-                                                                                                ci,
-                                                                                                lo,
-                                                                                                ad,
-                                                                                                mi,
-                                                                                                ma,
-                                                                                                av,
-                                                                                                fl,
-                                                                                                un,
-                                                                                                cpro,
-                                                                                                ch,
-                                                                                                co,
-                                                                                                ca,
-                                                                                                par,
-                                                                                                re,
-                                                                                                se,
-                                                                                                com,
-                                                                                                ce,
-                                                                                                fa,
-                                                                                                ten,
-                                                                                                tn,
-                                                                                                la,
-                                                                                                ff,
-                                                                                                fc,
-                                                                                                fo,
-                                                                                                tf,
-                                                                                                tc,
-                                                                                                to,
-                                                                                                mo,
-                                                                                                sec,
-                                                                                                ow,
-                                                                                                em,
-                                                                                                car,
-                                                                                                cph,
-                                                                                                cem,
-                                                                                                rem,
-                                                                                                adapter.getList()
-                                                                                        );
-
-                                                                                        call.enqueue(new Callback<loginBean>() {
-                                                                                            @Override
-                                                                                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
-
-                                                                                                if (response.body().getStatus().equals("1"))
-                                                                                                {
-                                                                                                    Intent intent = new Intent(Form.this , Survey.class);
-                                                                                                    startActivity(intent);
-                                                                                                    finishAffinity();
+                                                                                            cancel.setOnClickListener(new View.OnClickListener() {
+                                                                                                @Override
+                                                                                                public void onClick(View v) {
+                                                                                                    dialog.dismiss();
                                                                                                 }
+                                                                                            });
 
-                                                                                                Toast.makeText(Form.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                            ok.setOnClickListener(new View.OnClickListener() {
+                                                                                                @Override
+                                                                                                public void onClick(View v) {
+                                                                                                    dialog.dismiss();
+
+                                                                                                    progress.setVisibility(View.VISIBLE);
+
+                                                                                                    Bean b = (Bean) getApplicationContext();
+
+                                                                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                                                                            .baseUrl(b.baseurl)
+                                                                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                                                                            .build();
+
+                                                                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                                                                                    Call<loginBean> call = cr.add_retail(
+                                                                                                            SharePreferenceUtils.getInstance().getString("id"),
+                                                                                                            type,
+                                                                                                            date,
+                                                                                                            pid,
+                                                                                                            String.valueOf(lat),
+                                                                                                            String.valueOf(lng),
+                                                                                                            ds,
+                                                                                                            st,
+                                                                                                            ci,
+                                                                                                            lo,
+                                                                                                            la,
+                                                                                                            ad,
+                                                                                                            mi,
+                                                                                                            ma,
+                                                                                                            av,
+                                                                                                            fl,
+                                                                                                            un,
+                                                                                                            cpro,
+                                                                                                            ch,
+                                                                                                            co,
+                                                                                                            ca,
+                                                                                                            par,
+                                                                                                            mini,
+                                                                                                            re,
+                                                                                                            se,
+                                                                                                            com,
+                                                                                                            lcom,
+                                                                                                            ce,
+                                                                                                            fa,
+                                                                                                            ten,
+                                                                                                            tn,
+                                                                                                            la,
+                                                                                                            ff,
+                                                                                                            fc,
+                                                                                                            fo,
+                                                                                                            tf,
+                                                                                                            tc,
+                                                                                                            to,
+                                                                                                            mo,
+                                                                                                            sec,
+                                                                                                            ow,
+                                                                                                            em,
+                                                                                                            car,
+                                                                                                            cph,
+                                                                                                            cem,
+                                                                                                            rem,
+                                                                                                            adapter.getList()
+                                                                                                    );
+
+                                                                                                    call.enqueue(new Callback<loginBean>() {
+                                                                                                        @Override
+                                                                                                        public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                                                                                            if (response.body().getStatus().equals("1"))
+                                                                                                            {
+                                                                                                                Intent intent = new Intent(Form.this , Survey.class);
+                                                                                                                startActivity(intent);
+                                                                                                                finishAffinity();
+                                                                                                            }
+
+                                                                                                            Toast.makeText(Form.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
-                                                                                                progress.setVisibility(View.GONE);
-                                                                                            }
+                                                                                                            progress.setVisibility(View.GONE);
+                                                                                                        }
 
-                                                                                            @Override
-                                                                                            public void onFailure(Call<loginBean> call, Throwable t) {
+                                                                                                        @Override
+                                                                                                        public void onFailure(Call<loginBean> call, Throwable t) {
 
-                                                                                                progress.setVisibility(View.GONE);
+                                                                                                            progress.setVisibility(View.GONE);
 
-                                                                                            }
-                                                                                        });
+                                                                                                        }
+                                                                                                    });
 
+                                                                                                }
+                                                                                            });
+
+                                                                                            // validations done
+
+
+
+
+
+
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            Toast.makeText(Form.this, "Invalid facade length", Toast.LENGTH_SHORT).show();
+                                                                                        }
                                                                                     }
-                                                                                });
-
-                                                                                // validations done
-
-
-
-
-
-
+                                                                                    else
+                                                                                    {
+                                                                                        Toast.makeText(Form.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    Toast.makeText(Form.this, "Invalid lumpsum CAM/ month", Toast.LENGTH_SHORT).show();
+                                                                                }
 
                                                                             }
                                                                             else
                                                                             {
-                                                                                Toast.makeText(Form.this, "Invalid facade length", Toast.LENGTH_SHORT).show();
+                                                                                Toast.makeText(Form.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
                                                                             }
                                                                         }
                                                                         else
                                                                         {
-                                                                            Toast.makeText(Form.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(Form.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
                                                                         }
+
                                                                     }
                                                                     else
                                                                     {
-                                                                        Toast.makeText(Form.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(Form.this, "Invalid rent", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
                                                                 else
                                                                 {
-                                                                    Toast.makeText(Form.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(Form.this, "Invalid minimum partition lease area", Toast.LENGTH_SHORT).show();
                                                                 }
+
+
 
                                                             }
                                                             else
                                                             {
-                                                                Toast.makeText(Form.this, "Invalid rent", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(Form.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
                                                             }
-
                                                         }
                                                         else
                                                         {
-                                                            Toast.makeText(Form.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(Form.this, "Invalid carpet area", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        Toast.makeText(Form.this, "Invalid carpet area", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(Form.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    Toast.makeText(Form.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(Form.this, "Invalid chargeable area", Toast.LENGTH_SHORT).show();
                                                 }
+
                                             }
                                             else
                                             {
-                                                Toast.makeText(Form.this, "Invalid chargeable area", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Form.this, "Invalid condition property", Toast.LENGTH_SHORT).show();
                                             }
-
                                         }
                                         else
                                         {
-                                            Toast.makeText(Form.this, "Invalid condition property", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Form.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     else
                                     {
-                                        Toast.makeText(Form.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Form.this, "Invalid lumpsum amount", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 else
                                 {
-                                    Toast.makeText(Form.this, "Invalid max. price", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Form.this, "Invalid rent/ sqft.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else
                             {
-                                Toast.makeText(Form.this, "Invalid min. price", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Form.this, "Invalid floor", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else
                         {
-                            Toast.makeText(Form.this, "Invalid floor", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Form.this, "Invalid address", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else
+                    else 
                     {
-                        Toast.makeText(Form.this, "Invalid address", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Form.this, "Invalid landmark", Toast.LENGTH_SHORT).show();
                     }
+                    
+
                 }
                 else
                 {
