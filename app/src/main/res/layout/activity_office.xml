@@ -30,245 +30,227 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:text="Location Data"
                 android:background="@color/colorPrimaryDark"
-                android:padding="10dp"/>
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Location Data"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:id="@+id/change"
-                android:textSize="12sp"
                 android:padding="8dp"
                 android:text="Tap here to adjust Location on Map"
+                android:textSize="12sp"
                 android:textStyle="italic" />
 
             <fragment
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Data Source"/>
+                android:text="Data Source"
+                android:textColor="@color/white2" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
+                android:background="@drawable/white_back_round">
 
                 <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:id="@+id/datasource"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="State"/>
+                android:text="State/ UT"
+                android:textColor="@color/white2" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
+                android:background="@drawable/white_back_round">
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:id="@+id/state"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="City"/>
+                android:text="City"
+                android:textColor="@color/white2" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
+                android:background="@drawable/white_back_round">
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/city"
-                    />
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Location"/>
+                android:text="Location"
+                android:textColor="@color/white2" />
 
             <EditText
+                android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/location"
-                android:inputType="textPostalAddress"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textPostalAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Address"/>
+                android:text="Landmark"
+                android:textColor="@color/white2" />
 
             <EditText
+                android:id="@+id/landmark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/address"
-                android:inputType="textPostalAddress"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textPostalAddress"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Address"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="textPostalAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:text="Property Details"
                 android:background="@color/colorPrimaryDark"
-                android:padding="10dp"/>
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Property Details"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Floor"/>
+                android:text="Floor"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/floor"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Price Range"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="Min. Price"
-                    />
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:id="@+id/min"
-                    android:inputType="number"
-                    android:hint="tap to enter"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Price Range"
+                android:textColor="@color/white2" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -276,101 +258,123 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Max. Price"
-                    />
+                    android:padding="10dp"
+                    android:text="Min. Price" />
 
                 <EditText
+                    android:id="@+id/min"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
-                    android:id="@+id/max"
-                    android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="Max. Price" />
+
+                <EditText
+                    android:id="@+id/max"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_back_round"
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
+
+            </LinearLayout>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Unit Number"/>
+                android:text="Unit Number"
+                android:textColor="@color/white2" />
 
             <EditText
+                android:id="@+id/unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/unit"
-                android:inputType="textPersonName"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Condition Property to be provided in"/>
+                android:text="Condition Property to be provided in"
+                android:textColor="@color/white2" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
+                android:background="@drawable/white_back_round">
 
                 <Spinner
+                    android:id="@+id/condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/condition"
-                    />
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
 
-
-
             <LinearLayout
+                android:id="@+id/condition_hide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/condition_hide"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/white2"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Condition Details"/>
+                    android:text="Condition Details"
+                    android:textColor="@color/white2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -378,22 +382,21 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="No. of Workstations"
-                        />
+                        android:padding="10dp"
+                        android:text="No. of Workstations" />
 
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:inputType="number"
                         android:id="@+id/workstations"
-                        android:hint="tap to enter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/white_back_round"
-                        android:layout_weight="1"/>
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -401,8 +404,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -410,30 +413,29 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="No. of Cabins"
-                        />
+                        android:padding="10dp"
+                        android:text="No. of Cabins" />
 
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:inputType="number"
                         android:id="@+id/cabins"
-                        android:hint="tap to enter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/white_back_round"
-                        android:layout_weight="1"/>
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -441,22 +443,21 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="No.  of conference room"
-                        />
+                        android:padding="10dp"
+                        android:text="No.  of conference room" />
 
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:inputType="number"
                         android:id="@+id/conference"
-                        android:hint="tap to enter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/white_back_round"
-                        android:layout_weight="1"/>
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -464,8 +465,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -473,22 +474,21 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="No. of meeting rooms"
-                        />
+                        android:padding="10dp"
+                        android:text="No. of meeting rooms" />
 
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:inputType="number"
                         android:id="@+id/meeting"
-                        android:hint="tap to enter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/white_back_round"
-                        android:layout_weight="1"/>
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
@@ -496,8 +496,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -505,73 +505,267 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="Pantry(ies)"
-                        />
+                        android:padding="10dp"
+                        android:text="Pantry(ies)" />
 
                     <EditText
+                        android:id="@+id/pantry"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:inputType="number"
-                        android:id="@+id/pantry"
-                        android:hint="tap to enter"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:background="@drawable/white_back_round"
-                        android:layout_weight="1"/>
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="No. of Toilets" />
+
+                    <EditText
+                        android:id="@+id/toilets"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_back_round"
+                        android:hint="tap to enter"
+                        android:inputType="number"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Waiting Area" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_back_round">
+
+                        <Spinner
+                            android:id="@+id/waiting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Canteen" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_back_round">
+
+                        <Spinner
+                            android:id="@+id/canteen"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Internet" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_back_round">
+
+                        <Spinner
+                            android:id="@+id/intetnet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Chargeable Area (Sq.Ft.)"/>
+                android:text="Chargeable Area (Sq.Ft.)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/chargeable"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Covered Area(Sq.Ft.)"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/covered"
-                android:inputType="number"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Covered Area(Sq.Ft.)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/covered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Carpet Area (Sq.Ft.)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/carpet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Partition Lease Area"
+                android:textColor="@color/white2" />
+
+            <RadioGroup
+                android:id="@+id/partition"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+
+                >
+
+                <RadioButton
+                    android:id="@+id/yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Yes" />
+
+                <RadioButton
+                    android:id="@+id/no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="No" />
+
+
+            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -580,7 +774,8 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Carpet Area (Sq.Ft.)"/>
+                android:id="@+id/minimumtitle"
+                android:text="Minimum Lease Area (Sq.Ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -591,7 +786,7 @@
                 android:layout_marginEnd="16dp"
                 android:clickable="false"
                 android:focusable="false"
-                android:id="@+id/carpet"
+                android:id="@+id/minimum"
                 android:inputType="number"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
@@ -599,252 +794,155 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Partition Lease Area"/>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:id="@+id/partition"
-
-                >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Yes"
-                    android:checked="true"
-                    android:id="@+id/yes"
-                    />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No"
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/no"
-                    />
-
-
-            </RadioGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
+                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/rent"
-                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Security Deposit  (in months of Rent)"/>
+                android:text="Security Deposit  (in months of Rent)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/security"
-                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
+                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/common"
-                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Ceiling Height (in feet) (Floor to below the beam)"/>
+                android:text="Ceiling Height (in feet) (Floor to below the beam)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/ceiling"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
-
-
-
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:text="Images &amp; Tenants"
-                android:background="@color/colorPrimaryDark"
-                android:padding="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Tenant"/>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:id="@+id/tenant"
-
-                >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Occupied"
-                    android:checked="true"
-                    android:id="@+id/occupied"
-                    />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Vacant"
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/vacant"
-                    />
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
 
 
-            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Tenant Name"/>
+                android:text="Operational Hours - 24X7 / specific time"
+                android:textColor="@color/white2" />
 
             <EditText
+                android:id="@+id/opeartional"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/tenantname"
-                android:inputType="textPersonName"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
-                    android:layout_marginStart="16dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_centerVertical="true"
-                    android:text="Property Images"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:id="@+id/add"
-                    android:text="Add Image"/>
-
-
-            </RelativeLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/images"
-                />
+                android:hint="tap to enter"
+                android:inputType="textCapCharacters"
+                android:padding="10dp" />
 
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Lease Period"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/lease"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:text="Additional Information"
-                android:background="@color/colorPrimaryDark"
-                android:padding="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Lockin Period (in months)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/lockin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -853,7 +951,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Land Usage"/>
+                android:text="Electricity Load available"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -868,7 +966,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:id="@+id/landusage"
+                    android:id="@+id/electricity"
                     />
 
             </RelativeLayout>
@@ -880,14 +978,216 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Parking"/>
+                android:text="DG Space available"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/dgspace"
+                    />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Power Backup available"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/backup"
+                    />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Images &amp; Tenants"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant"
+                android:textColor="@color/white2" />
+
+            <RadioGroup
+                android:id="@+id/tenant"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+
+                >
+
+                <RadioButton
+                    android:id="@+id/occupied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Occupied" />
+
+                <RadioButton
+                    android:id="@+id/vacant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Vacant" />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant Name"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/tenantname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Property Images"
+                    android:textColor="@color/white2" />
+
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Add Image"
+                    android:textColor="@color/white2" />
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Additional Information"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Land Usage"
+                android:textColor="@color/white2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round">
+
+                <Spinner
+                    android:id="@+id/landusage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Parking"
+                android:textColor="@color/white2" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -895,30 +1195,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="4 wheeler- Dedicated parking (free of cost)"
-                    />
+                    android:padding="10dp"
+                    android:text="4 wheeler- Dedicated parking (free of cost)" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
                     android:id="@+id/fdf"
-                    android:hint="tap to enter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -926,30 +1225,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="4-wheeler - Dedicated parking (chargeable)"
-                    />
+                    android:padding="10dp"
+                    android:text="4-wheeler - Dedicated parking (chargeable)" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
                     android:id="@+id/fdc"
-                    android:hint="tap to enter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -957,22 +1255,21 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="4- wheeler - Open / First cum first serve"
-                    />
+                    android:padding="10dp"
+                    android:text="4- wheeler - Open / First cum first serve" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
                     android:id="@+id/fwo"
-                    android:hint="tap to enter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
@@ -980,8 +1277,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -989,30 +1286,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="2- wheeler Dedicated parking (free of cost)"
-                    />
+                    android:padding="10dp"
+                    android:text="2- wheeler Dedicated parking (free of cost)" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
                     android:id="@+id/tdf"
-                    android:hint="tap to enter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -1020,30 +1316,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="2- wheeler Dedicated parking (chargeable)"
-                    />
+                    android:padding="10dp"
+                    android:text="2- wheeler Dedicated parking (chargeable)" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
                     android:id="@+id/tdc"
-                    android:hint="tap to enter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -1051,22 +1346,21 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="2-wheeler Open / First cum first serve"
-                    />
+                    android:padding="10dp"
+                    android:text="2-wheeler Open / First cum first serve" />
 
                 <EditText
+                    android:id="@+id/two"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:inputType="number"
-                    android:id="@+id/two"
-                    android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="@drawable/white_back_round"
-                    android:layout_weight="1"/>
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
 
             </LinearLayout>
 
@@ -1074,179 +1368,179 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Mobile Phone #"/>
+                android:text="Mobile Phone #"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/mobile"
-                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="phone"
+                android:padding="10dp" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Secondary Phone #"/>
+                android:text="Secondary Phone #"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/secondary"
-                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="phone"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Property Owned by"/>
+                android:text="Property Owned by"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/owned"
-                android:inputType="textPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Email (Property Owner)"/>
+                android:text="Email (Property Owner)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/email"
-                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Property Caretaker "/>
+                android:text="Property Caretaker "
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/caretaker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
                 android:inputType="textPersonName"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Property Caretaker Ph #"/>
+                android:text="Property Caretaker Ph #"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/caretakerphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
                 android:inputType="phone"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Email (Caretaker)"/>
+                android:text="Email (Caretaker)"
+                android:textColor="@color/white2" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/emailcaretaker"
-                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:hint="tap to enter"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Remark/ Notes"/>
+                android:text="Remark/ Notes"
+                android:textColor="@color/white2" />
 
             <EditText
+                android:id="@+id/remarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/remarks"
-                android:lines="3"
-                android:gravity="start"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:gravity="start"
+                android:hint="tap to enter"
+                android:lines="3"
+                android:padding="10dp" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/primary_back_round"

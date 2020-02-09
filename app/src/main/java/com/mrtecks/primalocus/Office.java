@@ -93,13 +93,13 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource , landusage , condition;
+    Spinner datasource, landusage, condition, waiting, canteen, intetnet, electricity, dgspace, backup;
 
-    List<String> dat , sta , cit , lan , cond;
+    List<String> dat, sta, cit, lan, cond, wai;
 
-    Button submit , add;
+    Button submit, add;
 
-    double lat , lng;
+    double lat, lng;
 
     SearchableSpinner state, city;
 
@@ -110,19 +110,21 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
 
-    String pid , type , date;
+    String pid, type, date;
 
-    String ds ,st , ci , la , con;
+    String ds, st, ci, la, con;
 
-    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , tenantname;
-    EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
+    TextView minimumtitle;
+
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, opeartional, lease, lockin , minimum;
+    EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
-    RadioGroup partition , tenant;
+    RadioGroup partition, tenant;
     ProgressBar progress;
 
-    EditText workstations , cabins , conference , meeting , pantry;
-    String work , cabi , conf , meet , pant;
+    EditText workstations, cabins, conference, meeting, pantry;
+    String work, cabi, conf, meet, pant, wait, cant, inte, elec, dgsp, back;
 
     File f1;
     Uri uri;
@@ -141,9 +143,10 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
+        wai = new ArrayList<>();
 
-        lat = getIntent().getDoubleExtra("lat" , 0);
-        lng = getIntent().getDoubleExtra("lng" , 0);
+        lat = getIntent().getDoubleExtra("lat", 0);
+        lng = getIntent().getDoubleExtra("lng", 0);
         pid = getIntent().getStringExtra("pid");
         type = getIntent().getStringExtra("type");
         date = getIntent().getStringExtra("date");
@@ -157,6 +160,19 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         lan = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        minimum = findViewById(R.id.minimum);
+        minimumtitle = findViewById(R.id.minimumtitle);
+        electricity = findViewById(R.id.electricity);
+        dgspace = findViewById(R.id.dgspace);
+        backup = findViewById(R.id.backup);
+        opeartional = findViewById(R.id.opeartional);
+        lease = findViewById(R.id.lease);
+        lockin = findViewById(R.id.lockin);
+        waiting = findViewById(R.id.waiting);
+        canteen = findViewById(R.id.canteen);
+        intetnet = findViewById(R.id.intetnet);
+        toilets = findViewById(R.id.toilets);
+        landmark = findViewById(R.id.landmark);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
 
@@ -232,8 +248,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        adapter = new ImageAdapter(this , list);
-        manager = new GridLayoutManager(this , 3);
+        adapter = new ImageAdapter(this, list);
+        manager = new GridLayoutManager(this, 3);
         images.setAdapter(adapter);
         images.setLayoutManager(manager);
 
@@ -252,18 +268,49 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         cond.add("Semi-furnished");
         cond.add("Fully Furnished/ Plug & Play");
 
+        wai.add("Yes");
+        wai.add("no");
+
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , dat);
+                android.R.layout.simple_list_item_1, dat);
         datasource.setAdapter(adapter2);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , cond);
+                android.R.layout.simple_list_item_1, cond);
         condition.setAdapter(adapter1);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , lan);
+                android.R.layout.simple_list_item_1, lan);
         landusage.setAdapter(adapter5);
+
+
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        waiting.setAdapter(adapter6);
+
+
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        canteen.setAdapter(adapter7);
+
+
+        ArrayAdapter<String> adapter8 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        intetnet.setAdapter(adapter8);
+
+
+        ArrayAdapter<String> adapter9 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        electricity.setAdapter(adapter9);
+
+        ArrayAdapter<String> adapter10 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        dgspace.setAdapter(adapter10);
+
+        ArrayAdapter<String> adapter11 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, wai);
+        backup.setAdapter(adapter11);
 
 
         try {
@@ -300,18 +347,16 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
                 con = cond.get(position);
 
-                if (position > 1)
-                {
+                if (position > 1) {
                     condition_hide.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     condition_hide.setVisibility(View.GONE);
                     workstations.setText("");
                     cabins.setText("");
                     conference.setText("");
                     meeting.setText("");
                     pantry.setText("");
+                    toilets.setText("");
                 }
 
             }
@@ -321,6 +366,24 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
+
+        partition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.yes) {
+                    minimum.setVisibility(View.VISIBLE);
+                    minimumtitle.setVisibility(View.VISIBLE);
+                    minimum.setText("");
+                } else {
+                    minimum.setVisibility(View.GONE);
+                    minimumtitle.setVisibility(View.GONE);
+                    minimum.setText("-");
+                }
+
+            }
+        });
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,8 +448,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length() > 0)
-                {
+                if (s.length() > 0) {
 
                     float act = Float.parseFloat(s.toString());
                     float tp = act / 10;
@@ -469,11 +531,86 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
+        waiting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                wait = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        canteen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cant = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        intetnet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                inte = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        electricity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                elec = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        dgspace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                dgsp = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        backup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                back = wai.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
+                final String la = landmark.getText().toString();
                 final String lo = location.getText().toString();
                 final String ad = address.getText().toString();
                 final String fl = floor.getText().toString();
@@ -503,6 +640,11 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String cph = caretakerphone.getText().toString();
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
+                final String toi = toilets.getText().toString();
+                final String oper = opeartional.getText().toString();
+                final String leas = lease.getText().toString();
+                final String lock = lockin.getText().toString();
+                final String mini = minimum.getText().toString();
 
                 work = workstations.getText().toString();
                 cabi = cabins.getText().toString();
@@ -510,241 +652,207 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 conf = conference.getText().toString();
                 pant = pantry.getText().toString();
 
-                final String cpro , par , ten;
+                final String cpro, par, ten;
 
 
-                if (lo.length() > 0)
-                {
-                    if (ad.length() > 0)
-                    {
-                        if (fl.length() > 0)
-                        {
-                            if (mi.length() > 0)
-                            {
-                                if (ma.length() > 0)
-                                {
-                                    if (un.length() > 0)
-                                    {
-                                            if (ch.length() > 0)
-                                            {
-                                                if (co.length() > 0)
-                                                {
-                                                    if (ca.length() > 0)
-                                                    {
+                if (la.length() > 0) {
+                    if (lo.length() > 0) {
+                        if (ad.length() > 0) {
+                            if (fl.length() > 0) {
+                                if (mi.length() > 0) {
+                                    if (ma.length() > 0) {
+                                        if (un.length() > 0) {
+                                            if (ch.length() > 0) {
+                                                if (co.length() > 0) {
+                                                    if (ca.length() > 0) {
                                                         int paid = partition.getCheckedRadioButtonId();
-                                                        if (paid > -1)
-                                                        {
+                                                        if (paid > -1) {
                                                             RadioButton pb = partition.findViewById(paid);
                                                             par = pb.getText().toString();
 
-                                                            if (re.length() > 0)
-                                                            {
+                                                            if (re.length() > 0) {
 
-                                                                if (se.length() > 0)
-                                                                {
-                                                                    if (com.length() > 0)
-                                                                    {
-                                                                        if (ce.length() > 0)
-                                                                        {
+                                                                if (se.length() > 0) {
+                                                                    if (com.length() > 0) {
+                                                                        if (ce.length() > 0) {
 
-                                                                                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
-                                                                                ten = tb.getText().toString();
+                                                                            RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                                                                            ten = tb.getText().toString();
 
-                                                                                final Dialog dialog = new Dialog(Office.this);
-                                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                                                                dialog.setCancelable(false);
-                                                                                dialog.setContentView(R.layout.submit_popup);
-                                                                                dialog.show();
+                                                                            final Dialog dialog = new Dialog(Office.this);
+                                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                                            dialog.setCancelable(false);
+                                                                            dialog.setContentView(R.layout.submit_popup);
+                                                                            dialog.show();
 
-                                                                                ImageButton ok = dialog.findViewById(R.id.imageButton3);
-                                                                                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+                                                                            ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                                                                            ImageButton cancel = dialog.findViewById(R.id.imageButton4);
 
-                                                                                cancel.setOnClickListener(new View.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(View v) {
-                                                                                        dialog.dismiss();
-                                                                                    }
-                                                                                });
+                                                                            cancel.setOnClickListener(new View.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(View v) {
+                                                                                    dialog.dismiss();
+                                                                                }
+                                                                            });
 
-                                                                                ok.setOnClickListener(new View.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(View v) {
-                                                                                        dialog.dismiss();
+                                                                            ok.setOnClickListener(new View.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(View v) {
+                                                                                    dialog.dismiss();
 
-                                                                                        progress.setVisibility(View.VISIBLE);
+                                                                                    progress.setVisibility(View.VISIBLE);
 
-                                                                                        Bean b = (Bean) getApplicationContext();
+                                                                                    Bean b = (Bean) getApplicationContext();
 
-                                                                                        Retrofit retrofit = new Retrofit.Builder()
-                                                                                                .baseUrl(b.baseurl)
-                                                                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                                .addConverterFactory(GsonConverterFactory.create())
-                                                                                                .build();
+                                                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                                                            .baseUrl(b.baseurl)
+                                                                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                                                            .build();
 
-                                                                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                                                                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                                                                                        Call<loginBean> call = cr.add_office(
-                                                                                                SharePreferenceUtils.getInstance().getString("id"),
-                                                                                                type,
-                                                                                                date,
-                                                                                                pid,
-                                                                                                String.valueOf(lat),
-                                                                                                String.valueOf(lng),
-                                                                                                ds,
-                                                                                                st,
-                                                                                                ci,
-                                                                                                lo,
-                                                                                                ad,
-                                                                                                mi,
-                                                                                                ma,
-                                                                                                fl,
-                                                                                                un,
-                                                                                                con,
-                                                                                                work,
-                                                                                                cabi,
-                                                                                                conf,
-                                                                                                meet,
-                                                                                                pant,
-                                                                                                ch,
-                                                                                                co,
-                                                                                                ca,
-                                                                                                par,
-                                                                                                re,
-                                                                                                se,
-                                                                                                com,
-                                                                                                ce,
-                                                                                                "",
-                                                                                                ten,
-                                                                                                tn,
-                                                                                                la,
-                                                                                                ff,
-                                                                                                fc,
-                                                                                                fo,
-                                                                                                tf,
-                                                                                                tc,
-                                                                                                to,
-                                                                                                mo,
-                                                                                                sec,
-                                                                                                ow,
-                                                                                                em,
-                                                                                                car,
-                                                                                                cph,
-                                                                                                cem,
-                                                                                                rem,
-                                                                                                adapter.getList()
-                                                                                        );
+                                                                                    Call<loginBean> call = cr.add_office(
+                                                                                            SharePreferenceUtils.getInstance().getString("id"),
+                                                                                            type,
+                                                                                            date,
+                                                                                            pid,
+                                                                                            String.valueOf(lat),
+                                                                                            String.valueOf(lng),
+                                                                                            ds,
+                                                                                            st,
+                                                                                            ci,
+                                                                                            lo,
+                                                                                            ad,
+                                                                                            mi,
+                                                                                            ma,
+                                                                                            fl,
+                                                                                            un,
+                                                                                            con,
+                                                                                            work,
+                                                                                            cabi,
+                                                                                            conf,
+                                                                                            meet,
+                                                                                            pant,
+                                                                                            toi,
+                                                                                            wait,
+                                                                                            cant,
+                                                                                            inte,
+                                                                                            ch,
+                                                                                            co,
+                                                                                            ca,
+                                                                                            par,
+                                                                                            mini,
+                                                                                            re,
+                                                                                            se,
+                                                                                            com,
+                                                                                            ce,
+                                                                                            "",
+                                                                                            oper,
+                                                                                            leas,
+                                                                                            lock,
+                                                                                            elec,
+                                                                                            dgsp,
+                                                                                            back,
+                                                                                            ten,
+                                                                                            tn,
+                                                                                            la,
+                                                                                            ff,
+                                                                                            fc,
+                                                                                            fo,
+                                                                                            tf,
+                                                                                            tc,
+                                                                                            to,
+                                                                                            mo,
+                                                                                            sec,
+                                                                                            ow,
+                                                                                            em,
+                                                                                            car,
+                                                                                            cph,
+                                                                                            cem,
+                                                                                            rem,
+                                                                                            adapter.getList()
+                                                                                    );
 
-                                                                                        call.enqueue(new Callback<loginBean>() {
-                                                                                            @Override
-                                                                                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+                                                                                    call.enqueue(new Callback<loginBean>() {
+                                                                                        @Override
+                                                                                        public void onResponse(Call<loginBean> call, Response<loginBean> response) {
 
-                                                                                                if (response.body().getStatus().equals("1"))
-                                                                                                {
-                                                                                                    Intent intent = new Intent(Office.this , Survey.class);
-                                                                                                    startActivity(intent);
-                                                                                                    finishAffinity();
-                                                                                                }
-
-                                                                                                Toast.makeText(Office.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                                                                                                progress.setVisibility(View.GONE);
+                                                                                            if (response.body().getStatus().equals("1")) {
+                                                                                                Intent intent = new Intent(Office.this, Survey.class);
+                                                                                                startActivity(intent);
+                                                                                                finishAffinity();
                                                                                             }
 
-                                                                                            @Override
-                                                                                            public void onFailure(Call<loginBean> call, Throwable t) {
-
-                                                                                                progress.setVisibility(View.GONE);
-
-                                                                                            }
-                                                                                        });
-
-                                                                                    }
-                                                                                });
-
-                                                                                // validations done
+                                                                                            Toast.makeText(Office.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 
+                                                                                            progress.setVisibility(View.GONE);
+                                                                                        }
+
+                                                                                        @Override
+                                                                                        public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                                                                            progress.setVisibility(View.GONE);
+
+                                                                                        }
+                                                                                    });
+
+                                                                                }
+                                                                            });
+
+                                                                            // validations done
 
 
-
-
-                                                                        }
-                                                                        else
-                                                                        {
+                                                                        } else {
                                                                             Toast.makeText(Office.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
                                                                         }
-                                                                    }
-                                                                    else
-                                                                    {
+                                                                    } else {
                                                                         Toast.makeText(Office.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
                                                                     }
-                                                                }
-                                                                else
-                                                                {
+                                                                } else {
                                                                     Toast.makeText(Office.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
                                                                 }
 
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 Toast.makeText(Office.this, "Invalid rent", Toast.LENGTH_SHORT).show();
                                                             }
 
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             Toast.makeText(Office.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
                                                         }
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         Toast.makeText(Office.this, "Invalid carpet area", Toast.LENGTH_SHORT).show();
                                                     }
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     Toast.makeText(Office.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
                                                 }
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 Toast.makeText(Office.this, "Invalid chargeable area", Toast.LENGTH_SHORT).show();
                                             }
 
 
+                                        } else {
+                                            Toast.makeText(Office.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(Office.this, "Invalid max. price", Toast.LENGTH_SHORT).show();
                                     }
-                                    else
-                                    {
-                                        Toast.makeText(Office.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
-                                    }
+                                } else {
+                                    Toast.makeText(Office.this, "Invalid min. price", Toast.LENGTH_SHORT).show();
                                 }
-                                else
-                                {
-                                    Toast.makeText(Office.this, "Invalid max. price", Toast.LENGTH_SHORT).show();
-                                }
+                            } else {
+                                Toast.makeText(Office.this, "Invalid floor", Toast.LENGTH_SHORT).show();
                             }
-                            else
-                            {
-                                Toast.makeText(Office.this, "Invalid min. price", Toast.LENGTH_SHORT).show();
-                            }
+                        } else {
+                            Toast.makeText(Office.this, "Invalid address", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                        {
-                            Toast.makeText(Office.this, "Invalid floor", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(Office.this, "Invalid location", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(Office.this, "Invalid address", Toast.LENGTH_SHORT).show();
-                    }
+                } else {
+                    Toast.makeText(Office.this, "Invalid landmark", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-                    Toast.makeText(Office.this, "Invalid location", Toast.LENGTH_SHORT).show();
-                }
-
-
 
 
             }
@@ -779,7 +887,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-
         landusage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -807,11 +914,9 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public String getJson()
-    {
-        String json=null;
-        try
-        {
+    public String getJson() {
+        String json = null;
+        try {
             // Opening cities.json file
             InputStream is = getAssets().open("cities.json");
             // is there any content in the file
@@ -823,9 +928,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             is.close();
             // convert byte to string
             json = new String(buffer, "UTF-8");
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace();
             return json;
         }
@@ -865,13 +968,13 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
             uri = data.getData();
 
-            Log.d("uri" , String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri));
 
-            String ypath = getPath(Office.this , uri);
+            String ypath = getPath(Office.this, uri);
             assert ypath != null;
             f1 = new File(ypath);
 
-            Log.d("path" , ypath);
+            Log.d("path", ypath);
 
             MultipartBody.Part body = null;
 
@@ -881,20 +984,17 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-                adapter.addData(body , uri);
+                adapter.addData(body, uri);
 
 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
-
-
 
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
-            Log.d("uri" , String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri));
 
             MultipartBody.Part body = null;
 
@@ -903,12 +1003,11 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
                 body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
-                adapter.addData(body , uri);
+                adapter.addData(body, uri);
 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
 
 
         }
@@ -1030,27 +1129,23 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         return null;
     }
 
-    class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
-    {
+    class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         Context context;
         List<MultipartBody.Part> list = new ArrayList<>();
         List<Uri> ulist = new ArrayList<>();
 
-        ImageAdapter(Context context, List<MultipartBody.Part> list)
-        {
+        ImageAdapter(Context context, List<MultipartBody.Part> list) {
             this.context = context;
             this.list = list;
         }
 
-        void addData(MultipartBody.Part item , Uri uri)
-        {
+        void addData(MultipartBody.Part item, Uri uri) {
             list.add(item);
             ulist.add(uri);
             notifyDataSetChanged();
         }
 
-        void removeData(int pos)
-        {
+        void removeData(int pos) {
             list.remove(pos);
             ulist.remove(pos);
             notifyDataSetChanged();
@@ -1063,8 +1158,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.image_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.image_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -1089,8 +1184,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
             ImageButton close;
 

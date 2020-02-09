@@ -47,6 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.util.RetainForClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -99,13 +100,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource  , availability , landusage;
+    Spinner datasource, availability, landusage, electricity, dgspace, backup;
 
-    List<String> dat , sta , cit , ava , lan;
+    List<String> dat, sta, cit, ava, lan, ele;
 
-    Button submit , add;
+    Button submit, add;
 
-    double lat , lng;
+    double lat, lng;
 
     SearchableSpinner state, city;
 
@@ -116,17 +117,17 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
 
-    String pid , type , date;
+    String pid, type, date;
 
-    String ds ,st , ci , av , la;
+    String ds, st, ci, av, la, elec, dgspa, back;
 
-    TextView minimumtitle;
+    TextView minimumtitle, postitle;
 
-    EditText location , address , min , max , floor , unit , chargeable , covered , carpet , rent , security , common , ceiling , facade , tenantname , landmark , minimum , commonlumpsum;
-    EditText fdf , fdc , fwo , tdf , tdc , two , mobile , secondary , owned , email , caretaker , caretakerphone , emailcaretaker , remarks;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, landmark, minimum, commonlumpsum, posession, opearational;
+    EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
-    RadioGroup condition , partition , tenant;
+    RadioGroup condition, partition, tenant;
     ProgressBar progress;
 
     File f1;
@@ -138,7 +139,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     ImageAdapter adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,8 +147,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         list = new ArrayList<>();
         ulist = new ArrayList<>();
 
-        lat = getIntent().getDoubleExtra("lat" , 0);
-        lng = getIntent().getDoubleExtra("lng" , 0);
+        lat = getIntent().getDoubleExtra("lat", 0);
+        lng = getIntent().getDoubleExtra("lng", 0);
         pid = getIntent().getStringExtra("pid");
         type = getIntent().getStringExtra("type");
         date = getIntent().getStringExtra("date");
@@ -159,11 +159,18 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         cit = new ArrayList<>();
         ava = new ArrayList<>();
         lan = new ArrayList<>();
+        ele = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        electricity = findViewById(R.id.electricity);
+        opearational = findViewById(R.id.opearational);
+        dgspace = findViewById(R.id.dgspace);
+        backup = findViewById(R.id.backup);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
         commonlumpsum = findViewById(R.id.commonlumpsum);
+        posession = findViewById(R.id.posession);
+        postitle = findViewById(R.id.postitle);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
@@ -234,8 +241,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        adapter = new ImageAdapter(this , list);
-        manager = new GridLayoutManager(this , 3);
+        adapter = new ImageAdapter(this, list);
+        manager = new GridLayoutManager(this, 3);
         images.setAdapter(adapter);
         images.setLayoutManager(manager);
 
@@ -254,19 +261,35 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         ava.add("Under Construction");
         ava.add("Built to Suit (BTS)");
 
+        ele.add("Yes");
+        ele.add("No");
 
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , dat);
+                android.R.layout.simple_list_item_1, dat);
         datasource.setAdapter(adapter2);
 
         final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , ava);
+                android.R.layout.simple_list_item_1, ava);
         availability.setAdapter(adapter1);
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1 , lan);
+                android.R.layout.simple_list_item_1, lan);
         landusage.setAdapter(adapter5);
+
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, ele);
+        electricity.setAdapter(adapter6);
+
+
+        ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, ele);
+        dgspace.setAdapter(adapter7);
+
+
+        ArrayAdapter<String> adapter8 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, ele);
+        backup.setAdapter(adapter8);
 
 
         try {
@@ -360,8 +383,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length() > 0)
-                {
+                if (s.length() > 0) {
 
                     float act = Float.parseFloat(s.toString());
                     float tp = act / 10;
@@ -443,19 +465,53 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        electricity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                elec = ele.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        dgspace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                dgspa = ele.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        backup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                back = ele.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         partition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                if (checkedId == R.id.yes)
-                {
+                if (checkedId == R.id.yes) {
                     minimum.setVisibility(View.VISIBLE);
                     minimumtitle.setVisibility(View.VISIBLE);
                     minimum.setText("");
-                }
-                else
-                {
+                } else {
                     minimum.setVisibility(View.GONE);
                     minimumtitle.setVisibility(View.GONE);
                     minimum.setText("-");
@@ -469,6 +525,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
 
 
+                final String poss = posession.getText().toString();
                 final String lo = location.getText().toString();
                 final String la = landmark.getText().toString();
                 final String ad = address.getText().toString();
@@ -501,60 +558,42 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
                 final String mini = minimum.getText().toString();
+                final String oper = opearational.getText().toString();
 
-                final String cpro , par , ten;
+                final String cpro, par, ten;
 
 
-                if (lo.length() > 0)
-                {
-                    
-                    if (la.length() > 0)
-                    {
-                        if (ad.length() > 0)
-                        {
-                            if (fl.length() > 0)
-                            {
-                                if (mi.length() > 0)
-                                {
-                                    if (ma.length() > 0)
-                                    {
-                                        if (un.length() > 0)
-                                        {
+                if (lo.length() > 0) {
+
+                    if (la.length() > 0) {
+                        if (ad.length() > 0) {
+                            if (fl.length() > 0) {
+                                if (mi.length() > 0) {
+                                    if (ma.length() > 0) {
+                                        if (un.length() > 0) {
                                             int coid = condition.getCheckedRadioButtonId();
-                                            if (coid > -1)
-                                            {
+                                            if (coid > -1) {
                                                 RadioButton cb = condition.findViewById(coid);
                                                 cpro = cb.getText().toString();
 
-                                                if (ch.length() > 0)
-                                                {
-                                                    if (co.length() > 0)
-                                                    {
-                                                        if (ca.length() > 0)
-                                                        {
+                                                if (ch.length() > 0) {
+                                                    if (co.length() > 0) {
+                                                        if (ca.length() > 0) {
                                                             int paid = partition.getCheckedRadioButtonId();
-                                                            if (paid > -1)
-                                                            {
+                                                            if (paid > -1) {
 
-                                                                if (mini.length() > 0)
-                                                                {
+                                                                if (mini.length() > 0) {
                                                                     RadioButton pb = partition.findViewById(paid);
                                                                     par = pb.getText().toString();
 
-                                                                    if (re.length() > 0)
-                                                                    {
+                                                                    if (re.length() > 0) {
 
-                                                                        if (se.length() > 0)
-                                                                        {
-                                                                            if (com.length() > 0)
-                                                                            {
+                                                                        if (se.length() > 0) {
+                                                                            if (com.length() > 0) {
 
-                                                                                if (lcom.length() > 0)
-                                                                                {
-                                                                                    if (ce.length() > 0)
-                                                                                    {
-                                                                                        if (fa.length() > 0)
-                                                                                        {
+                                                                                if (lcom.length() > 0) {
+                                                                                    if (ce.length() > 0) {
+                                                                                        if (fa.length() > 0) {
 
                                                                                             RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                                                                                             ten = tb.getText().toString();
@@ -608,6 +647,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                             mi,
                                                                                                             ma,
                                                                                                             av,
+                                                                                                            poss,
                                                                                                             fl,
                                                                                                             un,
                                                                                                             cpro,
@@ -622,6 +662,10 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                             lcom,
                                                                                                             ce,
                                                                                                             fa,
+                                                                                                            elec,
+                                                                                                            dgspa,
+                                                                                                            back,
+                                                                                                            oper,
                                                                                                             ten,
                                                                                                             tn,
                                                                                                             la,
@@ -646,9 +690,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                         @Override
                                                                                                         public void onResponse(Call<loginBean> call, Response<loginBean> response) {
 
-                                                                                                            if (response.body().getStatus().equals("1"))
-                                                                                                            {
-                                                                                                                Intent intent = new Intent(Form.this , Survey.class);
+                                                                                                            if (response.body().getStatus().equals("1")) {
+                                                                                                                Intent intent = new Intent(Form.this, Survey.class);
                                                                                                                 startActivity(intent);
                                                                                                                 finishAffinity();
                                                                                                             }
@@ -673,116 +716,70 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                             // validations done
 
 
-
-
-
-
-
-                                                                                        }
-                                                                                        else
-                                                                                        {
+                                                                                        } else {
                                                                                             Toast.makeText(Form.this, "Invalid facade length", Toast.LENGTH_SHORT).show();
                                                                                         }
-                                                                                    }
-                                                                                    else
-                                                                                    {
+                                                                                    } else {
                                                                                         Toast.makeText(Form.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
                                                                                     }
-                                                                                }
-                                                                                else
-                                                                                {
+                                                                                } else {
                                                                                     Toast.makeText(Form.this, "Invalid lumpsum CAM/ month", Toast.LENGTH_SHORT).show();
                                                                                 }
 
-                                                                            }
-                                                                            else
-                                                                            {
+                                                                            } else {
                                                                                 Toast.makeText(Form.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
                                                                             }
-                                                                        }
-                                                                        else
-                                                                        {
+                                                                        } else {
                                                                             Toast.makeText(Form.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
                                                                         }
 
-                                                                    }
-                                                                    else
-                                                                    {
+                                                                    } else {
                                                                         Toast.makeText(Form.this, "Invalid rent", Toast.LENGTH_SHORT).show();
                                                                     }
-                                                                }
-                                                                else
-                                                                {
+                                                                } else {
                                                                     Toast.makeText(Form.this, "Invalid minimum partition lease area", Toast.LENGTH_SHORT).show();
                                                                 }
 
 
-
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 Toast.makeText(Form.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
                                                             }
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             Toast.makeText(Form.this, "Invalid carpet area", Toast.LENGTH_SHORT).show();
                                                         }
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         Toast.makeText(Form.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
                                                     }
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     Toast.makeText(Form.this, "Invalid chargeable area", Toast.LENGTH_SHORT).show();
                                                 }
 
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 Toast.makeText(Form.this, "Invalid condition property", Toast.LENGTH_SHORT).show();
                                             }
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             Toast.makeText(Form.this, "Invalid unit number", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(Form.this, "Invalid lumpsum amount", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(Form.this, "Invalid rent/ sqft.", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(Form.this, "Invalid floor", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(Form.this, "Invalid address", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else 
-                    {
+                    } else {
                         Toast.makeText(Form.this, "Invalid landmark", Toast.LENGTH_SHORT).show();
                     }
-                    
 
-                }
-                else
-                {
+
+                } else {
                     Toast.makeText(Form.this, "Invalid location", Toast.LENGTH_SHORT).show();
                 }
-
-
 
 
             }
@@ -809,6 +806,49 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+
+        posession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(Form.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.date_dialog);
+                dialog.show();
+
+
+                final DatePicker picker = dialog.findViewById(R.id.date);
+                Button ok = dialog.findViewById(R.id.ok);
+
+                long now = System.currentTimeMillis() - 1000;
+                picker.setMinDate(now);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int year = picker.getYear();
+                        int month = picker.getMonth();
+                        int day = picker.getDayOfMonth();
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, day);
+
+                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                        String strDate = format.format(calendar.getTime());
+
+                        posession.setText(strDate);
+
+                        dialog.dismiss();
+
+                    }
+                });
+
+            }
+        });
+
+
         datasource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -828,6 +868,16 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 av = ava.get(position);
+
+                if (position == 0) {
+                    posession.setText("");
+                    posession.setVisibility(View.VISIBLE);
+                    postitle.setVisibility(View.VISIBLE);
+                } else {
+                    posession.setText("-");
+                    posession.setVisibility(View.GONE);
+                    postitle.setVisibility(View.GONE);
+                }
 
             }
 
@@ -852,9 +902,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-
-
-
     }
 
     @Override
@@ -868,11 +915,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public String getJson()
-    {
-        String json=null;
-        try
-        {
+    public String getJson() {
+        String json = null;
+        try {
             // Opening cities.json file
             InputStream is = getAssets().open("cities.json");
             // is there any content in the file
@@ -884,9 +929,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             is.close();
             // convert byte to string
             json = new String(buffer, "UTF-8");
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace();
             return json;
         }
@@ -929,13 +972,13 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
             uri = data.getData();
 
-            Log.d("uri" , String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri));
 
-            String ypath = getPath(Form.this , uri);
+            String ypath = getPath(Form.this, uri);
             assert ypath != null;
             f1 = new File(ypath);
 
-            Log.d("path" , ypath);
+            Log.d("path", ypath);
 
             MultipartBody.Part body = null;
 
@@ -945,20 +988,17 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-                adapter.addData(body , uri);
+                adapter.addData(body, uri);
 
 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
-
-
 
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
-            Log.d("uri" , String.valueOf(uri));
+            Log.d("uri", String.valueOf(uri));
 
             MultipartBody.Part body = null;
 
@@ -967,12 +1007,11 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
                 body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
-                adapter.addData(body , uri);
+                adapter.addData(body, uri);
 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
 
 
         }
@@ -1094,27 +1133,23 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         return null;
     }
 
-    class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
-    {
+    class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         Context context;
         List<MultipartBody.Part> list = new ArrayList<>();
         List<Uri> ulist = new ArrayList<>();
 
-        ImageAdapter(Context context, List<MultipartBody.Part> list)
-        {
+        ImageAdapter(Context context, List<MultipartBody.Part> list) {
             this.context = context;
             this.list = list;
         }
 
-        void addData(MultipartBody.Part item , Uri uri)
-        {
+        void addData(MultipartBody.Part item, Uri uri) {
             list.add(item);
             ulist.add(uri);
             notifyDataSetChanged();
         }
 
-        void removeData(int pos)
-        {
+        void removeData(int pos) {
             list.remove(pos);
             ulist.remove(pos);
             notifyDataSetChanged();
@@ -1127,8 +1162,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.image_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.image_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -1153,8 +1188,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
             ImageButton close;
 
