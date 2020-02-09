@@ -104,7 +104,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     List<String> dat, sta, cit, ava, lan, ele;
 
-    Button submit, add , add1;
+    Button submit, add , add1 , add2;
 
     double lat, lng;
 
@@ -143,7 +143,11 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     File f2;
     Uri uri2;
+    ContactAdapter adapter222;
 
+    List<contactBean> lll;
+
+    RecyclerView contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +156,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
+        lll = new ArrayList<>();
 
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
@@ -168,7 +173,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         ele = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        contacts = findViewById(R.id.contacts);
         electricity = findViewById(R.id.electricity);
+        add2 = findViewById(R.id.add2);
         add1 = findViewById(R.id.add1);
         image1 = findViewById(R.id.image1);
         opearational = findViewById(R.id.opearational);
@@ -272,6 +279,10 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         ele.add("Yes");
         ele.add("No");
 
+        adapter222 = new ContactAdapter(this , lll);
+        GridLayoutManager manager1 = new GridLayoutManager(this , 1);
+        contacts.setAdapter(adapter222);
+        contacts.setLayoutManager(manager1);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, dat);
@@ -461,6 +472,83 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        add2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(Form.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.add_contact_dialog);
+                dialog.show();
+
+                Spinner role = dialog.findViewById(R.id.role);
+                final EditText name = dialog.findViewById(R.id.name);
+                final EditText mobile = dialog.findViewById(R.id.mobile);
+                final EditText landline = dialog.findViewById(R.id.landline);
+                final EditText email = dialog.findViewById(R.id.email);
+                Button addd = dialog.findViewById(R.id.button);
+
+                final String[] rol = new String[1];
+
+                final List<String> ll = new ArrayList<>();
+
+                ll.add("Landlord");
+                ll.add("Caretaker");
+                ll.add("Leasing Manager");
+
+
+                ArrayAdapter<String> adapter21 = new ArrayAdapter<String>(Form.this,
+                        android.R.layout.simple_list_item_1, ll);
+                role.setAdapter(adapter21);
+
+                role.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        rol[0] = ll.get(position);
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+                addd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String n = name.getText().toString();
+
+                        if (n.length() > 0)
+                        {
+
+                            contactBean item = new contactBean();
+                            item.setRole(rol[0]);
+                            item.setName(n);
+                            item.setMobile(mobile.getText().toString());
+                            item.setLandline(landline.getText().toString());
+                            item.setEmail(email.getText().toString());
+
+                            adapter222.addData(item);
+
+                            dialog.dismiss();
+
+                        }
+                        else
+                        {
+                            Toast.makeText(Form.this, "Invalid name", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+            }
+        });
 
         add1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1301,6 +1389,78 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
                 close = itemView.findViewById(R.id.close);
+            }
+        }
+    }
+
+    class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
+        Context context;
+        List<contactBean> list = new ArrayList<>();
+
+        ContactAdapter(Context context, List<contactBean> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        void addData(contactBean item) {
+            list.add(item);
+            notifyDataSetChanged();
+        }
+
+        void removeData(int pos) {
+            list.remove(pos);
+            notifyDataSetChanged();
+        }
+
+        List<contactBean> getList() {
+            return list;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.contact_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
+            contactBean item = list.get(position);
+
+            holder.role.setText(item.getRole());
+            holder.name.setText(item.getName());
+            holder.mobile.setText(item.getMobile());
+            holder.landline.setText(item.getLandline());
+            holder.email.setText(item.getEmail());
+
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeData(position);
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView role , name , mobile , landline , email;
+            ImageButton delete;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                role = itemView.findViewById(R.id.textView10);
+                name = itemView.findViewById(R.id.textView15);
+                mobile = itemView.findViewById(R.id.textView16);
+                landline = itemView.findViewById(R.id.textView17);
+                email = itemView.findViewById(R.id.textView18);
+                delete = itemView.findViewById(R.id.imageButton5);
             }
         }
     }

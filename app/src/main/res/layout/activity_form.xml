@@ -1193,6 +1193,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:text="Mobile Phone #"/>
 
@@ -1204,6 +1205,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/mobile"
+                android:visibility="gone"
                 android:inputType="phone"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
@@ -1215,6 +1217,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:text="Secondary Phone #"/>
 
@@ -1224,6 +1227,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/secondary"
                 android:inputType="phone"
@@ -1233,6 +1237,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
@@ -1245,6 +1250,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/owned"
                 android:inputType="textPersonName"
@@ -1255,6 +1261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -1265,6 +1272,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/email"
@@ -1277,6 +1285,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
+                android:visibility="gone"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Property Caretaker "/>
@@ -1287,6 +1296,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/caretaker"
                 android:inputType="textPersonName"
@@ -1297,6 +1307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -1309,6 +1320,7 @@
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:id="@+id/caretakerphone"
                 android:inputType="phone"
                 android:background="@drawable/white_back_round"
@@ -1321,6 +1333,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:text="Email (Caretaker)"/>
 
             <EditText
@@ -1328,6 +1341,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/emailcaretaker"
@@ -1356,6 +1370,45 @@
                 android:gravity="start"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="Contacts"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/add2"
+                    android:text="Add Contact"/>
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/contacts"
+                />
 
             <Button
                 android:id="@+id/button"

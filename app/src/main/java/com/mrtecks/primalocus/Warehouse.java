@@ -99,7 +99,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     Toolbar toolbar;
     Spinner datasource, availability, landusage,under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
     List<String> dat, sta, cit, ava, lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
-    Button submit, add , add1;
+    Button submit, add , add1 , add2;
 
     EditText posession;
 
@@ -144,6 +144,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     List<Uri> ulist;
 
     ImageAdapter adapter;
+    ContactAdapter adapter222;
+
+    List<contactBean> lll;
+
+    RecyclerView contacts;
 
 
     @Override
@@ -155,6 +160,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
+        lll = new ArrayList<>();
 
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
@@ -182,7 +188,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         flo = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar2);
+        contacts = findViewById(R.id.contacts);
         add1 = findViewById(R.id.add1);
+        add2 = findViewById(R.id.add2);
         image1 = findViewById(R.id.image1);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
@@ -273,6 +281,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         submit = findViewById(R.id.button);
 
 
+
+
         setSupportActionBar(toolbar);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -297,6 +307,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         manager = new GridLayoutManager(this, 3);
         images.setAdapter(adapter);
         images.setLayoutManager(manager);
+
+
+        adapter222 = new ContactAdapter(this , lll);
+        GridLayoutManager manager1 = new GridLayoutManager(this , 1);
+        contacts.setAdapter(adapter222);
+        contacts.setLayoutManager(manager1);
+
 
         dat.add("Survey");
         dat.add("Reference");
@@ -367,7 +384,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         flo.add("Kota Stone flooring");
 
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, dat);
         datasource.setAdapter(adapter2);
 
@@ -622,6 +639,85 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        add2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(Warehouse.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.add_contact_dialog);
+                dialog.show();
+
+                Spinner role = dialog.findViewById(R.id.role);
+                final EditText name = dialog.findViewById(R.id.name);
+                final EditText mobile = dialog.findViewById(R.id.mobile);
+                final EditText landline = dialog.findViewById(R.id.landline);
+                final EditText email = dialog.findViewById(R.id.email);
+                Button addd = dialog.findViewById(R.id.button);
+
+                final String[] rol = new String[1];
+
+                final List<String> ll = new ArrayList<>();
+
+                ll.add("Landlord");
+                ll.add("Caretaker");
+                ll.add("Leasing Manager");
+
+
+                ArrayAdapter<String> adapter21 = new ArrayAdapter<String>(Warehouse.this,
+                        android.R.layout.simple_list_item_1, ll);
+                role.setAdapter(adapter21);
+
+                role.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        rol[0] = ll.get(position);
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+                addd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String n = name.getText().toString();
+
+                        if (n.length() > 0)
+                        {
+
+                            contactBean item = new contactBean();
+                            item.setRole(rol[0]);
+                            item.setName(n);
+                            item.setMobile(mobile.getText().toString());
+                            item.setLandline(landline.getText().toString());
+                            item.setEmail(email.getText().toString());
+
+                            adapter222.addData(item);
+
+                            dialog.dismiss();
+
+                        }
+                        else
+                        {
+                            Toast.makeText(Warehouse.this, "Invalid name", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
 
             }
         });
@@ -1687,6 +1783,78 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
                 close = itemView.findViewById(R.id.close);
+            }
+        }
+    }
+
+    class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
+        Context context;
+        List<contactBean> list = new ArrayList<>();
+
+        ContactAdapter(Context context, List<contactBean> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        void addData(contactBean item) {
+            list.add(item);
+            notifyDataSetChanged();
+        }
+
+        void removeData(int pos) {
+            list.remove(pos);
+            notifyDataSetChanged();
+        }
+
+        List<contactBean> getList() {
+            return list;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.contact_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
+            contactBean item = list.get(position);
+
+            holder.role.setText(item.getRole());
+            holder.name.setText(item.getName());
+            holder.mobile.setText(item.getMobile());
+            holder.landline.setText(item.getLandline());
+            holder.email.setText(item.getEmail());
+
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeData(position);
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView role , name , mobile , landline , email;
+            ImageButton delete;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                role = itemView.findViewById(R.id.textView10);
+                name = itemView.findViewById(R.id.textView15);
+                mobile = itemView.findViewById(R.id.textView16);
+                landline = itemView.findViewById(R.id.textView17);
+                email = itemView.findViewById(R.id.textView18);
+                delete = itemView.findViewById(R.id.imageButton5);
             }
         }
     }
