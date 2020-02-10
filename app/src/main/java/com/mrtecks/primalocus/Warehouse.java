@@ -56,6 +56,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.gson.Gson;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
@@ -781,6 +782,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
+
+
                                                                     RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                                                                     ten = tb.getText().toString();
 
@@ -810,6 +813,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                                                                         @Override
                                                                         public void onClick(View v) {
                                                                             dialog.dismiss();
+
+                                                                            List<contactBean> reqlist = adapter222.getList();
+
+                                                                            Gson gson = new Gson();
+                                                                            String json = gson.toJson(reqlist);
+
+                                                                            Log.d("reqlist", json);
 
                                                                             MultipartBody.Part body2 = null;
 
@@ -889,6 +899,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                                                                                     cph,
                                                                                     cem,
                                                                                     rem,
+                                                                                    json,
                                                                                     body2,
                                                                                     adapter.getList()
                                                                             );

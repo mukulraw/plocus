@@ -58,6 +58,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.gson.Gson;
 import com.innovattic.rangeseekbar.RangeSeekBar;
 import com.mrtecks.primalocus.loginPOJO.loginBean;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
@@ -771,6 +772,13 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                 public void onClick(View v) {
                                                                                                     dialog.dismiss();
 
+                                                                                                    List<contactBean> reqlist = adapter222.getList();
+
+                                                                                                    Gson gson = new Gson();
+                                                                                                    String json = gson.toJson(reqlist);
+
+                                                                                                    Log.d("reqlist", json);
+
                                                                                                     MultipartBody.Part body2 = null;
 
                                                                                                     try {
@@ -850,6 +858,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                             cph,
                                                                                                             cem,
                                                                                                             rem,
+                                                                                                            json,
                                                                                                             body2,
                                                                                                             adapter.getList()
                                                                                                     );

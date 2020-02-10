@@ -79,6 +79,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part("contact") String contact,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
@@ -145,6 +146,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part("contact") String contact,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
@@ -202,6 +204,7 @@ public interface AllApiIneterface {
             @Part("caretaker_phone") String caretaker_phone,
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
+            @Part("contact") String contact,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
