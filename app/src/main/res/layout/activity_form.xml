@@ -320,7 +320,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Rent/ sqft."
+                    android:text="Rent/ sqft. (Chargeable area)"
                     />
 
                 <EditText
@@ -351,7 +351,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Lumpsum Amount"
+                    android:text="Lumpsum rental"
                     />
 
                 <EditText
@@ -565,6 +565,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
 
             <EditText
@@ -572,6 +573,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/rent"
@@ -775,7 +777,8 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Operational Hours"/>
+                android:id="@+id/powertitle"
+                android:text="Power Backup (kva/kw)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -784,10 +787,30 @@
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/opearational"
+                android:id="@+id/power"
                 android:inputType="number"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Operational Hours"/>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                layout="@layout/hours_picker"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                />
 
 
 
@@ -1389,7 +1412,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
+                    android:textColor="#000000"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="16dp"

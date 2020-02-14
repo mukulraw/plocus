@@ -246,10 +246,9 @@
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:clickable="false"
-                android:focusable="false"
+
                 android:id="@+id/posession"
-                android:inputType="textPostalAddress"
+                android:inputType="number"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -523,6 +522,28 @@
 
 
             </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/minimumtitle"
+                android:text="Minimum Lease Area (Sq.Ft.)"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/minimum"
+                android:inputType="number"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1421,7 +1442,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
+                    android:textColor="#000000"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="16dp"

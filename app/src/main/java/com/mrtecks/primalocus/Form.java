@@ -17,7 +17,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +34,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -46,6 +46,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.models.Image;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.util.RetainForClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -124,9 +126,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageView image1;
 
-    TextView minimumtitle, postitle;
+    TextView minimumtitle, postitle , powertitle;
 
-    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, landmark, minimum, commonlumpsum, posession, opearational;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, landmark, minimum, commonlumpsum, posession, power;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -149,6 +151,15 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     List<contactBean> lll;
 
     RecyclerView contacts;
+
+    CheckBox monday , tuesday , wednesday , thursday , friday , saturday , sunday;
+    Spinner mondayfrom , mondayto;
+    Spinner tuesdayfrom , tuesdayto;
+    Spinner wednesdayfrom , wednesdayto;
+    Spinner thursdayfrom , thursdayto;
+    Spinner fridayfrom , fridayto;
+    Spinner saturdayfrom , saturdayto;
+    Spinner sundayfrom , sundayto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,15 +184,39 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan = new ArrayList<>();
         ele = new ArrayList<>();
 
+        monday = findViewById(R.id.monday);
+        tuesday = findViewById(R.id.tuesday);
+        wednesday = findViewById(R.id.wednesday);
+        thursday = findViewById(R.id.thursday);
+        friday = findViewById(R.id.friday);
+        saturday = findViewById(R.id.saturday);
+        sunday = findViewById(R.id.sunday);
+        mondayfrom = findViewById(R.id.mondayfrom);
+        mondayto = findViewById(R.id.mondayto);
+        tuesdayfrom = findViewById(R.id.tuesdayfrom);
+        tuesdayto = findViewById(R.id.tuesdayto);
+        wednesdayfrom = findViewById(R.id.wednesdayfrom);
+        wednesdayto = findViewById(R.id.wednesdayto);
+        thursdayfrom = findViewById(R.id.thursdayfrom);
+        thursdayto = findViewById(R.id.thursdayto);
+        fridayfrom = findViewById(R.id.fridayfrom);
+        fridayto = findViewById(R.id.fridayto);
+        saturdayfrom = findViewById(R.id.saturdayfrom);
+        saturdayto = findViewById(R.id.saturdayto);
+        sundayfrom = findViewById(R.id.sundayfrom);
+        sundayto = findViewById(R.id.sundayto);
+
         toolbar = findViewById(R.id.toolbar2);
         contacts = findViewById(R.id.contacts);
         electricity = findViewById(R.id.electricity);
+        power = findViewById(R.id.power);
         add2 = findViewById(R.id.add2);
         add1 = findViewById(R.id.add1);
         image1 = findViewById(R.id.image1);
-        opearational = findViewById(R.id.opearational);
+
         dgspace = findViewById(R.id.dgspace);
         backup = findViewById(R.id.backup);
+        powertitle = findViewById(R.id.powertitle);
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
         commonlumpsum = findViewById(R.id.commonlumpsum);
@@ -272,6 +307,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan.add("Institutional");
         lan.add("Industrial");
         lan.add("Residential");
+        lan.add("Lal Dora");
 
         ava.add("Ready to move in (RTM)");
         ava.add("Under Construction");
@@ -380,9 +416,19 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                             startActivityForResult(getpic, 1);
                             dialog.dismiss();
                         } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
+                            Intent intent = new Intent(Form.this, AlbumSelectActivity.class);
+//set limit on number of images that can be selected, default is 10
+                            intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 5);
                             startActivityForResult(intent, 2);
-                            dialog.dismiss();
+
+                            /*Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                            dialog.dismiss();*/
+
+
+
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -646,6 +692,20 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         backup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 0)
+                {
+                    power.setText("");
+                    power.setVisibility(View.VISIBLE);
+                    powertitle.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    power.setText("-");
+                    power.setVisibility(View.GONE);
+                    powertitle.setVisibility(View.GONE);
+                }
+
                 back = ele.get(position);
             }
 
@@ -711,12 +771,162 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
                 final String mini = minimum.getText().toString();
-                final String oper = opearational.getText().toString();
+                //final String oper = opearational.getText().toString();
 
                 final String cpro, par, ten;
 
+                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                ten = tb.getText().toString();
 
-                if (lo.length() > 0) {
+                RadioButton pb = partition.findViewById(partition.getCheckedRadioButtonId());
+                par = pb.getText().toString();
+
+                RadioButton cb = condition.findViewById(condition.getCheckedRadioButtonId());
+                cpro = cb.getText().toString();
+
+                final Dialog dialog = new Dialog(Form.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.submit_popup);
+                dialog.show();
+
+                ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+
+
+                        List<contactBean> reqlist = adapter222.getList();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(reqlist);
+
+                        Log.d("reqlist", json);
+
+                        MultipartBody.Part body2 = null;
+
+                        try {
+
+                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                            body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                            adapter.addData(body2, uri2);
+
+
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+
+                        progress.setVisibility(View.VISIBLE);
+
+                        Bean b = (Bean) getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<loginBean> call = cr.add_retail(
+                                SharePreferenceUtils.getInstance().getString("id"),
+                                type,
+                                date,
+                                pid,
+                                String.valueOf(lat),
+                                String.valueOf(lng),
+                                ds,
+                                st,
+                                ci,
+                                lo,
+                                la,
+                                ad,
+                                mi,
+                                ma,
+                                av,
+                                poss,
+                                fl,
+                                un,
+                                cpro,
+                                ch,
+                                co,
+                                ca,
+                                par,
+                                mini,
+                                re,
+                                se,
+                                com,
+                                lcom,
+                                ce,
+                                fa,
+                                elec,
+                                dgspa,
+                                back,
+                                power.getText().toString(),
+                                "",
+                                ten,
+                                tn,
+                                la,
+                                ff,
+                                fc,
+                                fo,
+                                tf,
+                                tc,
+                                to,
+                                mo,
+                                sec,
+                                ow,
+                                em,
+                                car,
+                                cph,
+                                cem,
+                                rem,
+                                json,
+                                body2,
+                                adapter.getList()
+                        );
+
+                        call.enqueue(new Callback<loginBean>() {
+                            @Override
+                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                if (response.body().getStatus().equals("1")) {
+                                    Intent intent = new Intent(Form.this, Survey.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                }
+
+                                Toast.makeText(Form.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                progress.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                progress.setVisibility(View.GONE);
+
+                            }
+                        });
+
+                    }
+                });
+
+               /* if (lo.length() > 0) {
 
                     if (la.length() > 0) {
                         if (ad.length() > 0) {
@@ -840,6 +1050,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                                                                                             elec,
                                                                                                             dgspa,
                                                                                                             back,
+                                                                                                            power.getText().toString(),
                                                                                                             oper,
                                                                                                             ten,
                                                                                                             tn,
@@ -956,7 +1167,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 } else {
                     Toast.makeText(Form.this, "Invalid location", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
 
             }
@@ -1147,30 +1358,43 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
-
-            Log.d("uri", String.valueOf(uri));
-
-            String ypath = getPath(Form.this, uri);
-            assert ypath != null;
-            f1 = new File(ypath);
-
-            Log.d("path", ypath);
-
-            MultipartBody.Part body = null;
-
-            try {
-
-                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-                adapter.addData(body, uri);
+            ArrayList<Image> images = data.getParcelableArrayListExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_IMAGES);
+
+            for (int i = 0; i < images.size(); i++) {
+
+                String ypath = images.get(i).path;
+                assert ypath != null;
+                f1 = new File(ypath);
+
+                uri = Uri.fromFile(f1);
+
+                Log.d("path", ypath);
+                Log.d("uri", String.valueOf(uri));
+
+                MultipartBody.Part body = null;
+
+                try {
+
+                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                    body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-            } catch (Exception e1) {
-                e1.printStackTrace();
+                    adapter.addData(body, uri);
+
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
             }
+
+
+
+
+
+
 
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {

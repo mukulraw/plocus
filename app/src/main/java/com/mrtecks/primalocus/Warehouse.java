@@ -46,6 +46,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.models.Image;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -94,7 +97,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
+public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
     private static final String TAG = "Form";
     Toolbar toolbar;
@@ -111,7 +114,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap mMap;
 
 
-    TextView change , postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle;
+    TextView change , postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle;
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle , dockleverernumbertitle;
     RelativeLayout plinthlayout, firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
@@ -124,7 +127,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
     String pid, type, date;
 
     String ds, st, ci, avai, lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo;
-    EditText location, address, min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber;
+    EditText location, address, min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -190,6 +193,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
         toolbar = findViewById(R.id.toolbar2);
         contacts = findViewById(R.id.contacts);
+        minimumtitle = findViewById(R.id.minimumtitle);
+        minimum = findViewById(R.id.minimum);
         add1 = findViewById(R.id.add1);
         add2 = findViewById(R.id.add2);
         image1 = findViewById(R.id.image1);
@@ -282,6 +287,22 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         submit = findViewById(R.id.button);
 
 
+        partition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.yes) {
+                    minimum.setVisibility(View.VISIBLE);
+                    minimumtitle.setVisibility(View.VISIBLE);
+                    minimum.setText("");
+                } else {
+                    minimum.setVisibility(View.GONE);
+                    minimumtitle.setVisibility(View.GONE);
+                    minimum.setText("-");
+                }
+
+            }
+        });
 
 
         setSupportActionBar(toolbar);
@@ -327,9 +348,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         lan.add("Lal Dora");
         lan.add("Warehouse");
 
-        ava.add("Ready to move in (RTM)");
-        ava.add("Under Construction");
+
         ava.add("Built to Suit (BTS)");
+        ava.add("Ready to move in (RTM)");
+        //ava.add("Under Construction");
+
 
         pos.add("-0 to 2 months");
         pos.add("-2 to 4 months");
@@ -510,9 +533,19 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                             startActivityForResult(getpic, 1);
                             dialog.dismiss();
                         } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
+                            Intent intent = new Intent(Warehouse.this, AlbumSelectActivity.class);
+//set limit on number of images that can be selected, default is 10
+                            intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 5);
                             startActivityForResult(intent, 2);
-                            dialog.dismiss();
+
+                            /*Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                            dialog.dismiss();*/
+
+
+
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -764,7 +797,156 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                 final String par, ten , pla;
 
 
-                if (lo.length() > 0) {
+                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                ten = tb.getText().toString();
+
+                RadioButton tb1 = partition.findViewById(partition.getCheckedRadioButtonId());
+                par = tb1.getText().toString();
+
+                RadioButton tb2 = plan.findViewById(plan.getCheckedRadioButtonId());
+                pla = tb2.getText().toString();
+
+                final Dialog dialog = new Dialog(Warehouse.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.submit_popup);
+                dialog.show();
+
+                ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+                        List<contactBean> reqlist = adapter222.getList();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(reqlist);
+
+                        Log.d("reqlist", json);
+
+                        MultipartBody.Part body2 = null;
+
+                        try {
+
+                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                            body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                            adapter.addData(body2, uri2);
+
+
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+
+                        progress.setVisibility(View.VISIBLE);
+
+                        Bean b = (Bean) getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<loginBean> call = cr.add_warehouse(
+                                SharePreferenceUtils.getInstance().getString("id"),
+                                type,
+                                date,
+                                pid,
+                                String.valueOf(lat),
+                                String.valueOf(lng),
+                                ds,
+                                st,
+                                ci,
+                                lo,
+                                ad,
+                                avai,
+                                poss,
+                                unde,
+                                ware,
+                                cond,
+                                mi,
+                                ma,
+                                pl,
+                                co,
+                                av,
+                                par,
+                                minimum.getText().toString(),
+                                re,
+                                se,
+                                com,
+                                ea,
+                                ce,
+                                op,
+                                plin,
+                                pla,
+                                fire,
+                                safe,
+                                vent,
+                                insu,
+                                leve,
+                                ten,
+                                tn,
+                                lann,
+                                aggr,
+                                floo,
+                                fw,
+                                la,
+                                mo,
+                                sec,
+                                ow,
+                                em,
+                                car,
+                                cph,
+                                cem,
+                                rem,
+                                json,
+                                body2,
+                                adapter.getList()
+                        );
+
+                        call.enqueue(new Callback<loginBean>() {
+                            @Override
+                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                if (response.body().getStatus().equals("1")) {
+                                    Intent intent = new Intent(Warehouse.this, Survey.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                }
+
+                                Toast.makeText(Warehouse.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                progress.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                progress.setVisibility(View.GONE);
+
+                            }
+                        });
+
+                    }
+                });
+
+
+                /*if (lo.length() > 0) {
                     if (ad.length() > 0) {
                         if (mi.length() > 0) {
                             if (ma.length() > 0) {
@@ -975,7 +1157,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 } else {
                     Toast.makeText(Warehouse.this, "Invalid location", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
 
             }
@@ -1031,46 +1213,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        posession.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(Warehouse.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.date_dialog);
-                dialog.show();
-
-
-                final DatePicker picker = dialog.findViewById(R.id.date);
-                Button ok = dialog.findViewById(R.id.ok);
-
-                long now = System.currentTimeMillis() - 1000;
-                picker.setMinDate(now);
-
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        int year = picker.getYear();
-                        int month = picker.getMonth();
-                        int day = picker.getDayOfMonth();
-
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(year, month, day);
-
-                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
-                        String strDate = format.format(calendar.getTime());
-
-                        posession.setText(strDate);
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-            }
-        });
 
 
         under_construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1156,6 +1299,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
+
+
+
         ventilation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1246,7 +1392,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 avai = ava.get(position);
-
+/*
                 if (position == 1)
                 {
                     posession.setText("-");
@@ -1314,13 +1460,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     opening_docks.setText("");
                     dockleverernumber.setText("");
 
-                }
-                else if(position == 0)
+                }*/
+                if(position == 1)
                 {
                     posession.setText("");
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
-
+                    postitle.setText("Date of Possession");
 
                     under_construction.setVisibility(View.VISIBLE);
                     under_constructiontitle.setVisibility(View.VISIBLE);
@@ -1383,6 +1529,52 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     opening_docks.setText("");
                     dockleverernumber.setText("");
 
+                    posession.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (avai.equals("Ready to move in (RTM)"))
+                            {
+                                final Dialog dialog = new Dialog(Warehouse.this);
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                dialog.setCancelable(true);
+                                dialog.setContentView(R.layout.date_dialog);
+                                dialog.show();
+
+
+                                final DatePicker picker = dialog.findViewById(R.id.date);
+                                Button ok = dialog.findViewById(R.id.ok);
+
+                                long now = System.currentTimeMillis() - 1000;
+                                picker.setMinDate(now);
+
+                                ok.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        int year = picker.getYear();
+                                        int month = picker.getMonth();
+                                        int day = picker.getDayOfMonth();
+
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.set(year, month, day);
+
+                                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                                        String strDate = format.format(calendar.getTime());
+
+                                        posession.setText(strDate);
+
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                            }
+
+
+
+                        }
+                    });
+
                 }
                 else
                 {
@@ -1390,6 +1582,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     posession.setText("");
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
+                    postitle.setText("No. of months");
+
 
                     under_construction.setVisibility(View.GONE);
                     under_constructiontitle.setVisibility(View.GONE);
@@ -1404,6 +1598,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     available.setVisibility(View.GONE);
                     availabletitle.setVisibility(View.GONE);
                     partition.setVisibility(View.GONE);
+                    minimum.setVisibility(View.GONE);
+                    minimumtitle.setVisibility(View.GONE);
+                    minimum.setText("-");
                     partitiontitle.setVisibility(View.GONE);
                     rent.setVisibility(View.GONE);
                     renttitle.setVisibility(View.GONE);
@@ -1463,6 +1660,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
                     insu = "-";
                     leve = "-";
 
+                    posession.setOnClickListener(null);
 
                 }
 
@@ -1473,6 +1671,54 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
+
+
+        posession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (avai.equals("Ready to move in (RTM)"))
+                {
+                    final Dialog dialog = new Dialog(Warehouse.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(true);
+                    dialog.setContentView(R.layout.date_dialog);
+                    dialog.show();
+
+
+                    final DatePicker picker = dialog.findViewById(R.id.date);
+                    Button ok = dialog.findViewById(R.id.ok);
+
+                    long now = System.currentTimeMillis() - 1000;
+                    picker.setMinDate(now);
+
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            int year = picker.getYear();
+                            int month = picker.getMonth();
+                            int day = picker.getDayOfMonth();
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(year, month, day);
+
+                            SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                            String strDate = format.format(calendar.getTime());
+
+                            posession.setText(strDate);
+
+                            dialog.dismiss();
+
+                        }
+                    });
+                }
+
+
+
+            }
+        });
+
 
     }
 
@@ -1542,30 +1788,43 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
-
-            Log.d("uri", String.valueOf(uri));
-
-            String ypath = getPath(Warehouse.this, uri);
-            assert ypath != null;
-            f1 = new File(ypath);
-
-            Log.d("path", ypath);
-
-            MultipartBody.Part body = null;
-
-            try {
-
-                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-                adapter.addData(body, uri);
+            ArrayList<Image> images = data.getParcelableArrayListExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_IMAGES);
+
+            for (int i = 0; i < images.size(); i++) {
+
+                String ypath = images.get(i).path;
+                assert ypath != null;
+                f1 = new File(ypath);
+
+                uri = Uri.fromFile(f1);
+
+                Log.d("path", ypath);
+                Log.d("uri", String.valueOf(uri));
+
+                MultipartBody.Part body = null;
+
+                try {
+
+                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                    body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-            } catch (Exception e1) {
-                e1.printStackTrace();
+                    adapter.addData(body, uri);
+
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
             }
+
+
+
+
+
+
 
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -1730,6 +1989,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback {
         }
         return null;
     }
+
+
 
     class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         Context context;
