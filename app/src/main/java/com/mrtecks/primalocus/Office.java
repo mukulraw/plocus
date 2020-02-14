@@ -33,6 +33,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,6 +45,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.models.Image;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -117,7 +120,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView minimumtitle;
 
-    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, opeartional, lease, lockin , minimum;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, lease, lockin , minimum;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -147,6 +150,15 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     RecyclerView contacts;
 
+    CheckBox monday , tuesday , wednesday , thursday , friday , saturday , sunday;
+    Spinner mondayfrom , mondayto;
+    Spinner tuesdayfrom , tuesdayto;
+    Spinner wednesdayfrom , wednesdayto;
+    Spinner thursdayfrom , thursdayto;
+    Spinner fridayfrom , fridayto;
+    Spinner saturdayfrom , saturdayto;
+    Spinner sundayfrom , sundayto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +183,72 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
         lan = new ArrayList<>();
 
+
+        monday = findViewById(R.id.monday);
+        tuesday = findViewById(R.id.tuesday);
+        wednesday = findViewById(R.id.wednesday);
+        thursday = findViewById(R.id.thursday);
+        friday = findViewById(R.id.friday);
+        saturday = findViewById(R.id.saturday);
+        sunday = findViewById(R.id.sunday);
+        mondayfrom = findViewById(R.id.mondayfrom);
+        mondayto = findViewById(R.id.mondayto);
+        tuesdayfrom = findViewById(R.id.tuesdayfrom);
+        tuesdayto = findViewById(R.id.tuesdayto);
+        wednesdayfrom = findViewById(R.id.wednesdayfrom);
+        wednesdayto = findViewById(R.id.wednesdayto);
+        thursdayfrom = findViewById(R.id.thursdayfrom);
+        thursdayto = findViewById(R.id.thursdayto);
+        fridayfrom = findViewById(R.id.fridayfrom);
+        fridayto = findViewById(R.id.fridayto);
+        saturdayfrom = findViewById(R.id.saturdayfrom);
+        saturdayto = findViewById(R.id.saturdayto);
+        sundayfrom = findViewById(R.id.sundayfrom);
+        sundayto = findViewById(R.id.sundayto);
+
+        List<String> times = new ArrayList<>();
+        times.add("12:00 AM");
+        times.add("1:00 AM");
+        times.add("2:00 AM");
+        times.add("3:00 AM");
+        times.add("4:00 AM");
+        times.add("5:00 AM");
+        times.add("6:00 AM");
+        times.add("7:00 AM");
+        times.add("8:00 AM");
+        times.add("9:00 AM");
+        times.add("10:00 AM");
+        times.add("11:00 AM");
+        times.add("12:00 PM");
+        times.add("1:00 PM");
+        times.add("2:00 PM");
+        times.add("3:00 PM");
+        times.add("4:00 PM");
+        times.add("5:00 PM");
+        times.add("6:00 PM");
+        times.add("7:00 PM");
+        times.add("8:00 PM");
+        times.add("9:00 PM");
+        times.add("10:00 PM");
+        times.add("11:00 PM");
+
+        ArrayAdapter<String> timeadapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, times);
+        mondayfrom.setAdapter(timeadapter);
+        mondayto.setAdapter(timeadapter);
+        tuesdayfrom.setAdapter(timeadapter);
+        tuesdayto.setAdapter(timeadapter);
+        wednesdayfrom.setAdapter(timeadapter);
+        wednesdayto.setAdapter(timeadapter);
+        thursdayfrom.setAdapter(timeadapter);
+        thursdayto.setAdapter(timeadapter);
+        fridayfrom.setAdapter(timeadapter);
+        fridayto.setAdapter(timeadapter);
+        saturdayfrom.setAdapter(timeadapter);
+        saturdayto.setAdapter(timeadapter);
+        sundayfrom.setAdapter(timeadapter);
+        sundayto.setAdapter(timeadapter);
+
         toolbar = findViewById(R.id.toolbar2);
         minimum = findViewById(R.id.minimum);
         add2 = findViewById(R.id.add2);
@@ -181,7 +259,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         dgspace = findViewById(R.id.dgspace);
         backup = findViewById(R.id.backup);
         contacts = findViewById(R.id.contacts);
-        opeartional = findViewById(R.id.opeartional);
+
         lease = findViewById(R.id.lease);
         lockin = findViewById(R.id.lockin);
         waiting = findViewById(R.id.waiting);
@@ -445,9 +523,19 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                             startActivityForResult(getpic, 1);
                             dialog.dismiss();
                         } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
+                            Intent intent = new Intent(Office.this, AlbumSelectActivity.class);
+//set limit on number of images that can be selected, default is 10
+                            intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 5);
                             startActivityForResult(intent, 2);
-                            dialog.dismiss();
+
+                            /*Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                            dialog.dismiss();*/
+
+
+
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -513,16 +601,23 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                         if (n.length() > 0)
                         {
 
-                            contactBean item = new contactBean();
-                            item.setRole(rol[0]);
-                            item.setName(n);
-                            item.setMobile(mobile.getText().toString());
-                            item.setLandline(landline.getText().toString());
-                            item.setEmail(email.getText().toString());
+                            if (mobile.length() == 10)
+                            {
+                                contactBean item = new contactBean();
+                                item.setRole(rol[0]);
+                                item.setName(n);
+                                item.setMobile(mobile.getText().toString());
+                                item.setLandline(landline.getText().toString());
+                                item.setEmail(email.getText().toString());
 
-                            adapter222.addData(item);
+                                adapter222.addData(item);
 
-                            dialog.dismiss();
+                                dialog.dismiss();
+                            }
+                            else
+                            {
+                                Toast.makeText(Office.this, "Invalid mobile", Toast.LENGTH_SHORT).show();
+                            }
 
                         }
                         else
@@ -793,7 +888,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
                 final String toi = toilets.getText().toString();
-                final String oper = opeartional.getText().toString();
+
                 final String leas = lease.getText().toString();
                 final String lock = lockin.getText().toString();
                 final String mini = minimum.getText().toString();
@@ -806,8 +901,263 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
                 final String cpro, par, ten;
 
+                int paid = partition.getCheckedRadioButtonId();
+                if (paid > -1) {
+                    RadioButton pb = partition.findViewById(paid);
+                    par = pb.getText().toString();
 
-                if (la.length() > 0) {
+                    if (re.length() > 0) {
+
+                        if (se.length() > 0) {
+                            if (com.length() > 0) {
+                                if (ce.length() > 0) {
+
+                                    RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                                    ten = tb.getText().toString();
+
+                                    final Dialog dialog = new Dialog(Office.this);
+                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    dialog.setCancelable(false);
+                                    dialog.setContentView(R.layout.submit_popup);
+                                    dialog.show();
+
+                                    ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                                    ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+
+                                    cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                                    ok.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+
+                                            List<hoursBean> hours = new ArrayList<>();
+
+                                            if (monday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(monday.getText().toString());
+                                                item.setFrom(mondayfrom.getSelectedItem().toString());
+                                                item.setTo(mondayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (tuesday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(tuesday.getText().toString());
+                                                item.setFrom(tuesdayfrom.getSelectedItem().toString());
+                                                item.setTo(tuesdayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (wednesday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(wednesday.getText().toString());
+                                                item.setFrom(wednesdayfrom.getSelectedItem().toString());
+                                                item.setTo(wednesdayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (thursday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(thursday.getText().toString());
+                                                item.setFrom(thursdayfrom.getSelectedItem().toString());
+                                                item.setTo(thursdayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (friday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(friday.getText().toString());
+                                                item.setFrom(fridayfrom.getSelectedItem().toString());
+                                                item.setTo(fridayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (saturday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(saturday.getText().toString());
+                                                item.setFrom(saturdayfrom.getSelectedItem().toString());
+                                                item.setTo(saturdayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            if (sunday.isChecked())
+                                            {
+                                                hoursBean item = new hoursBean();
+                                                item.setDay(sunday.getText().toString());
+                                                item.setFrom(sundayfrom.getSelectedItem().toString());
+                                                item.setTo(sundayto.getSelectedItem().toString());
+
+                                                hours.add(item);
+                                            }
+
+                                            List<contactBean> reqlist = adapter222.getList();
+
+                                            Gson gson = new Gson();
+                                            String json = gson.toJson(reqlist);
+
+                                            String json2 = gson.toJson(hours);
+
+                                            Log.d("reqlist", json2);
+
+                                            MultipartBody.Part body2 = null;
+
+                                            try {
+
+                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                                body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                                                adapter.addData(body2, uri2);
+
+
+                                            } catch (Exception e1) {
+                                                e1.printStackTrace();
+                                            }
+
+                                            progress.setVisibility(View.VISIBLE);
+
+                                            Bean b = (Bean) getApplicationContext();
+
+                                            Retrofit retrofit = new Retrofit.Builder()
+                                                    .baseUrl(b.baseurl)
+                                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                    .build();
+
+                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                            Call<loginBean> call = cr.add_office(
+                                                    SharePreferenceUtils.getInstance().getString("id"),
+                                                    type,
+                                                    date,
+                                                    pid,
+                                                    String.valueOf(lat),
+                                                    String.valueOf(lng),
+                                                    ds,
+                                                    st,
+                                                    ci,
+                                                    lo,
+                                                    la,
+                                                    ad,
+                                                    mi,
+                                                    ma,
+                                                    fl,
+                                                    un,
+                                                    con,
+                                                    work,
+                                                    cabi,
+                                                    conf,
+                                                    meet,
+                                                    pant,
+                                                    toi,
+                                                    wait,
+                                                    cant,
+                                                    inte,
+                                                    ch,
+                                                    co,
+                                                    ca,
+                                                    par,
+                                                    mini,
+                                                    re,
+                                                    se,
+                                                    com,
+                                                    ce,
+                                                    "",
+                                                    json2,
+                                                    leas,
+                                                    lock,
+                                                    elec,
+                                                    dgsp,
+                                                    back,
+                                                    ten,
+                                                    tn,
+                                                    la,
+                                                    ff,
+                                                    fc,
+                                                    fo,
+                                                    tf,
+                                                    tc,
+                                                    to,
+                                                    mo,
+                                                    sec,
+                                                    ow,
+                                                    em,
+                                                    car,
+                                                    cph,
+                                                    cem,
+                                                    rem,
+                                                    json,
+                                                    body2,
+                                                    adapter.getList()
+                                            );
+
+                                            call.enqueue(new Callback<loginBean>() {
+                                                @Override
+                                                public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                                    if (response.body().getStatus().equals("1")) {
+                                                        Intent intent = new Intent(Office.this, Survey.class);
+                                                        startActivity(intent);
+                                                        finishAffinity();
+                                                    }
+
+                                                    Toast.makeText(Office.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                                    progress.setVisibility(View.GONE);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                                    progress.setVisibility(View.GONE);
+
+                                                }
+                                            });
+
+                                        }
+                                    });
+
+                                    // validations done
+
+
+                                } else {
+                                    Toast.makeText(Office.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(Office.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(Office.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(Office.this, "Invalid rent", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(Office.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
+                }
+
+                /*if (la.length() > 0) {
                     if (lo.length() > 0) {
                         if (ad.length() > 0) {
                             if (fl.length() > 0) {
@@ -1029,7 +1379,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 } else {
                     Toast.makeText(Office.this, "Invalid landmark", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
 
             }
@@ -1143,30 +1493,43 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
-            uri = data.getData();
-
-            Log.d("uri", String.valueOf(uri));
-
-            String ypath = getPath(Office.this, uri);
-            assert ypath != null;
-            f1 = new File(ypath);
-
-            Log.d("path", ypath);
-
-            MultipartBody.Part body = null;
-
-            try {
-
-                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-                adapter.addData(body, uri);
+            ArrayList<Image> images = data.getParcelableArrayListExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_IMAGES);
+
+            for (int i = 0; i < images.size(); i++) {
+
+                String ypath = images.get(i).path;
+                assert ypath != null;
+                f1 = new File(ypath);
+
+                uri = Uri.fromFile(f1);
+
+                Log.d("path", ypath);
+                Log.d("uri", String.valueOf(uri));
+
+                MultipartBody.Part body = null;
+
+                try {
+
+                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                    body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
 
 
-            } catch (Exception e1) {
-                e1.printStackTrace();
+                    adapter.addData(body, uri);
+
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
             }
+
+
+
+
+
+
 
 
         } else if (requestCode == 1 && resultCode == RESULT_OK) {

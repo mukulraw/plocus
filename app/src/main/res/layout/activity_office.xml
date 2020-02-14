@@ -884,17 +884,16 @@
                 android:text="Operational Hours - 24X7 / specific time"
                 android:textColor="@color/white2" />
 
-            <EditText
-                android:id="@+id/opeartional"
+            <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:padding="10dp"
+                layout="@layout/hours_picker"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="textCapCharacters"
-                android:padding="10dp" />
+                />
 
 
             <TextView
@@ -903,7 +902,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Lease Period"
+                android:text="Lease Period (in years)"
                 android:textColor="@color/white2" />
 
             <EditText

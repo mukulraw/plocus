@@ -206,6 +206,49 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         sundayfrom = findViewById(R.id.sundayfrom);
         sundayto = findViewById(R.id.sundayto);
 
+        List<String> times = new ArrayList<>();
+        times.add("12:00 AM");
+        times.add("1:00 AM");
+        times.add("2:00 AM");
+        times.add("3:00 AM");
+        times.add("4:00 AM");
+        times.add("5:00 AM");
+        times.add("6:00 AM");
+        times.add("7:00 AM");
+        times.add("8:00 AM");
+        times.add("9:00 AM");
+        times.add("10:00 AM");
+        times.add("11:00 AM");
+        times.add("12:00 PM");
+        times.add("1:00 PM");
+        times.add("2:00 PM");
+        times.add("3:00 PM");
+        times.add("4:00 PM");
+        times.add("5:00 PM");
+        times.add("6:00 PM");
+        times.add("7:00 PM");
+        times.add("8:00 PM");
+        times.add("9:00 PM");
+        times.add("10:00 PM");
+        times.add("11:00 PM");
+
+        ArrayAdapter<String> timeadapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, times);
+        mondayfrom.setAdapter(timeadapter);
+        mondayto.setAdapter(timeadapter);
+        tuesdayfrom.setAdapter(timeadapter);
+        tuesdayto.setAdapter(timeadapter);
+        wednesdayfrom.setAdapter(timeadapter);
+        wednesdayto.setAdapter(timeadapter);
+        thursdayfrom.setAdapter(timeadapter);
+        thursdayto.setAdapter(timeadapter);
+        fridayfrom.setAdapter(timeadapter);
+        fridayto.setAdapter(timeadapter);
+        saturdayfrom.setAdapter(timeadapter);
+        saturdayto.setAdapter(timeadapter);
+        sundayfrom.setAdapter(timeadapter);
+        sundayto.setAdapter(timeadapter);
+
         toolbar = findViewById(R.id.toolbar2);
         contacts = findViewById(R.id.contacts);
         electricity = findViewById(R.id.electricity);
@@ -569,20 +612,31 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                     public void onClick(View v) {
 
                         String n = name.getText().toString();
+                        String p = mobile.getText().toString();
 
                         if (n.length() > 0)
                         {
 
-                            contactBean item = new contactBean();
-                            item.setRole(rol[0]);
-                            item.setName(n);
-                            item.setMobile(mobile.getText().toString());
-                            item.setLandline(landline.getText().toString());
-                            item.setEmail(email.getText().toString());
+                            if (mobile.length() == 10)
+                            {
+                                contactBean item = new contactBean();
+                                item.setRole(rol[0]);
+                                item.setName(n);
+                                item.setMobile(mobile.getText().toString());
+                                item.setLandline(landline.getText().toString());
+                                item.setEmail(email.getText().toString());
 
-                            adapter222.addData(item);
+                                adapter222.addData(item);
 
-                            dialog.dismiss();
+                                dialog.dismiss();
+                            }
+                            else
+                            {
+                                Toast.makeText(Form.this, "Invalid mobile", Toast.LENGTH_SHORT).show();
+                            }
+
+
+
 
                         }
                         else
@@ -806,13 +860,89 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                         dialog.dismiss();
 
 
+                        List<hoursBean> hours = new ArrayList<>();
+
+                        if (monday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(monday.getText().toString());
+                            item.setFrom(mondayfrom.getSelectedItem().toString());
+                            item.setTo(mondayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (tuesday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(tuesday.getText().toString());
+                            item.setFrom(tuesdayfrom.getSelectedItem().toString());
+                            item.setTo(tuesdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (wednesday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(wednesday.getText().toString());
+                            item.setFrom(wednesdayfrom.getSelectedItem().toString());
+                            item.setTo(wednesdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (thursday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(thursday.getText().toString());
+                            item.setFrom(thursdayfrom.getSelectedItem().toString());
+                            item.setTo(thursdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (friday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(friday.getText().toString());
+                            item.setFrom(fridayfrom.getSelectedItem().toString());
+                            item.setTo(fridayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (saturday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(saturday.getText().toString());
+                            item.setFrom(saturdayfrom.getSelectedItem().toString());
+                            item.setTo(saturdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (sunday.isChecked())
+                        {
+                            hoursBean item = new hoursBean();
+                            item.setDay(sunday.getText().toString());
+                            item.setFrom(sundayfrom.getSelectedItem().toString());
+                            item.setTo(sundayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
 
                         List<contactBean> reqlist = adapter222.getList();
 
                         Gson gson = new Gson();
                         String json = gson.toJson(reqlist);
 
-                        Log.d("reqlist", json);
+                        String json2 = gson.toJson(hours);
+
+                        Log.d("reqlist", json2);
+
+
 
                         MultipartBody.Part body2 = null;
 
@@ -876,7 +1006,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                 dgspa,
                                 back,
                                 power.getText().toString(),
-                                "",
+                                json2,
                                 ten,
                                 tn,
                                 la,
