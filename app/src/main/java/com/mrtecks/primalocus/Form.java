@@ -1480,7 +1480,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
-
+                String addr = data.getStringExtra(MapUtility.ADDRESS);
+                address.setText(addr);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(lat,
                                 lng), DEFAULT_ZOOM));

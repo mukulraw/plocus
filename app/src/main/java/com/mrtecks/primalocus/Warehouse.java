@@ -1778,8 +1778,12 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK && data != null) {
 
+
+
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+                String addr = data.getStringExtra(MapUtility.ADDRESS);
+                address.setText(addr);
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(lat,
