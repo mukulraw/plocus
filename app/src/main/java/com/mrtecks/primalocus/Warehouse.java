@@ -351,7 +351,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
         ava.add("Built to Suit (BTS)");
         ava.add("Ready to move in (RTM)");
-        //ava.add("Under Construction");
+        ava.add("Under Construction");
 
 
         pos.add("-0 to 2 months");
@@ -382,7 +382,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         fir.add("Available");
         fir.add("Not Available");
         fir.add("Currently not available but agreeable be procure");
-        fir.add("Kota Stone flooring");
 
         saf.add("Fire Sprinkler + Hydrant");
         saf.add("Only Fire Hydrant");
@@ -1392,12 +1391,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 avai = ava.get(position);
-/*
-                if (position == 1)
+
+                if (position == 2)
                 {
                     posession.setText("-");
                     posession.setVisibility(View.GONE);
                     postitle.setVisibility(View.GONE);
+                    postitle.setText("Date of Possession");
 
                     under_construction.setVisibility(View.VISIBLE);
                     under_constructiontitle.setVisibility(View.VISIBLE);
@@ -1460,8 +1460,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     opening_docks.setText("");
                     dockleverernumber.setText("");
 
-                }*/
-                if(position == 1)
+                }
+                else if(position == 1)
                 {
                     posession.setText("");
                     posession.setVisibility(View.VISIBLE);
