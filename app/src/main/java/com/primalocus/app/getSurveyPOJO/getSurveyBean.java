@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus.getSurveyPOJO;
+package com.primalocus.app.getSurveyPOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

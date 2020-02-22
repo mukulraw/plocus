@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,19 +56,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.gson.Gson;
-import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.primalocus.app.loginPOJO.loginBean;
+import com.primalocus.app.statePOJO.stateBean;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
-import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
-import com.sucho.placepicker.PlacePicker;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -78,12 +70,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -464,7 +452,51 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         flooring.setAdapter(adapter17);
 
 
-        try {
+
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<stateBean> call = cr.getStates();
+
+        call.enqueue(new Callback<stateBean>() {
+            @Override
+            public void onResponse(Call<stateBean> call, Response<stateBean> response) {
+
+                sta.clear();
+
+                for (int i = 0 ; i < response.body().getData().size() ; i++)
+                {
+                    sta.add(response.body().getData().get(i).getState());
+                }
+
+                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Warehouse.this,
+                        android.R.layout.simple_list_item_1, sta);
+                state.setAdapter(adapter3);
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<stateBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
+
+        /*try {
 
             JSONArray array = new JSONArray(getJson());
             //JSONArray array = jsonObject.getJSONArray("array");
@@ -491,7 +523,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -619,7 +651,48 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 Log.d("state", st);
 
-                try {
+
+                progress.setVisibility(View.VISIBLE);
+
+                Bean b = (Bean) getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<stateBean> call = cr.getCity(st);
+
+                call.enqueue(new Callback<stateBean>() {
+                    @Override
+                    public void onResponse(Call<stateBean> call, Response<stateBean> response) {
+
+                        cit.clear();
+
+                        for (int i = 0 ; i < response.body().getData().size() ; i++)
+                        {
+                            cit.add(response.body().getData().get(i).getCityName());
+                        }
+
+                        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Warehouse.this,
+                                android.R.layout.simple_list_item_1, cit);
+                        city.setAdapter(adapter4);
+
+                        progress.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<stateBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
+
+
+                /*try {
 
                     cit.clear();
 
@@ -654,7 +727,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
 
             }
 

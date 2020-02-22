@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mrtecks.primalocus">
+    package="com.primalocus.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".Bean"
+        android:name="com.primalocus.app.Bean"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,22 +19,22 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Office"></activity>
-        <activity android:name=".Warehouse" />
+        <activity android:name="com.primalocus.app.Office"></activity>
+        <activity android:name="com.primalocus.app.Warehouse" />
         <activity
-            android:name=".Form"
+            android:name="com.primalocus.app.Form"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Survey"
+            android:name="com.primalocus.app.Survey"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OTP"
+            android:name="com.primalocus.app.OTP"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login"
+            android:name="com.primalocus.app.Login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Splash"
+            android:name="com.primalocus.app.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.primalocus.app.MainActivity"
             android:screenOrientation="portrait" />
 
         <activity

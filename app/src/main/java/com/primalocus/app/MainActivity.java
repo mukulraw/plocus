@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrtecks.primalocus.getSurveyPOJO.getSurveyBean;
-import com.mrtecks.primalocus.getworkPOJO.Datum;
-import com.mrtecks.primalocus.getworkPOJO.getWorkBean;
+import com.primalocus.app.getworkPOJO.Datum;
+import com.primalocus.app.getworkPOJO.getWorkBean;
 import com.ncorti.slidetoact.SlideToActView;
 
 import java.util.ArrayList;

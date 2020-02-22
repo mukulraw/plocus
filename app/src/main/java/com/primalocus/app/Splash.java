@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.primalocus.app.loginPOJO.loginBean;
 
 import java.util.Timer;
 import java.util.TimerTask;

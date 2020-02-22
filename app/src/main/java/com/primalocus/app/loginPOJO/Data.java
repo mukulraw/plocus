@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus.loginPOJO;
+package com.primalocus.app.loginPOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

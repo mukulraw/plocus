@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus.getworkPOJO;
+package com.primalocus.app.getworkPOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

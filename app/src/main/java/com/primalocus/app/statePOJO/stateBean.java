@@ -1,11 +1,11 @@
-package com.mrtecks.primalocus.getworkPOJO;
+package com.primalocus.app.statePOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class getWorkBean {
+public class stateBean {
     @SerializedName("status")
     @Expose
     private String status;

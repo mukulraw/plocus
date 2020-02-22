@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.telephony.mbms.MbmsErrors;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -49,30 +48,21 @@ import android.widget.Toast;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.models.Image;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.common.util.RetainForClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.gson.Gson;
-import com.innovattic.rangeseekbar.RangeSeekBar;
-import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.primalocus.app.loginPOJO.loginBean;
+import com.primalocus.app.statePOJO.stateBean;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
-import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
-import com.sucho.placepicker.PlacePicker;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,13 +70,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -391,33 +376,44 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         backup.setAdapter(adapter8);
 
 
-        try {
+        progress.setVisibility(View.VISIBLE);
 
-            JSONArray array = new JSONArray(getJson());
-            //JSONArray array = jsonObject.getJSONArray("array");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                String state = object.getString("admin");
-                sta.add(state);
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<stateBean> call = cr.getStates();
+
+        call.enqueue(new Callback<stateBean>() {
+            @Override
+            public void onResponse(Call<stateBean> call, Response<stateBean> response) {
+
+                sta.clear();
+
+                for (int i = 0 ; i < response.body().getData().size() ; i++)
+                {
+                    sta.add(response.body().getData().get(i).getState());
+                }
+
+                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Form.this,
+                        android.R.layout.simple_list_item_1, sta);
+                state.setAdapter(adapter3);
+
+                progress.setVisibility(View.GONE);
+
             }
 
-            HashSet<String> sstt = new HashSet<>(sta);
-            sta.clear();
-            sta.addAll(sstt);
-            Collections.sort(sta, new Comparator<String>() {
-                @Override
-                public int compare(String text1, String text2) {
-                    return text1.compareToIgnoreCase(text2);
-                }
-            });
-
-            ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Form.this,
-                    android.R.layout.simple_list_item_1, sta);
-            state.setAdapter(adapter3);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(Call<stateBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -517,42 +513,45 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 Log.d("state", st);
 
-                try {
+                progress.setVisibility(View.VISIBLE);
 
-                    cit.clear();
+                Bean b = (Bean) getApplicationContext();
 
-                    JSONArray array = new JSONArray(getJson());
-                    //JSONArray array = jsonObject.getJSONArray("array");
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        String state = object.getString("admin");
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
 
-                        if (st.equals(state)) {
-                            String name = object.getString("city");
-                            cit.add(name);
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<stateBean> call = cr.getCity(st);
+
+                call.enqueue(new Callback<stateBean>() {
+                    @Override
+                    public void onResponse(Call<stateBean> call, Response<stateBean> response) {
+
+                        cit.clear();
+
+                        for (int i = 0 ; i < response.body().getData().size() ; i++)
+                        {
+                            cit.add(response.body().getData().get(i).getCityName());
                         }
 
+                        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Form.this,
+                                android.R.layout.simple_list_item_1, cit);
+                        city.setAdapter(adapter4);
+
+                        progress.setVisibility(View.GONE);
 
                     }
 
-                    HashSet<String> sstt1 = new HashSet<>(cit);
-                    cit.clear();
-                    cit.addAll(sstt1);
-                    Collections.sort(cit, new Comparator<String>() {
-                        @Override
-                        public int compare(String text1, String text2) {
-                            return text1.compareToIgnoreCase(text2);
-                        }
-                    });
+                    @Override
+                    public void onFailure(Call<stateBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
-
-                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Form.this,
-                            android.R.layout.simple_list_item_1, cit);
-                    city.setAdapter(adapter4);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
             }
 

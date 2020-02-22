@@ -1,4 +1,4 @@
-package com.mrtecks.primalocus;
+package com.primalocus.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.mrtecks.primalocus.loginPOJO.loginBean;
+import com.primalocus.app.loginPOJO.loginBean;
 
 import retrofit2.Call;
 import retrofit2.Callback;
