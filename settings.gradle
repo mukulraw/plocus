@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':maplocationpicker'
 rootProject.name='Prima Locus'

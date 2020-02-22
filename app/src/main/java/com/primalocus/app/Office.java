@@ -1374,7 +1374,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
         mMap = googleMap;
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(lat,
                         lng), DEFAULT_ZOOM));
 
@@ -1463,7 +1463,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 String addr = data.getStringExtra(MapUtility.ADDRESS);
                 address.setText(addr);
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(lat,
                                 lng), DEFAULT_ZOOM));
             }
