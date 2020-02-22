@@ -17,6 +17,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -54,8 +56,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.gson.Gson;
 import com.primalocus.app.loginPOJO.loginBean;
 import com.primalocus.app.statePOJO.stateBean;
@@ -70,7 +74,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -95,7 +101,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
     EditText posession;
 
-    SearchableSpinner state, city;
+    EditText state, city;
 
     double lat, lng;
 
@@ -273,6 +279,26 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         plan = findViewById(R.id.plan);
 
         submit = findViewById(R.id.button);
+
+        Geocoder geocoder = new Geocoder(this);
+        try
+        {
+            List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+            String cii = addresses.get(0).getLocality();
+            String stat = addresses.get(0).getAdminArea();
+
+            Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+
+            city.setText(cii);
+            state.setText(stat);
+
+            st = stat;
+            ci = cii;
+
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
 
         partition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -455,7 +481,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
 
 
-        progress.setVisibility(View.VISIBLE);
+        /*progress.setVisibility(View.VISIBLE);
 
         Bean b = (Bean) getApplicationContext();
 
@@ -492,7 +518,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             public void onFailure(Call<stateBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
-        });
+        });*/
 
 
 
@@ -643,7 +669,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             }
         });
 
-        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -692,7 +718,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 });
 
 
-                /*try {
+                *//*try {
 
                     cit.clear();
 
@@ -727,7 +753,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }*//*
 
             }
 
@@ -735,9 +761,24 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });*/
+
+        city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .setTypeFilter(TypeFilter.CITIES)
+                        .build(Warehouse.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+            }
         });
 
-        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ci = cit.get(position);
@@ -747,7 +788,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
 
         add2.setOnClickListener(new View.OnClickListener() {
@@ -1833,11 +1874,28 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + " , " + place.getLatLng().latitude);
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(place.getLatLng().latitude,
-                                place.getLatLng().longitude), DEFAULT_ZOOM));
+
+                Geocoder geocoder = new Geocoder(this);
+                try
+                {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+
+                    city.setText(cii);
+                    state.setText(stat);
+
+                    st = stat;
+                    ci = cii;
+
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
@@ -1855,6 +1913,28 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+
+                Geocoder geocoder = new Geocoder(this);
+                try
+                {
+                    List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+
+                    city.setText(cii);
+                    state.setText(stat);
+
+                    st = stat;
+                    ci = cii;
+
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
                 String addr = data.getStringExtra(MapUtility.ADDRESS);
                 address.setText(addr);
 

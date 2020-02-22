@@ -17,6 +17,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,6 +58,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.gson.Gson;
 import com.primalocus.app.loginPOJO.loginBean;
 import com.primalocus.app.statePOJO.stateBean;
@@ -70,7 +73,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -96,7 +101,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     double lat, lng;
 
-    SearchableSpinner state, city;
+    EditText state, city;
 
     GoogleMap mMap;
 
@@ -160,6 +165,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         pid = getIntent().getStringExtra("pid");
         type = getIntent().getStringExtra("type");
         date = getIntent().getStringExtra("date");
+
 
 
         dat = new ArrayList<>();
@@ -299,6 +305,26 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
         submit = findViewById(R.id.button);
 
+        Geocoder geocoder = new Geocoder(this);
+        try
+        {
+            List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+            String cii = addresses.get(0).getLocality();
+            String stat = addresses.get(0).getAdminArea();
+
+            Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+
+            city.setText(cii);
+            state.setText(stat);
+
+            st = stat;
+            ci = cii;
+
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
 
         setSupportActionBar(toolbar);
 
@@ -376,44 +402,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         backup.setAdapter(adapter8);
 
 
-        progress.setVisibility(View.VISIBLE);
 
-        Bean b = (Bean) getApplicationContext();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(b.baseurl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-        Call<stateBean> call = cr.getStates();
-
-        call.enqueue(new Callback<stateBean>() {
-            @Override
-            public void onResponse(Call<stateBean> call, Response<stateBean> response) {
-
-                sta.clear();
-
-                for (int i = 0 ; i < response.body().getData().size() ; i++)
-                {
-                    sta.add(response.body().getData().get(i).getState());
-                }
-
-                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Form.this,
-                        android.R.layout.simple_list_item_1, sta);
-                state.setAdapter(adapter3);
-
-                progress.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<stateBean> call, Throwable t) {
-                progress.setVisibility(View.GONE);
-            }
-        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -505,58 +494,16 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        city.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
 
-                st = sta.get(position);
-
-                Log.d("state", st);
-
-                progress.setVisibility(View.VISIBLE);
-
-                Bean b = (Bean) getApplicationContext();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                Call<stateBean> call = cr.getCity(st);
-
-                call.enqueue(new Callback<stateBean>() {
-                    @Override
-                    public void onResponse(Call<stateBean> call, Response<stateBean> response) {
-
-                        cit.clear();
-
-                        for (int i = 0 ; i < response.body().getData().size() ; i++)
-                        {
-                            cit.add(response.body().getData().get(i).getCityName());
-                        }
-
-                        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Form.this,
-                                android.R.layout.simple_list_item_1, cit);
-                        city.setAdapter(adapter4);
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<stateBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .setCountries(Collections.singletonList("IN"))
+                        .build(Form.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
             }
         });
@@ -705,17 +652,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ci = cit.get(position);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         electricity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1461,9 +1398,23 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + " , " + place.getLatLng().latitude);
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(place.getLatLng().latitude,
-                                place.getLatLng().longitude), DEFAULT_ZOOM));
+                Geocoder geocoder = new Geocoder(this);
+                try
+                {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    city.setText(cii);
+                    state.setText(stat);
+
+                    st = stat;
+                    ci = cii;
+
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
@@ -1479,6 +1430,28 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+
+                Geocoder geocoder = new Geocoder(this);
+                try
+                {
+                    List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+                    String cii = addresses.get(0).getLocality();
+                    String stat = addresses.get(0).getAdminArea();
+
+                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+
+                    city.setText(cii);
+                    state.setText(stat);
+
+                    st = stat;
+                    ci = cii;
+
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
                 String addr = data.getStringExtra(MapUtility.ADDRESS);
                 address.setText(addr);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
