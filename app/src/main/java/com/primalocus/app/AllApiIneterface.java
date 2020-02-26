@@ -19,7 +19,7 @@ import retrofit2.http.Part;
 public interface AllApiIneterface {
 
     @Multipart
-    @POST("prima/api/login.php")
+    @POST("api/login.php")
     Call<loginBean> login(
             @Part("username") String username,
             @Part("password") String password,
@@ -27,7 +27,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("prima/api/add_retail.php")
+    @POST("api/add_retail.php")
     Call<loginBean> add_retail(
             @Part("user_id") String user_id,
             @Part("property_type") String property_type,
@@ -87,7 +87,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("prima/api/add_office.php")
+    @POST("api/add_office.php")
     Call<loginBean> add_office(
             @Part("user_id") String user_id,
             @Part("property_type") String property_type,
@@ -154,7 +154,7 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("prima/api/add_warehouse.php")
+    @POST("api/add_warehouse.php")
     Call<loginBean> add_warehouse(
             @Part("user_id") String user_id,
             @Part("property_type") String property_type,
@@ -213,23 +213,23 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("prima/api/getSueveys.php")
+    @POST("api/getSueveys.php")
     Call<getSurveyBean> getSurveyBean(
             @Part("user_id") String user_id
     );
 
     @Multipart
-    @POST("prima/api/getWork.php")
+    @POST("api/getWork.php")
     Call<getWorkBean> getWork(
             @Part("user_id") String user_id
     );
 
 
-    @GET("prima/api/getStates.php")
+    @GET("api/getStates.php")
     Call<stateBean> getStates();
 
     @Multipart
-    @POST("prima/api/getCity.php")
+    @POST("api/getCity.php")
     Call<stateBean> getCity(
             @Part("state") String state
     );
