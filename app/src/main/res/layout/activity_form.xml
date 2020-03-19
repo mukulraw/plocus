@@ -645,6 +645,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:text="Lumpsum Common Area Maintenance/ Month"/>
 
@@ -656,6 +657,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/commonlumpsum"
+                android:visibility="gone"
                 android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
@@ -667,7 +669,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Ceiling Height (in feet) (Floor to below the beam)"/>
+                android:text="Ceiling Height (in ft.) (Floor to below the beam)"/>
 
             <EditText
                 android:layout_width="match_parent"
