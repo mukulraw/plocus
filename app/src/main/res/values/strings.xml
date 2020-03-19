@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">PrimaLocus</string>
     <string name="google_maps_key">AIzaSyATZ38N8qF2LTBh-AgKqLORQMhTpLqo7hU</string>
+
+    <string-array name="rent">
+        <item>₹/ sq. ft.</item>
+        <item>Lumpsum Rent</item>
+    </string-array>
+
+    <string-array name="cam">
+        <item>₹/ sq. ft.</item>
+        <item>Lumpsum</item>
+    </string-array>
+
 </resources>

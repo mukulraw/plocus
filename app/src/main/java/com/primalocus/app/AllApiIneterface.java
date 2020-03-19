@@ -179,7 +179,7 @@ public interface AllApiIneterface {
             @Part("available") String available,
             @Part("partition_lease_area") String partition_lease_area,
             @Part("minimum") String minimum,
-            @Part("rent") String rent,
+            @Part("rent") String rent, //approximate rental
             @Part("security_deposit") String security_deposit,
             @Part("maintenance") String maintenance,
             @Part("eaves") String eaves,

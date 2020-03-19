@@ -95,11 +95,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource, availability, landusage,under_construction, warehouse, construction, plinth, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
+    Spinner datasource, availability, landusage,under_construction, warehouse, construction, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
     List<String> dat, sta, cit, ava, lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
     Button submit, add , add1 , add2;
 
-    EditText posession;
+    Spinner renttype , commontype;
+
+    EditText posession , plinth;
 
     EditText state, city;
 
@@ -108,10 +110,10 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
     GoogleMap mMap;
 
 
-    TextView change , postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle;
+    TextView change , postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle , tenantnametitle;
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle , dockleverernumbertitle;
-    RelativeLayout plinthlayout, firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
+    RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
     RelativeLayout constructionlayout , warehouselayout , under_constructionlayout;
     LinearLayout price;
 
@@ -121,7 +123,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
     String pid, type, date;
 
     String ds, st, ci, avai, lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo;
-    EditText location, address, min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum;
+    EditText location, address, min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum , land;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -195,6 +197,10 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         change = findViewById(R.id.change);
         progress = findViewById(R.id.progressBar);
         postitle = findViewById(R.id.postitle);
+        land = findViewById(R.id.land);
+        renttype = findViewById(R.id.renttype);
+        commontype = findViewById(R.id.commontype);
+        tenantnametitle = findViewById(R.id.tenantnametitle);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
@@ -255,7 +261,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         ventilationtitle = findViewById(R.id.ventilationtitle);
         insulationtitle = findViewById(R.id.insulationtitle);
         levelertitle = findViewById(R.id.levelertitle);
-        plinthlayout = findViewById(R.id.plinthlayout);
+
         firenoclayout = findViewById(R.id.firenoclayout);
         safetylayout = findViewById(R.id.safetylayout);
         ventilationlayout = findViewById(R.id.ventilationlayout);
@@ -318,6 +324,23 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             }
         });
 
+        tenant.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.occupied) {
+                    tenantnametitle.setVisibility(View.VISIBLE);
+                    tenantname.setVisibility(View.VISIBLE);
+                    tenantname.setText("");
+                } else {
+                    tenantnametitle.setVisibility(View.GONE);
+                    tenantname.setVisibility(View.GONE);
+                    tenantname.setText("-");
+                }
+
+            }
+        });
+
 
         setSupportActionBar(toolbar);
 
@@ -360,7 +383,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         lan.add("Industrial");
         lan.add("Agricultural");
         lan.add("Lal Dora");
-        lan.add("Warehouse");
+        lan.add("Others");
 
 
         ava.add("Built to Suit (BTS)");
@@ -395,14 +418,16 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
         fir.add("Available");
         fir.add("Not Available");
-        fir.add("Currently not available but agreeable be procure");
+        fir.add("Agreed To Procure");
 
         saf.add("Fire Sprinkler + Hydrant");
         saf.add("Only Fire Hydrant");
+        saf.add("Only Fire Sprinkler");
+        saf.add("Not Available");
 
         ven.add("Ridge");
         ven.add("Turbo");
-        ven.add("No");
+        ven.add("Not Available");
 
         ins.add("Cladding");
         ins.add("Roof");
@@ -410,10 +435,10 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         ins.add("Not Available");
 
         lev.add("Yes");
-        lev.add("No");
+        lev.add("Not Available");
 
         agr.add("Yes");
-        agr.add("No");
+        agr.add("Not Available");
 
         flo.add("Industrial");
         flo.add("VDF");
@@ -445,9 +470,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 android.R.layout.simple_list_item_1, con);
         construction.setAdapter(adapter9);
 
-        ArrayAdapter<String> adapter10 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, pli);
-        plinth.setAdapter(adapter10);
 
         ArrayAdapter<String> adapter11 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, fir);
@@ -877,14 +899,14 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 final String lo = location.getText().toString();
                 final String ad = address.getText().toString();
-                final String mi = min.getText().toString();
+                String mi = min.getText().toString();
                 final String ma = max.getText().toString();
                 final String pl = plot.getText().toString();
                 final String co = covered.getText().toString();
                 final String av = available.getText().toString();
                 final String re = rent.getText().toString();
                 final String se = security.getText().toString();
-                final String com = common.getText().toString();
+                String com = common.getText().toString();
                 final String ea = eaves.getText().toString();
                 final String ce = center_height.getText().toString();
                 final String op = opening_docks.getText().toString();
@@ -900,18 +922,46 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
                 final String poss = posession.getText().toString();
+                plin = plinth.getText().toString();
 
+                if (avai.equals("Built to Suit (BTS)"))
+                {
+                    mi = re;
+                }
+                else
+                {
+                    mi = mi + " " + renttype.getSelectedItem().toString();
+                }
+
+
+
+
+                com = com + " " + commontype.getSelectedItem().toString();
 
                 if (!leve.equals("No"))
                 {
                     leve = dockleverernumber.getText().toString();
                 }
 
-                final String par, ten , pla;
+                if (!lann.equals("Others"))
+                {
+                    lann = land.getText().toString();
+                }
+
+
+
+                final String par;
+                String ten;
+                final String pla;
 
 
                 RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                 ten = tb.getText().toString();
+
+                if (ten.equals("Occupied"))
+                {
+                    ten = tenantname.getText().toString();
+                }
 
                 RadioButton tb1 = partition.findViewById(partition.getCheckedRadioButtonId());
                 par = tb1.getText().toString();
@@ -935,6 +985,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     }
                 });
 
+                final String finalMi = mi;
+                final String finalCom = com;
+                final String finalTen = ten;
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -991,7 +1044,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                                 unde,
                                 ware,
                                 cond,
-                                mi,
+                                finalMi,
                                 ma,
                                 pl,
                                 co,
@@ -1000,7 +1053,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                                 minimum.getText().toString(),
                                 re,
                                 se,
-                                com,
+                                finalCom,
                                 ea,
                                 ce,
                                 op,
@@ -1011,7 +1064,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                                 vent,
                                 insu,
                                 leve,
-                                ten,
+                                finalTen,
                                 tn,
                                 lann,
                                 aggr,
@@ -1316,7 +1369,18 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                lann = lan.get(position);
+
+
+                if (position == 4)
+                {
+                    lann = "";
+                    land.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    lann = lan.get(position);
+                    land.setVisibility(View.GONE);
+                }
 
             }
 
@@ -1371,19 +1435,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             }
         });
 
-        plinth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                plin = pli.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         firenoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1527,12 +1578,16 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     availabletitle.setVisibility(View.VISIBLE);
                     partition.setVisibility(View.VISIBLE);
                     partitiontitle.setVisibility(View.VISIBLE);
-                    rent.setVisibility(View.VISIBLE);
-                    renttitle.setVisibility(View.VISIBLE);
+                    rent.setVisibility(View.GONE);
+                    renttitle.setVisibility(View.GONE);
                     security.setVisibility(View.VISIBLE);
                     securitytitle.setVisibility(View.VISIBLE);
                     common.setVisibility(View.VISIBLE);
                     commontitle.setVisibility(View.VISIBLE);
+                    commontype.setVisibility(View.VISIBLE);
+                    minimum.setVisibility(View.VISIBLE);
+                    minimumtitle.setVisibility(View.VISIBLE);
+                    minimum.setText("");
                     eaves.setVisibility(View.VISIBLE);
                     eavestitle.setVisibility(View.VISIBLE);
                     center_height.setVisibility(View.VISIBLE);
@@ -1541,7 +1596,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     opening_dockstitle.setVisibility(View.VISIBLE);
                     plinth.setVisibility(View.VISIBLE);
                     plinthtitle.setVisibility(View.VISIBLE);
-                    plinthlayout.setVisibility(View.VISIBLE);
                     plan.setVisibility(View.VISIBLE);
                     plantitle.setVisibility(View.VISIBLE);
                     firenoc.setVisibility(View.VISIBLE);
@@ -1582,9 +1636,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     postitle.setVisibility(View.VISIBLE);
                     postitle.setText("Date of Possession");
 
-                    under_construction.setVisibility(View.VISIBLE);
-                    under_constructiontitle.setVisibility(View.VISIBLE);
-                    under_constructionlayout.setVisibility(View.VISIBLE);
+                    under_construction.setVisibility(View.GONE);
+                    under_constructiontitle.setVisibility(View.GONE);
+                    under_constructionlayout.setVisibility(View.GONE);
                     construction.setVisibility(View.VISIBLE);
                     constructiontitle.setVisibility(View.VISIBLE);
                     constructionlayout.setVisibility(View.VISIBLE);
@@ -1596,12 +1650,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     availabletitle.setVisibility(View.VISIBLE);
                     partition.setVisibility(View.VISIBLE);
                     partitiontitle.setVisibility(View.VISIBLE);
-                    rent.setVisibility(View.VISIBLE);
-                    renttitle.setVisibility(View.VISIBLE);
+                    rent.setVisibility(View.GONE);
+                    renttitle.setVisibility(View.GONE);
                     security.setVisibility(View.VISIBLE);
                     securitytitle.setVisibility(View.VISIBLE);
                     common.setVisibility(View.VISIBLE);
                     commontitle.setVisibility(View.VISIBLE);
+                    commontype.setVisibility(View.VISIBLE);
                     eaves.setVisibility(View.VISIBLE);
                     eavestitle.setVisibility(View.VISIBLE);
                     center_height.setVisibility(View.VISIBLE);
@@ -1610,7 +1665,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     opening_dockstitle.setVisibility(View.VISIBLE);
                     plinth.setVisibility(View.VISIBLE);
                     plinthtitle.setVisibility(View.VISIBLE);
-                    plinthlayout.setVisibility(View.VISIBLE);
+                    minimum.setVisibility(View.VISIBLE);
+                    minimumtitle.setVisibility(View.VISIBLE);
+                    minimum.setText("");
                     plan.setVisibility(View.VISIBLE);
                     plantitle.setVisibility(View.VISIBLE);
                     firenoc.setVisibility(View.VISIBLE);
@@ -1696,7 +1753,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     posession.setText("");
                     posession.setVisibility(View.VISIBLE);
                     postitle.setVisibility(View.VISIBLE);
-                    postitle.setText("No. of months");
+                    postitle.setText("Estimated Time of Possession");
 
 
                     under_construction.setVisibility(View.GONE);
@@ -1716,12 +1773,13 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     minimumtitle.setVisibility(View.GONE);
                     minimum.setText("-");
                     partitiontitle.setVisibility(View.GONE);
-                    rent.setVisibility(View.GONE);
-                    renttitle.setVisibility(View.GONE);
+                    rent.setVisibility(View.VISIBLE);
+                    renttitle.setVisibility(View.VISIBLE);
                     security.setVisibility(View.GONE);
                     securitytitle.setVisibility(View.GONE);
                     common.setVisibility(View.GONE);
                     commontitle.setVisibility(View.GONE);
+                    commontype.setVisibility(View.GONE);
                     eaves.setVisibility(View.GONE);
                     eavestitle.setVisibility(View.GONE);
                     center_height.setVisibility(View.GONE);
@@ -1730,7 +1788,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     opening_dockstitle.setVisibility(View.GONE);
                     plinth.setVisibility(View.GONE);
                     plinthtitle.setVisibility(View.GONE);
-                    plinthlayout.setVisibility(View.GONE);
                     plan.setVisibility(View.GONE);
                     plantitle.setVisibility(View.GONE);
                     firenoc.setVisibility(View.GONE);
@@ -1756,7 +1813,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     max.setText("-");
                     covered.setText("-");
                     available.setText("-");
-                    rent.setText("-");
+                    //rent.setText("-");
                     security.setText("-");
                     common.setText("-");
                     eaves.setText("-");

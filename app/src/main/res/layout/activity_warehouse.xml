@@ -226,6 +226,28 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
+                android:id="@+id/renttitle"
+                android:layout_marginEnd="16dp"
+                android:text="Approximate Rental"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/rent"
+                android:inputType="numberDecimal"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/postitle"
                 android:text="Date of Possesion"/>
@@ -237,9 +259,8 @@
                 android:padding="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-
                 android:id="@+id/posession"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -348,30 +369,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="Rent/ sqft."
-                    />
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:id="@+id/min"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
                     android:layout_weight="1"/>
+
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/renttype"
+                    android:entries="@array/rent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
 
             </LinearLayout>
 
@@ -381,6 +405,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -397,7 +422,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/max"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -426,7 +451,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/plot"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -438,7 +463,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/coveredtitle"
                 android:layout_marginEnd="16dp"
-                android:text="Covered Area(Sq.Ft.)"/>
+                android:text="Covered Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -448,7 +473,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/covered"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -460,7 +485,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/availabletitle"
                 android:layout_marginEnd="16dp"
-                android:text="Total available area for leasing (in sq ft)"/>
+                android:text="Total available area for leasing (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -470,7 +495,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/available"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -506,7 +531,7 @@
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No"
+                    android:text="Not Available"
                     android:layout_marginStart="10dp"
                     android:id="@+id/no"
                     />
@@ -522,7 +547,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/minimumtitle"
-                android:text="Minimum Lease Area (Sq.Ft.)"/>
+                android:text="Minimum Lease Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -532,31 +557,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/minimum"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:id="@+id/renttitle"
-                android:layout_marginEnd="16dp"
-                android:text="Rent - Covered area(in Rs./Sq.Ft.)"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:id="@+id/rent"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -576,7 +581,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/security"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -588,19 +593,40 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/commontitle"
                 android:layout_marginEnd="16dp"
-                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
+                android:text="Common Area Maintenance"/>
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/common"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/common"
+                    android:inputType="numberDecimal"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/commontype"
+                    android:entries="@array/cam"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -610,7 +636,8 @@
                 android:id="@+id/eavestitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Eaves Height or Clear Height (in feet) (Floor to shoulder of ceiling)"/>
+                android:text="Eaves Height or Clear Height (in ft.)
+(Floor to Shoulder of Ceiling)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -620,7 +647,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/eaves"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -632,7 +659,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Centre Height (in feet) Floor to centre of the roofing structure)"/>
+                android:text="Centre Height (in ft.) Floor to centre of the roofing structure)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -642,7 +669,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/center_height"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -654,7 +681,7 @@
                 android:id="@+id/opening_dockstitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Total no. of Openings/Docks available"/>
+                android:text="Total no. of Openings/ Docks available"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -664,7 +691,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/opening_docks"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -676,26 +703,21 @@
                 android:id="@+id/plinthtitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Plinth Height"/>
+                android:text="Plinth Height (in ft.)"/>
 
-            <RelativeLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:padding="10dp"
                 android:layout_marginStart="16dp"
-                android:id="@+id/plinthlayout"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/plinth"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
-                >
+                android:hint="tap to enter"/>
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/plinth"
-                    />
 
-            </RelativeLayout>
 
 
             <TextView
@@ -706,7 +728,7 @@
                 android:layout_marginStart="16dp"
                 android:id="@+id/plantitle"
                 android:layout_marginEnd="16dp"
-                android:text="Approved Plan from local authorities"/>
+                android:text="Availability of Approved Plan from Local Authorities"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -730,7 +752,7 @@
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No"
+                    android:text="Not Available"
                     android:layout_marginStart="10dp"
                     android:id="@+id/no1"
                     />
@@ -901,7 +923,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/dockleverernumber"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -963,6 +985,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/tenantnametitle"
                 android:text="Tenant Name"/>
 
             <EditText
@@ -1103,6 +1126,19 @@
 
             </RelativeLayout>
 
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/land"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="enter land usage"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -1164,6 +1200,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:text="Parking"/>
 
 
@@ -1173,6 +1210,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -1189,7 +1227,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/fwh"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1203,6 +1241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:visibility="gone"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -1220,7 +1259,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/large"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1428,7 +1467,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="16dp"
                     android:layout_centerVertical="true"
-                    android:text="Contacts"/>
+                    android:text="Caretaker/Security Guard"/>
 
                 <Button
                     android:layout_width="wrap_content"
