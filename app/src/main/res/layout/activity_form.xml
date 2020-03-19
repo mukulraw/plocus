@@ -1086,6 +1086,8 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_car"
+                    android:drawablePadding="5dp"
                     android:text="4 wheeler- Dedicated parking (free of cost)"
                     />
 
@@ -1115,6 +1117,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:drawableStart="@drawable/ic_car"
+                    android:drawablePadding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="4-wheeler - Dedicated parking (chargeable)"
@@ -1146,6 +1150,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:drawableStart="@drawable/ic_car"
+                    android:drawablePadding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="4- wheeler - Open / First cum first serve"
@@ -1178,6 +1184,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:drawableStart="@drawable/ic_bike"
+                    android:drawablePadding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="2- wheeler Dedicated parking (free of cost)"
@@ -1209,6 +1217,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:drawableStart="@drawable/ic_bike"
+                    android:drawablePadding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="2- wheeler Dedicated parking (chargeable)"
@@ -1242,6 +1252,8 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_bike"
+                    android:drawablePadding="5dp"
                     android:text="2-wheeler Open / First cum first serve"
                     />
 
