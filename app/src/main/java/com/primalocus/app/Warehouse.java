@@ -83,6 +83,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -2015,7 +2016,17 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 assert ypath != null;
                 f1 = new File(ypath);
 
-                uri = Uri.fromFile(f1);
+                File file = null;
+                try {
+                    file = new Compressor(Warehouse.this).compressToFile(f1);
+
+                    uri = Uri.fromFile(file);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
 
                 Log.d("path", ypath);
                 Log.d("uri", String.valueOf(uri));
@@ -2024,8 +2035,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 try {
 
-                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                    body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    body = MultipartBody.Part.createFormData("file[]", file.getName(), reqFile1);
 
 
                     adapter.addData(body, uri);
@@ -2050,12 +2061,17 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
             MultipartBody.Part body = null;
 
+
             try {
 
-                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+                File file = new Compressor(Warehouse.this).compressToFile(f1);
 
-                adapter.addData(body, uri);
+                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("file[]", file.getName(), reqFile1);
+
+                Uri uri1 = Uri.fromFile(file);
+
+                adapter.addData(body, uri1);
 
             } catch (Exception e1) {
                 e1.printStackTrace();

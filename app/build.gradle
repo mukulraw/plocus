@@ -52,6 +52,6 @@ dependencies {
     implementation project(path: ':maplocationpicker')
 
     implementation 'com.github.darsh2:MultipleImageSelect:v0.0.4'
-
+    implementation 'id.zelory:compressor:2.1.0'
 
 }
