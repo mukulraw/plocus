@@ -12,4 +12,9 @@
         <item>Lumpsum</item>
     </string-array>
 
+    <string-array name="elec">
+        <item>KW</item>
+        <item>KVA</item>
+    </string-array>
+
 </resources>

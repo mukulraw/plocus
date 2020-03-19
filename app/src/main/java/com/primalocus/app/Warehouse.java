@@ -27,9 +27,11 @@ import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -835,8 +837,9 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 final List<String> ll = new ArrayList<>();
 
                 ll.add("Landlord");
-                ll.add("Caretaker");
+                ll.add("Caretaker/ Security Guard");
                 ll.add("Leasing Manager");
+                ll.add("Others");
 
 
                 ArrayAdapter<String> adapter21 = new ArrayAdapter<String>(Warehouse.this,
@@ -2343,6 +2346,15 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 delete = itemView.findViewById(R.id.imageButton5);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 }

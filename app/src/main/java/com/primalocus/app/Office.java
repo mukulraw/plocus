@@ -29,9 +29,11 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -561,7 +563,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 ll.add("Landlord");
                 ll.add("Caretaker");
                 ll.add("Leasing Manager");
-
+                ll.add("Others");
 
                 ArrayAdapter<String> adapter21 = new ArrayAdapter<String>(Office.this,
                         android.R.layout.simple_list_item_1, ll);
@@ -1807,6 +1809,15 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 delete = itemView.findViewById(R.id.imageButton5);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 }

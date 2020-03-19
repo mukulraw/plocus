@@ -8,7 +8,7 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Monday"
+        android:text="Monday - Friday"
         android:id="@+id/monday"
         />
 
@@ -88,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tuesday"
+        android:visibility="gone"
         android:id="@+id/tuesday"
         />
 
@@ -96,6 +97,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:visibility="gone"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
         android:paddingBottom="7dp"
@@ -168,6 +170,7 @@
         android:layout_height="wrap_content"
         android:text="Wednesday"
         android:id="@+id/wednesday"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -175,6 +178,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:visibility="gone"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
         android:paddingBottom="7dp"
@@ -246,6 +250,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thursday"
+        android:visibility="gone"
         android:id="@+id/thursday"
         />
 
@@ -253,6 +258,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:weightSum="2"
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
@@ -326,6 +332,7 @@
         android:layout_height="wrap_content"
         android:text="Friday"
         android:id="@+id/friday"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -334,6 +341,7 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:paddingStart="7dp"
+        android:visibility="gone"
         android:paddingEnd="7dp"
         android:paddingBottom="7dp"
         >

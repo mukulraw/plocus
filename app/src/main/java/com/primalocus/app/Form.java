@@ -29,9 +29,11 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -93,7 +95,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource, availability, landusage, electricity, dgspace, backup;
+    Spinner datasource, availability, landusage, dgspace, backup;
 
     List<String> dat, sta, cit, ava, lan, ele;
 
@@ -102,6 +104,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     double lat, lng;
 
     EditText state, city;
+
+    Spinner renttype , commontype , electricitytype;
 
     GoogleMap mMap;
 
@@ -112,13 +116,13 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
     String pid, type, date;
 
-    String ds, st, ci, av, la, elec, dgspa, back;
+    String ds, st, ci, av, lann, elec, dgspa, back;
 
     ImageView image1;
 
-    TextView minimumtitle, postitle , powertitle;
+    TextView minimumtitle, postitle , powertitle , tenantnametitle;
 
-    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, landmark, minimum, commonlumpsum, posession, power;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, landmark, minimum, commonlumpsum, posession, power ,electricity , land;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -196,6 +200,12 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         saturdayto = findViewById(R.id.saturdayto);
         sundayfrom = findViewById(R.id.sundayfrom);
         sundayto = findViewById(R.id.sundayto);
+        electricitytype = findViewById(R.id.electricitytype);
+        land = findViewById(R.id.land);
+
+        renttype = findViewById(R.id.renttype);
+        commontype = findViewById(R.id.commontype);
+        tenantnametitle = findViewById(R.id.tenantnametitle);
 
         List<String> times = new ArrayList<>();
         times.add("12:00 AM");
@@ -362,13 +372,14 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lan.add("Industrial");
         lan.add("Residential");
         lan.add("Lal Dora");
+        lan.add("Others");
 
         ava.add("Ready to move in (RTM)");
         ava.add("Under Construction");
         ava.add("Built to Suit (BTS)");
 
         ele.add("Yes");
-        ele.add("No");
+        ele.add("Not Available");
 
         adapter222 = new ContactAdapter(this , lll);
         GridLayoutManager manager1 = new GridLayoutManager(this , 1);
@@ -387,9 +398,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 android.R.layout.simple_list_item_1, lan);
         landusage.setAdapter(adapter5);
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, ele);
-        electricity.setAdapter(adapter6);
 
 
         ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(this,
@@ -530,8 +538,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final List<String> ll = new ArrayList<>();
 
                 ll.add("Landlord");
-                ll.add("Caretaker");
+                ll.add("Caretaker/ Security Guard");
                 ll.add("Leasing Manager");
+                ll.add("Others");
 
 
                 ArrayAdapter<String> adapter21 = new ArrayAdapter<String>(Form.this,
@@ -654,17 +663,6 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-        electricity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                elec = ele.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         dgspace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -723,6 +721,24 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        tenant.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.occupied) {
+                    tenantnametitle.setVisibility(View.VISIBLE);
+                    tenantname.setVisibility(View.VISIBLE);
+                    tenantname.setText("");
+                } else {
+                    tenantnametitle.setVisibility(View.GONE);
+                    tenantname.setVisibility(View.GONE);
+                    tenantname.setText("-");
+                }
+
+            }
+        });
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -733,7 +749,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String la = landmark.getText().toString();
                 final String ad = address.getText().toString();
                 final String fl = floor.getText().toString();
-                final String mi = min.getText().toString();
+                String mi = min.getText().toString();
                 final String ma = max.getText().toString();
                 final String un = unit.getText().toString();
                 final String ch = chargeable.getText().toString();
@@ -741,7 +757,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String ca = carpet.getText().toString();
                 final String re = rent.getText().toString();
                 final String se = security.getText().toString();
-                final String com = common.getText().toString();
+                String com = common.getText().toString();
                 final String lcom = commonlumpsum.getText().toString();
                 final String ce = ceiling.getText().toString();
                 final String fa = facade.getText().toString();
@@ -763,10 +779,30 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 final String mini = minimum.getText().toString();
                 //final String oper = opearational.getText().toString();
 
-                final String cpro, par, ten;
+                elec = electricity.getText().toString();
+
+                mi = mi + " " + renttype.getSelectedItem().toString();
+
+                com = com + " " + commontype.getSelectedItem().toString();
+
+                elec = elec + " " + electricitytype.getSelectedItem().toString();
+
+                if (!lann.equals("Others"))
+                {
+                    lann = land.getText().toString();
+                }
+
+                final String cpro;
+                final String par;
+                String ten;
 
                 RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                 ten = tb.getText().toString();
+
+                if (ten.equals("Occupied"))
+                {
+                    ten = tenantname.getText().toString();
+                }
 
                 RadioButton pb = partition.findViewById(partition.getCheckedRadioButtonId());
                 par = pb.getText().toString();
@@ -790,6 +826,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
 
+                final String finalMi = mi;
+                final String finalCom = com;
+                final String finalTen = ten;
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -920,7 +959,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                 lo,
                                 la,
                                 ad,
-                                mi,
+                                finalMi,
                                 ma,
                                 av,
                                 poss,
@@ -934,7 +973,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                 mini,
                                 re,
                                 se,
-                                com,
+                                finalCom,
                                 lcom,
                                 ce,
                                 fa,
@@ -943,9 +982,9 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                                 back,
                                 power.getText().toString(),
                                 json2,
-                                ten,
+                                finalTen,
                                 tn,
-                                la,
+                                lann,
                                 ff,
                                 fc,
                                 fo,
@@ -1345,7 +1384,18 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                la = lan.get(position);
+                if (position == 6)
+                {
+                    lann = "";
+                    land.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    lann = lan.get(position);
+                    land.setVisibility(View.GONE);
+                }
+
+
 
             }
 
@@ -1799,6 +1849,15 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 delete = itemView.findViewById(R.id.imageButton5);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 }

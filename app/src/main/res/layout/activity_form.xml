@@ -282,7 +282,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/floor"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -300,30 +300,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="Rent/ sqft. (Chargeable area)"
-                    />
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:id="@+id/min"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/white_back_round"
                     android:layout_weight="1"/>
+
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/renttype"
+                    android:entries="@array/rent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
 
             </LinearLayout>
 
@@ -333,6 +336,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -342,14 +346,14 @@
                     android:padding="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Lumpsum rental"
+                    android:text="Lumpsum Amount"
                     />
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/max"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -428,7 +432,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Chargeable Area (Sq.Ft.)"/>
+                android:text="Chargeable Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -438,7 +442,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/chargeable"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -449,7 +453,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Covered Area(Sq.Ft.)"/>
+                android:text="Covered Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -459,7 +463,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/covered"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -470,7 +474,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Carpet Area (Sq.Ft.)"/>
+                android:text="Carpet Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -482,7 +486,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:id="@+id/carpet"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -517,7 +521,7 @@
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No"
+                    android:text="Not Available"
                     android:layout_marginStart="10dp"
                     android:id="@+id/no"
                     />
@@ -534,7 +538,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/minimumtitle"
-                android:text="Minimum Lease Area (Sq.Ft.)"/>
+                android:text="Minimum Lease Area (in sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -544,7 +548,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/minimum"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -557,7 +561,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="gone"
-                android:text="Rent - Chargeable area(in Rs./Sq.Ft.)"/>
+                android:text="Rent - Chargeable area(in Rs./sq. ft.)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -568,7 +572,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/rent"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -589,7 +593,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/security"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -600,19 +604,40 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Common Area Maintenance -(Rs./Sq.Ft.)"/>
+                android:text="Common Area Maintenance"/>
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:id="@+id/common"
-                android:inputType="number"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"/>
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/common"
+                    android:inputType="numberDecimal"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/commontype"
+                    android:entries="@array/cam"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -631,7 +656,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/commonlumpsum"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -652,7 +677,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/ceiling"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -663,7 +688,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Façade/ Frontage Length (in feet) "/>
+                android:text="Facade/ Frontage Width (in ft.) "/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -673,7 +698,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/facade"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
 
@@ -688,51 +713,38 @@
                 android:layout_marginEnd="16dp"
                 android:text="Electricity Load available"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/electricity"
-                    />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="DG Space available"/>
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/electricity"
+                    android:inputType="numberDecimal"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
 
                 <Spinner
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/dgspace"
+                    android:padding="10dp"
+                    android:id="@+id/electricitytype"
+                    android:entries="@array/elec"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     />
 
-            </RelativeLayout>
 
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -769,7 +781,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/powertitle"
-                android:text="Power Backup (kva/kw)"/>
+                android:text="Power Backup (kva/ kw)"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -779,9 +791,41 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:id="@+id/power"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/white_back_round"
                 android:hint="tap to enter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="DG Space available"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/dgspace"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -864,6 +908,7 @@
                 android:textColor="@color/white2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:id="@+id/tenantnametitle"
                 android:text="Tenant Name"/>
 
             <EditText
@@ -1003,6 +1048,19 @@
 
             </RelativeLayout>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/land"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="enter land usage"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -1035,7 +1093,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/fdf"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1066,7 +1124,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/fdc"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1097,7 +1155,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/fwo"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1129,7 +1187,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/tdf"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1160,7 +1218,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/tdc"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"
@@ -1191,7 +1249,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:id="@+id/two"
                     android:hint="tap to enter"
                     android:layout_gravity="center_vertical"

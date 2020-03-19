@@ -1467,7 +1467,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="16dp"
                     android:layout_centerVertical="true"
-                    android:text="Caretaker/Security Guard"/>
+                    android:text="Contacts"/>
 
                 <Button
                     android:layout_width="wrap_content"
