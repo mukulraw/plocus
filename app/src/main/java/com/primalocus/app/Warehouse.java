@@ -74,6 +74,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,11 +84,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -1021,12 +1026,24 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                         progress.setVisibility(View.VISIBLE);
 
+                        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+                        CookieHandler cookieHandler = new CookieManager();
+                        OkHttpClient client = new OkHttpClient.Builder().addNetworkInterceptor(interceptor)
+                                .cookieJar(new JavaNetCookieJar(cookieHandler))
+                                .connectTimeout(120, TimeUnit.SECONDS)
+                                .writeTimeout(120, TimeUnit.SECONDS)
+                                .readTimeout(120, TimeUnit.SECONDS)
+                                .build();
+
                         Bean b = (Bean) getApplicationContext();
 
                         Retrofit retrofit = new Retrofit.Builder()
                                 .baseUrl(b.baseurl)
                                 .addConverterFactory(ScalarsConverterFactory.create())
                                 .addConverterFactory(GsonConverterFactory.create())
+                                .client(client)
                                 .build();
 
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
@@ -1107,6 +1124,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                             @Override
                             public void onFailure(Call<loginBean> call, Throwable t) {
 
+                                t.printStackTrace();
                                 progress.setVisibility(View.GONE);
 
                             }
@@ -2047,7 +2065,6 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 }
 
             }
-
 
 
 
