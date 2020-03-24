@@ -138,6 +138,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
     RadioGroup plan, partition, tenant;
     ProgressBar progress;
 
+    int itemcount = 0;
+
     File f1;
     Uri uri;
 
@@ -157,6 +159,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
     List<contactBean> lll;
 
     RecyclerView contacts;
+
+    TextView imagecount;
 
 
     @Override
@@ -209,6 +213,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         renttype = findViewById(R.id.renttype);
         commontype = findViewById(R.id.commontype);
         tenantnametitle = findViewById(R.id.tenantnametitle);
+        imagecount = findViewById(R.id.imagecount);
 
         datasource = findViewById(R.id.datasource);
         availability = findViewById(R.id.availability);
@@ -1017,7 +1022,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                             body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
 
 
-                            adapter.addData(body2, uri2);
+                            //adapter.addData(body2, uri2);
 
 
                         } catch (Exception e1) {
@@ -1047,6 +1052,11 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                                 .build();
 
                         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+                        Log.d("images" , String.valueOf(adapter.getList().size()));
+
+                        Log.d("count" , String.valueOf(itemcount));
 
                         Call<loginBean> call = cr.add_warehouse(
                                 SharePreferenceUtils.getInstance().getString("id"),
@@ -1101,6 +1111,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                                 cem,
                                 rem,
                                 json,
+                                String.valueOf(itemcount),
                                 body2,
                                 adapter.getList()
                         );
@@ -2102,11 +2113,22 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
             uri2 = data.getData();
 
-            Log.d("uri1", String.valueOf(uri));
+            Log.d("uri1", String.valueOf(uri2));
 
             String ypath = getPath(Warehouse.this, uri2);
             assert ypath != null;
-            f2 = new File(ypath);
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f2 = new Compressor(Warehouse.this).compressToFile(file);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             Log.d("path1", ypath);
 
@@ -2117,6 +2139,18 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         } else if (requestCode == 3 && resultCode == RESULT_OK) {
 
             Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                File file = new Compressor(Warehouse.this).compressToFile(f2);
+
+                f2 = file;
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
             image1.setImageURI(uri2);
 
@@ -2256,12 +2290,16 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
             list.add(item);
             ulist.add(uri);
             notifyDataSetChanged();
+            imagecount.setText("Property Images (" + getItemCount() + ")");
+            itemcount = getItemCount();
         }
 
         void removeData(int pos) {
             list.remove(pos);
             ulist.remove(pos);
             notifyDataSetChanged();
+            imagecount.setText("Property Images (" + getItemCount() + ")");
+            itemcount = getItemCount();
         }
 
         List<MultipartBody.Part> getList() {
