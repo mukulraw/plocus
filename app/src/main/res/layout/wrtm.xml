@@ -70,17 +70,24 @@
         android:layout_marginEnd="16dp"
         android:text="Floor"/>
 
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_marginTop="8dp"
-        android:padding="10dp"
         android:layout_marginStart="16dp"
+        android:visibility="visible"
         android:layout_marginEnd="16dp"
-        android:id="@+id/floor"
-        android:inputType="number"
         android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        >
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/floor"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,6 +105,8 @@
         android:layout_marginTop="8dp"
         android:padding="10dp"
         android:layout_marginStart="16dp"
+        android:focusable="false"
+        android:clickable="false"
         android:layout_marginEnd="16dp"
         android:id="@+id/posession"
         android:inputType="numberDecimal"
@@ -113,17 +122,75 @@
         android:layout_marginEnd="16dp"
         android:text="Total Plot Area (in sq. ft.)"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/plot"
-        android:inputType="numberDecimal"
-        android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/plot"
+            android:inputType="numberDecimal"
+            android:hint="tap to enter"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/plottype"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/plothide"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="invisible"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:inputType="numberDecimal"
+            android:id="@+id/plotunit"
+            android:hint="enter unit"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -262,6 +329,20 @@
             />
 
     </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/flooringtext"
+        android:inputType="numberDecimal"
+        android:visibility="gone"
+        android:background="@drawable/white_back_round"
+        android:hint="enter flooring"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -505,7 +586,7 @@
         android:textColor="@color/white2"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Centre Height (in ft.) Floor to centre of the roofing structure)"/>
+        android:text="Centre Height (in ft.) (Floor to centre of the roofing structure)"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -1000,6 +1081,26 @@
         android:background="@drawable/white_back_round"
         android:hint="tap to enter"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Nearby Brands"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/brands"
+        android:inputType="textPersonName"
+        android:background="@drawable/white_back_round"
+        android:hint="tap to enter"/>
 
     <TextView
         android:layout_width="wrap_content"

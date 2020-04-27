@@ -17,4 +17,11 @@
         <item>KVA</item>
     </string-array>
 
+    <string-array name="plot">
+        <item>₹/ sq. ft.</item>
+        <item>Lumpsum Rent</item>
+        <item>Others</item>
+    </string-array>
+
+
 </resources>

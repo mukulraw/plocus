@@ -209,6 +209,8 @@ public interface AllApiIneterface {
             @Part("remarks") String remarks,
             @Part("contact") String contact,
             @Part("count") String count,
+            @Part("floor") String floor,
+            @Part("brands") String brands,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );

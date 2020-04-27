@@ -92,23 +92,23 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class wrtm extends Fragment {
 
     private static final String TAG = "asdsa";
-    Spinner landusage,under_construction, warehouse, construction, firenoc, safety, ventilation, insulation, leveler, agreement, flooring;
+    Spinner landusage,under_construction, warehouse, construction, firenoc, safety, ventilation, insulation, leveler, agreement, flooring , floor;
 
-    List<String> lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo;
+    List<String> lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo , flo1;
     Button submit, add , add1 , add2;
 
-    Spinner renttype , commontype;
+    Spinner renttype , commontype , plottype;
 
-    EditText posession , plinth;
+    EditText posession , plinth , flooringtext;
 
     TextView postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle , tenantnametitle;
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle , dockleverernumbertitle;
     RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout;
     RelativeLayout constructionlayout , warehouselayout , under_constructionlayout;
-    LinearLayout price;
-    String lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo;
-    EditText min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum , land;
+    LinearLayout price , plothide;
+    String lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo , floo1;
+    EditText min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum , land , plotunit , brands;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
@@ -171,8 +171,15 @@ public class wrtm extends Fragment {
         lev = new ArrayList<>();
         agr = new ArrayList<>();
         flo = new ArrayList<>();
+        flo1 = new ArrayList<>();
 
         contacts = view.findViewById(R.id.contacts);
+        brands = view.findViewById(R.id.brands);
+        flooringtext = view.findViewById(R.id.flooringtext);
+        plothide = view.findViewById(R.id.plothide);
+        plottype = view.findViewById(R.id.plottype);
+        plotunit = view.findViewById(R.id.plotunit);
+        floor = view.findViewById(R.id.floor);
         minimumtitle = view.findViewById(R.id.minimumtitle);
         minimum = view.findViewById(R.id.minimum);
         add1 = view.findViewById(R.id.add1);
@@ -366,7 +373,14 @@ public class wrtm extends Fragment {
         flo.add("Industrial");
         flo.add("VDF");
         flo.add("FM2");
-        flo.add("Kota Stone flooring");
+        flo.add("Kota");
+        flo.add("Others");
+
+        flo1.add("Basement");
+        flo1.add("1st");
+        flo1.add("2nd");
+        flo1.add("3rd");
+        flo1.add("4th");
 
         ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, lan);
@@ -412,6 +426,10 @@ public class wrtm extends Fragment {
         ArrayAdapter<String> adapter17 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, flo);
         flooring.setAdapter(adapter17);
+
+        ArrayAdapter<String> adapter18 = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, flo1);
+        floor.setAdapter(adapter18);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -622,7 +640,7 @@ public class wrtm extends Fragment {
                 final String ad = wcontext.address.getText().toString();
                 String mi = min.getText().toString();
                 final String ma = max.getText().toString();
-                final String pl = plot.getText().toString();
+                String pl = plot.getText().toString();
                 final String co = covered.getText().toString();
                 final String av = available.getText().toString();
                 final String re = rent.getText().toString();
@@ -643,6 +661,7 @@ public class wrtm extends Fragment {
                 final String cem = emailcaretaker.getText().toString();
                 final String rem = remarks.getText().toString();
                 final String poss = posession.getText().toString();
+                final String bra = brands.getText().toString();
                 plin = plinth.getText().toString();
 
                 if (wcontext.avai.equals("Built to Suit (BTS)"))
@@ -657,6 +676,17 @@ public class wrtm extends Fragment {
 
 
 
+                if (plottype.getSelectedItem().toString().equals("Others"))
+                {
+                    pl = pl + " " + plotunit.getText().toString();
+                }
+                else
+                {
+                    pl = pl + " " + plottype.getSelectedItem().toString();
+                }
+
+
+
                 com = com + " " + commontype.getSelectedItem().toString();
 
                 if (!leve.equals("No"))
@@ -664,11 +694,15 @@ public class wrtm extends Fragment {
                     leve = dockleverernumber.getText().toString();
                 }
 
-                if (!lann.equals("Others"))
+                if (lann.equals("Others"))
                 {
                     lann = land.getText().toString();
                 }
 
+                if (floo.equals("Others"))
+                {
+                    floo = flooringtext.getText().toString();
+                }
 
 
                 final String par;
@@ -709,6 +743,7 @@ public class wrtm extends Fragment {
                 final String finalMi = mi;
                 final String finalCom = com;
                 final String finalTen = ten;
+                final String finalPl = pl;
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -784,7 +819,7 @@ public class wrtm extends Fragment {
                                 cond,
                                 finalMi,
                                 ma,
-                                pl,
+                                finalPl,
                                 co,
                                 av,
                                 par,
@@ -819,6 +854,8 @@ public class wrtm extends Fragment {
                                 rem,
                                 json,
                                 String.valueOf(itemcount),
+                                floo1,
+                                bra,
                                 body2,
                                 adapter.getList()
                         );
@@ -1077,7 +1114,7 @@ public class wrtm extends Fragment {
 
                 if (position == 4)
                 {
-                    lann = "";
+                    lann = "Others";
                     land.setVisibility(View.VISIBLE);
                 }
                 else
@@ -1094,6 +1131,30 @@ public class wrtm extends Fragment {
             }
         });
 
+        flooring.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                if (position == 4)
+                {
+                    floo = "Others";
+                    flooringtext.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    floo = lan.get(position);
+                    flooringtext.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
@@ -1110,6 +1171,28 @@ public class wrtm extends Fragment {
 
             }
         });
+
+        plottype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 2)
+                {
+                    plothide.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    plothide.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         warehouse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1128,6 +1211,18 @@ public class wrtm extends Fragment {
         construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 2)
+                {
+                    eavestitle.setText("Clear Height (in ft.) \n(Floor to below beam bottom)");
+                    center_heighttitle.setText("Centre Height (in ft.) \nFloor to centre (including beam)");
+                }
+                else
+                {
+                    eavestitle.setText("Eaves Height or Clear Height (in ft.)\n" +
+                            "(Floor to Shoulder of Ceiling)");
+                    center_heighttitle.setText("Centre Height (in ft.) \n(Floor to centre of the roofing structure)");
+                }
 
                 cond = con.get(position);
 
@@ -1241,11 +1336,12 @@ public class wrtm extends Fragment {
 
             }
         });
-        flooring.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        floor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                floo = flo.get(position);
+                floo1 = flo1.get(position);
 
             }
 
@@ -1255,48 +1351,44 @@ public class wrtm extends Fragment {
             }
         });
 
+
         posession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (wcontext.avai.equals("Ready to move in (RTM)"))
-                {
-                    final Dialog dialog = new Dialog(getActivity());
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setCancelable(true);
-                    dialog.setContentView(R.layout.date_dialog);
-                    dialog.show();
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.date_dialog);
+                dialog.show();
 
 
-                    final DatePicker picker = dialog.findViewById(R.id.date);
-                    Button ok = dialog.findViewById(R.id.ok);
+                final DatePicker picker = dialog.findViewById(R.id.date);
+                Button ok = dialog.findViewById(R.id.ok);
 
-                    long now = System.currentTimeMillis() - 1000;
-                    picker.setMinDate(now);
+                long now = System.currentTimeMillis() - 1000;
+                picker.setMinDate(now);
 
-                    ok.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                            int year = picker.getYear();
-                            int month = picker.getMonth();
-                            int day = picker.getDayOfMonth();
+                        int year = picker.getYear();
+                        int month = picker.getMonth();
+                        int day = picker.getDayOfMonth();
 
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(year, month, day);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, day);
 
-                            SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
-                            String strDate = format.format(calendar.getTime());
+                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
+                        String strDate = format.format(calendar.getTime());
 
-                            posession.setText(strDate);
+                        posession.setText(strDate);
 
-                            dialog.dismiss();
+                        dialog.dismiss();
 
-                        }
-                    });
-                }
-
-
+                    }
+                });
 
             }
         });
