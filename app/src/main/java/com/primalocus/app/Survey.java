@@ -206,7 +206,7 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
 
-                String date2 = new SimpleDateFormat("d-m-Y", Locale.getDefault()).format(new Date());
+                String date2 = new SimpleDateFormat("d-M-Y", Locale.getDefault()).format(new Date());
 
                 String sel = (String) property.getSelectedItem();
 
@@ -246,7 +246,7 @@ public class Survey extends AppCompatActivity implements OnMapReadyCallback {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, month, day);
 
-                                SimpleDateFormat format = new SimpleDateFormat("d-m-Y");
+                                SimpleDateFormat format = new SimpleDateFormat("d-M-Y");
                                 String strDate = format.format(calendar.getTime());
 
 
