@@ -1,6 +1,5 @@
 package com.primalocus.app;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,8 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -47,16 +43,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.models.Image;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.gson.Gson;
 import com.primalocus.app.loginPOJO.loginBean;
-import com.shivtechs.maplocationpicker.MapUtility;
-import com.sucho.placepicker.Constants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -85,11 +73,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class wrtm extends Fragment {
+public class wbts extends Fragment {
 
     private static final String TAG = "asdsa";
     Spinner landusage,under_construction, warehouse, construction, firenoc, safety, ventilation, insulation, leveler, agreement, flooring , floor;
@@ -97,17 +84,17 @@ public class wrtm extends Fragment {
     List<String> lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo , flo1;
     Button submit, add , add1 , add2;
 
-    Spinner renttype , commontype , plottype;
+    Spinner renttype , commontype , plottype , plinth , coveredtype , availabletype;
 
-    EditText posession , plinth , flooringtext;
+    EditText posession, flooringtext , plinthtext  ,coveredunit  ,availableunit;
 
     TextView postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle , tenantnametitle , agreementtitle;
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle , dockleverernumbertitle;
-    RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout  ,agreementhide;
+    RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout ,agreementhide;
     RelativeLayout constructionlayout , warehouselayout , under_constructionlayout;
-    LinearLayout price , plothide;
-    String lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo , floo1;
+    LinearLayout price , plothide  ,coveredhide  ,availablehide;
+    String lann, unde, ware, cond, fire, safe, vent, insu, leve, aggr, floo , floo1 , plin;
     EditText min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum , land , plotunit , brands;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
@@ -152,18 +139,18 @@ public class wrtm extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wrtm , container , false);
+        View view = inflater.inflate(R.layout.wbts , container , false);
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
         lll = new ArrayList<>();
+        pli = new ArrayList<>();
 
         lan = new ArrayList<>();
         pos = new ArrayList<>();
         und = new ArrayList<>();
         war = new ArrayList<>();
         con = new ArrayList<>();
-        pli = new ArrayList<>();
         fir = new ArrayList<>();
         saf = new ArrayList<>();
         ven = new ArrayList<>();
@@ -174,14 +161,20 @@ public class wrtm extends Fragment {
         flo1 = new ArrayList<>();
 
         contacts = view.findViewById(R.id.contacts);
+        coveredtype = view.findViewById(R.id.coveredtype);
+        coveredunit = view.findViewById(R.id.coveredunit);
+        coveredhide = view.findViewById(R.id.coveredhide);
+        availabletype = view.findViewById(R.id.availabletype);
+        availableunit = view.findViewById(R.id.availableunit);
+        availablehide = view.findViewById(R.id.availablehide);
         brands = view.findViewById(R.id.brands);
         agreementtitle = view.findViewById(R.id.agreementtitle);
-        agreementhide = view.findViewById(R.id.agreementhide);
         flooringtext = view.findViewById(R.id.flooringtext);
         plothide = view.findViewById(R.id.plothide);
         plottype = view.findViewById(R.id.plottype);
         plotunit = view.findViewById(R.id.plotunit);
         floor = view.findViewById(R.id.floor);
+        agreementhide = view.findViewById(R.id.agreementhide);
         minimumtitle = view.findViewById(R.id.minimumtitle);
         minimum = view.findViewById(R.id.minimum);
         add1 = view.findViewById(R.id.add1);
@@ -203,6 +196,7 @@ public class wrtm extends Fragment {
         min = view.findViewById(R.id.min);
         max = view.findViewById(R.id.max);
         posession = view.findViewById(R.id.posession);
+        plinthtext = view.findViewById(R.id.plinthtext);
         under_construction = view.findViewById(R.id.under_construction);
         warehouse = view.findViewById(R.id.warehouse);
         covered = view.findViewById(R.id.covered);
@@ -323,6 +317,12 @@ public class wrtm extends Fragment {
         lan.add("Lal Dora");
         lan.add("Others");
 
+        pli.add("Ground");
+        pli.add("1 ft.");
+        pli.add("2 Ft.");
+        pli.add("4 ft.");
+        pli.add("Others");
+
         pos.add("-0 to 2 months");
         pos.add("-2 to 4 months");
         pos.add("-4 to 6 months");
@@ -339,14 +339,9 @@ public class wrtm extends Fragment {
         con.add("PEB Shed");
         con.add("Old Shed (Asbestos)");
         con.add("RCC");
-        con.add("RCC & Old Shed Combined");
-        con.add("RCC + PEB");
+        //con.add("RCC & Old Shed Combined");
+        //con.add("RCC + PEB");
 
-        pli.add("1 ft.");
-        pli.add("2 ft.");
-        pli.add("3 ft.");
-        pli.add("4 ft.");
-        pli.add("more than 4 ft.");
 
         fir.add("Available");
         fir.add("Not Available");
@@ -432,6 +427,10 @@ public class wrtm extends Fragment {
         ArrayAdapter<String> adapter18 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, flo1);
         floor.setAdapter(adapter18);
+
+        ArrayAdapter<String> adapter19 = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, pli);
+        plinth.setAdapter(adapter19);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -538,7 +537,7 @@ public class wrtm extends Fragment {
                             startActivityForResult(getpic, 3);
                             dialog.dismiss();
                         } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 4);
                             dialog.dismiss();
                         } else if (items[item].equals("Cancel")) {
@@ -643,8 +642,8 @@ public class wrtm extends Fragment {
                 String mi = min.getText().toString();
                 final String ma = max.getText().toString();
                 String pl = plot.getText().toString();
-                final String co = covered.getText().toString();
-                final String av = available.getText().toString();
+                String co = covered.getText().toString();
+                String av = available.getText().toString();
                 final String re = rent.getText().toString();
                 final String se = security.getText().toString();
                 String com = common.getText().toString();
@@ -664,7 +663,7 @@ public class wrtm extends Fragment {
                 final String rem = remarks.getText().toString();
                 final String poss = posession.getText().toString();
                 final String bra = brands.getText().toString();
-                plin = plinth.getText().toString();
+
 
                 if (wcontext.avai.equals("Built to Suit (BTS)"))
                 {
@@ -687,6 +686,23 @@ public class wrtm extends Fragment {
                     pl = pl + " " + plottype.getSelectedItem().toString();
                 }
 
+                if (coveredtype.getSelectedItem().toString().equals("Others"))
+                {
+                    co = co + " " + coveredunit.getText().toString();
+                }
+                else
+                {
+                    co = co + " " + coveredtype.getSelectedItem().toString();
+                }
+
+                if (availabletype.getSelectedItem().toString().equals("Others"))
+                {
+                    av = av + " " + availableunit.getText().toString();
+                }
+                else
+                {
+                    av = av + " " + availabletype.getSelectedItem().toString();
+                }
 
 
                 com = com + " " + commontype.getSelectedItem().toString();
@@ -699,6 +715,11 @@ public class wrtm extends Fragment {
                 if (lann.equals("Others"))
                 {
                     lann = land.getText().toString();
+                }
+
+                if (plin.equals("Others"))
+                {
+                    plin = plinthtext.getText().toString();
                 }
 
                 if (floo.equals("Others"))
@@ -746,6 +767,8 @@ public class wrtm extends Fragment {
                 final String finalCom = com;
                 final String finalTen = ten;
                 final String finalPl = pl;
+                final String finalCo = co;
+                final String finalAv = av;
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -822,8 +845,8 @@ public class wrtm extends Fragment {
                                 finalMi,
                                 ma,
                                 finalPl,
-                                co,
-                                av,
+                                finalCo,
+                                finalAv,
                                 par,
                                 minimum.getText().toString(),
                                 re,
@@ -891,218 +914,7 @@ public class wrtm extends Fragment {
                 });
 
 
-                /*if (lo.length() > 0) {
-                    if (ad.length() > 0) {
-                        if (mi.length() > 0) {
-                            if (ma.length() > 0) {
-                                if (pl.length() > 0) {
-                                    if (co.length() > 0) {
-                                        if (av.length() > 0) {
-                                            if (re.length() > 0) {
-                                                if (se.length() > 0) {
-                                                    if (com.length() > 0) {
-                                                        if (ea.length() > 0) {
-                                                            if (ce.length() > 0) {
-                                                                if (op.length() > 0) {
 
-
-
-
-
-
-
-                                                                    RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
-                                                                    ten = tb.getText().toString();
-
-                                                                    RadioButton tb1 = partition.findViewById(partition.getCheckedRadioButtonId());
-                                                                    par = tb1.getText().toString();
-
-                                                                    RadioButton tb2 = plan.findViewById(plan.getCheckedRadioButtonId());
-                                                                    pla = tb2.getText().toString();
-
-                                                                    final Dialog dialog = new Dialog(Warehouse.this);
-                                                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                                                    dialog.setCancelable(false);
-                                                                    dialog.setContentView(R.layout.submit_popup);
-                                                                    dialog.show();
-
-                                                                    ImageButton ok = dialog.findViewById(R.id.imageButton3);
-                                                                    ImageButton cancel = dialog.findViewById(R.id.imageButton4);
-
-                                                                    cancel.setOnClickListener(new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View v) {
-                                                                            dialog.dismiss();
-                                                                        }
-                                                                    });
-
-                                                                    ok.setOnClickListener(new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View v) {
-                                                                            dialog.dismiss();
-
-                                                                            List<contactBean> reqlist = adapter222.getList();
-
-                                                                            Gson gson = new Gson();
-                                                                            String json = gson.toJson(reqlist);
-
-                                                                            Log.d("reqlist", json);
-
-                                                                            MultipartBody.Part body2 = null;
-
-                                                                            try {
-
-                                                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
-                                                                                body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
-
-
-                                                                                adapter.addData(body2, uri2);
-
-
-                                                                            } catch (Exception e1) {
-                                                                                e1.printStackTrace();
-                                                                            }
-
-                                                                            progress.setVisibility(View.VISIBLE);
-
-                                                                            Bean b = (Bean) getApplicationContext();
-
-                                                                            Retrofit retrofit = new Retrofit.Builder()
-                                                                                    .baseUrl(b.baseurl)
-                                                                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                                                                    .addConverterFactory(GsonConverterFactory.create())
-                                                                                    .build();
-
-                                                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                                            Call<loginBean> call = cr.add_warehouse(
-                                                                                    SharePreferenceUtils.getInstance().getString("id"),
-                                                                                    type,
-                                                                                    date,
-                                                                                    pid,
-                                                                                    String.valueOf(lat),
-                                                                                    String.valueOf(lng),
-                                                                                    ds,
-                                                                                    st,
-                                                                                    ci,
-                                                                                    lo,
-                                                                                    ad,
-                                                                                    avai,
-                                                                                    poss,
-                                                                                    unde,
-                                                                                    ware,
-                                                                                    cond,
-                                                                                    mi,
-                                                                                    ma,
-                                                                                    pl,
-                                                                                    co,
-                                                                                    av,
-                                                                                    par,
-                                                                                    re,
-                                                                                    se,
-                                                                                    com,
-                                                                                    ea,
-                                                                                    ce,
-                                                                                    op,
-                                                                                    plin,
-                                                                                    pla,
-                                                                                    fire,
-                                                                                    safe,
-                                                                                    vent,
-                                                                                    insu,
-                                                                                    leve,
-                                                                                    ten,
-                                                                                    tn,
-                                                                                    lann,
-                                                                                    aggr,
-                                                                                    floo,
-                                                                                    fw,
-                                                                                    la,
-                                                                                    mo,
-                                                                                    sec,
-                                                                                    ow,
-                                                                                    em,
-                                                                                    car,
-                                                                                    cph,
-                                                                                    cem,
-                                                                                    rem,
-                                                                                    json,
-                                                                                    body2,
-                                                                                    adapter.getList()
-                                                                            );
-
-                                                                            call.enqueue(new Callback<loginBean>() {
-                                                                                @Override
-                                                                                public void onResponse(Call<loginBean> call, Response<loginBean> response) {
-
-                                                                                    if (response.body().getStatus().equals("1")) {
-                                                                                        Intent intent = new Intent(Warehouse.this, Survey.class);
-                                                                                        startActivity(intent);
-                                                                                        finishAffinity();
-                                                                                    }
-
-                                                                                    Toast.makeText(Warehouse.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                                                                                    progress.setVisibility(View.GONE);
-                                                                                }
-
-                                                                                @Override
-                                                                                public void onFailure(Call<loginBean> call, Throwable t) {
-
-                                                                                    progress.setVisibility(View.GONE);
-
-                                                                                }
-                                                                            });
-
-                                                                        }
-                                                                    });
-
-                                                                    // validations done
-
-                                                                } else {
-                                                                    Toast.makeText(Warehouse.this, "Invalid no. of opening/ docks", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            } else {
-                                                                Toast.makeText(Warehouse.this, "Invalid centre height", Toast.LENGTH_SHORT).show();
-                                                            }
-
-                                                        } else {
-                                                            Toast.makeText(Warehouse.this, "Invalid eaves height", Toast.LENGTH_SHORT).show();
-                                                        }
-
-                                                    } else {
-                                                        Toast.makeText(Warehouse.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                } else {
-                                                    Toast.makeText(Warehouse.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
-                                                }
-                                            } else {
-                                                Toast.makeText(Warehouse.this, "Invalid rent", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(Warehouse.this, "Invalid available area", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } else {
-                                        Toast.makeText(Warehouse.this, "Invalid covered area", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(Warehouse.this, "Invalid plot area", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(Warehouse.this, "Invalid lumpsum amount", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(Warehouse.this, "Invalid rent/ sqft", Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        Toast.makeText(Warehouse.this, "Invalid address", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(Warehouse.this, "Invalid location", Toast.LENGTH_SHORT).show();
-                }*/
 
 
             }
@@ -1124,6 +936,7 @@ public class wrtm extends Fragment {
                     lann = lan.get(position);
                     land.setVisibility(View.GONE);
                 }
+
 
                 if (position == 0)
                 {
@@ -1148,6 +961,10 @@ public class wrtm extends Fragment {
 
             }
         });
+
+
+
+
 
         flooring.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1174,6 +991,30 @@ public class wrtm extends Fragment {
             }
         });
 
+        plinth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                if (position == 4)
+                {
+                    plin = "Others";
+                    plinthtext.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    plin = pli.get(position);
+                    plinthtext.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         under_construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1211,6 +1052,48 @@ public class wrtm extends Fragment {
             }
         });
 
+        coveredtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 2)
+                {
+                    coveredhide.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    coveredhide.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        availabletype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 2)
+                {
+                    availablehide.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    availablehide.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         warehouse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1226,6 +1109,7 @@ public class wrtm extends Fragment {
             }
         });
 
+/*
         construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1251,6 +1135,7 @@ public class wrtm extends Fragment {
 
             }
         });
+*/
 
 
         firenoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1370,7 +1255,7 @@ public class wrtm extends Fragment {
         });
 
 
-        posession.setOnClickListener(new View.OnClickListener() {
+        /*posession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -1410,7 +1295,7 @@ public class wrtm extends Fragment {
 
             }
         });
-
+*/
         return view;
     }
 

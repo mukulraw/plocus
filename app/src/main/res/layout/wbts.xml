@@ -97,7 +97,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:id="@+id/postitle"
-        android:text="Date of Possesion"/>
+        android:text="Date of Possesion (months)"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -105,8 +105,6 @@
         android:layout_marginTop="8dp"
         android:padding="10dp"
         android:layout_marginStart="16dp"
-        android:focusable="false"
-        android:clickable="false"
         android:layout_marginEnd="16dp"
         android:id="@+id/posession"
         android:inputType="numberDecimal"
@@ -202,17 +200,74 @@
         android:layout_marginEnd="16dp"
         android:text="Covered Area (in sq. ft.)"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/covered"
-        android:inputType="numberDecimal"
-        android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/covered"
+            android:inputType="numberDecimal"
+            android:hint="tap to enter"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/coveredtype"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/coveredhide"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="invisible"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:inputType="numberDecimal"
+            android:id="@+id/coveredunit"
+            android:hint="enter unit"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -224,17 +279,74 @@
         android:layout_marginEnd="16dp"
         android:text="Total available area for leasing (in sq. ft.)"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/available"
-        android:inputType="numberDecimal"
-        android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/available"
+            android:inputType="numberDecimal"
+            android:hint="tap to enter"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/availabletype"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/availablehide"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="invisible"
+            android:entries="@array/plot"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:inputType="numberDecimal"
+            android:id="@+id/availableunit"
+            android:hint="enter unit"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -634,6 +746,25 @@
         android:layout_marginEnd="16dp"
         android:text="Plinth Height (in ft.)"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/white_back_round"
+        >
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/plinth"
+            />
+
+    </RelativeLayout>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -641,10 +772,10 @@
         android:padding="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/plinth"
+        android:id="@+id/plinthtext"
         android:inputType="numberDecimal"
         android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        android:hint="enter plinth height"/>
 
 
 

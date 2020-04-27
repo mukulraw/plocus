@@ -494,7 +494,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     toolbar.setTitle(pid);
                     propid.setText(pid);
 
-                    wrtm frag = new wrtm();
+                    wuc frag = new wuc();
 
                     frag.setData(Warehouse.this);
 
@@ -710,7 +710,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     toolbar.setTitle(pid);
                     propid.setText(pid);
 
-                    wrtm frag = new wrtm();
+                    wbts frag = new wbts();
 
                     frag.setData(Warehouse.this);
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

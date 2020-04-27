@@ -1,6 +1,5 @@
 package com.primalocus.app;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,8 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -47,16 +43,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.models.Image;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.gson.Gson;
 import com.primalocus.app.loginPOJO.loginBean;
-import com.shivtechs.maplocationpicker.MapUtility;
-import com.sucho.placepicker.Constants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -85,11 +73,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class wrtm extends Fragment {
+public class wuc extends Fragment {
 
     private static final String TAG = "asdsa";
     Spinner landusage,under_construction, warehouse, construction, firenoc, safety, ventilation, insulation, leveler, agreement, flooring , floor;
@@ -97,17 +84,17 @@ public class wrtm extends Fragment {
     List<String> lan, pos, und, war, con, pli, fir, saf, ven, ins, lev, agr, flo , flo1;
     Button submit, add , add1 , add2;
 
-    Spinner renttype , commontype , plottype;
+    Spinner renttype , commontype , plottype , plinth;
 
-    EditText posession , plinth , flooringtext;
+    EditText posession, flooringtext , plinthtext;
 
     TextView postitle , under_constructiontitle , constructiontitle , pricetitle , coveredtitle , minimumtitle , tenantnametitle , agreementtitle;
     TextView availabletitle , partitiontitle , renttitle , securitytitle , commontitle , eavestitle , center_heighttitle;
     TextView opening_dockstitle , plinthtitle , plantitle , firenoctitle , safetytitle , ventilationtitle , insulationtitle , levelertitle , dockleverernumbertitle;
-    RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout  ,agreementhide;
+    RelativeLayout firenoclayout , safetylayout , ventilationlayout , insulationlayout, levelerlayout ,agreementhide;
     RelativeLayout constructionlayout , warehouselayout , under_constructionlayout;
     LinearLayout price , plothide;
-    String lann, unde, ware, cond, plin, fire, safe, vent, insu, leve, aggr, floo , floo1;
+    String lann, unde, ware, cond, fire, safe, vent, insu, leve, aggr, floo , floo1 , plin;
     EditText min, max, plot, covered, available, rent, security, common, eaves, center_height, opening_docks, tenantname , dockleverernumber , minimum , land , plotunit , brands;
     EditText fwh, large, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
@@ -152,18 +139,18 @@ public class wrtm extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wrtm , container , false);
+        View view = inflater.inflate(R.layout.wuc , container , false);
 
         list = new ArrayList<>();
         ulist = new ArrayList<>();
         lll = new ArrayList<>();
+        pli = new ArrayList<>();
 
         lan = new ArrayList<>();
         pos = new ArrayList<>();
         und = new ArrayList<>();
         war = new ArrayList<>();
         con = new ArrayList<>();
-        pli = new ArrayList<>();
         fir = new ArrayList<>();
         saf = new ArrayList<>();
         ven = new ArrayList<>();
@@ -176,12 +163,12 @@ public class wrtm extends Fragment {
         contacts = view.findViewById(R.id.contacts);
         brands = view.findViewById(R.id.brands);
         agreementtitle = view.findViewById(R.id.agreementtitle);
-        agreementhide = view.findViewById(R.id.agreementhide);
         flooringtext = view.findViewById(R.id.flooringtext);
         plothide = view.findViewById(R.id.plothide);
         plottype = view.findViewById(R.id.plottype);
         plotunit = view.findViewById(R.id.plotunit);
         floor = view.findViewById(R.id.floor);
+        agreementhide = view.findViewById(R.id.agreementhide);
         minimumtitle = view.findViewById(R.id.minimumtitle);
         minimum = view.findViewById(R.id.minimum);
         add1 = view.findViewById(R.id.add1);
@@ -203,6 +190,7 @@ public class wrtm extends Fragment {
         min = view.findViewById(R.id.min);
         max = view.findViewById(R.id.max);
         posession = view.findViewById(R.id.posession);
+        plinthtext = view.findViewById(R.id.plinthtext);
         under_construction = view.findViewById(R.id.under_construction);
         warehouse = view.findViewById(R.id.warehouse);
         covered = view.findViewById(R.id.covered);
@@ -323,6 +311,12 @@ public class wrtm extends Fragment {
         lan.add("Lal Dora");
         lan.add("Others");
 
+        pli.add("Ground");
+        pli.add("1 ft.");
+        pli.add("2 Ft.");
+        pli.add("4 ft.");
+        pli.add("Others");
+
         pos.add("-0 to 2 months");
         pos.add("-2 to 4 months");
         pos.add("-4 to 6 months");
@@ -339,14 +333,9 @@ public class wrtm extends Fragment {
         con.add("PEB Shed");
         con.add("Old Shed (Asbestos)");
         con.add("RCC");
-        con.add("RCC & Old Shed Combined");
-        con.add("RCC + PEB");
+        //con.add("RCC & Old Shed Combined");
+        //con.add("RCC + PEB");
 
-        pli.add("1 ft.");
-        pli.add("2 ft.");
-        pli.add("3 ft.");
-        pli.add("4 ft.");
-        pli.add("more than 4 ft.");
 
         fir.add("Available");
         fir.add("Not Available");
@@ -432,6 +421,10 @@ public class wrtm extends Fragment {
         ArrayAdapter<String> adapter18 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, flo1);
         floor.setAdapter(adapter18);
+
+        ArrayAdapter<String> adapter19 = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, pli);
+        plinth.setAdapter(adapter19);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -538,7 +531,7 @@ public class wrtm extends Fragment {
                             startActivityForResult(getpic, 3);
                             dialog.dismiss();
                         } else if (items[item].equals("Choose from Gallery")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 4);
                             dialog.dismiss();
                         } else if (items[item].equals("Cancel")) {
@@ -664,7 +657,7 @@ public class wrtm extends Fragment {
                 final String rem = remarks.getText().toString();
                 final String poss = posession.getText().toString();
                 final String bra = brands.getText().toString();
-                plin = plinth.getText().toString();
+
 
                 if (wcontext.avai.equals("Built to Suit (BTS)"))
                 {
@@ -699,6 +692,11 @@ public class wrtm extends Fragment {
                 if (lann.equals("Others"))
                 {
                     lann = land.getText().toString();
+                }
+
+                if (plin.equals("Others"))
+                {
+                    plin = plinthtext.getText().toString();
                 }
 
                 if (floo.equals("Others"))
@@ -1125,6 +1123,7 @@ public class wrtm extends Fragment {
                     land.setVisibility(View.GONE);
                 }
 
+
                 if (position == 0)
                 {
                     agreementtitle.setVisibility(View.GONE);
@@ -1148,6 +1147,10 @@ public class wrtm extends Fragment {
 
             }
         });
+
+
+
+
 
         flooring.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1174,6 +1177,30 @@ public class wrtm extends Fragment {
             }
         });
 
+        plinth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                if (position == 4)
+                {
+                    plin = "Others";
+                    plinthtext.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    plin = pli.get(position);
+                    plinthtext.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         under_construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1226,6 +1253,7 @@ public class wrtm extends Fragment {
             }
         });
 
+/*
         construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1251,6 +1279,7 @@ public class wrtm extends Fragment {
 
             }
         });
+*/
 
 
         firenoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -634,6 +634,25 @@
         android:layout_marginEnd="16dp"
         android:text="Plinth Height (in ft.)"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/white_back_round"
+        >
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/plinth"
+            />
+
+    </RelativeLayout>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -641,10 +660,10 @@
         android:padding="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/plinth"
+        android:id="@+id/plinthtext"
         android:inputType="numberDecimal"
         android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
+        android:hint="enter plinth height"/>
 
 
 
