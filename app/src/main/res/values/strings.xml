@@ -23,5 +23,10 @@
         <item>Others</item>
     </string-array>
 
+    <string-array name="sec">
+        <item>Negotiable</item>
+        <item>Non-Negotiable</item>
+    </string-array>
+
 
 </resources>

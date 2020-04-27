@@ -91,15 +91,17 @@ public class rrtm extends Fragment {
     List<String> lan, ele;
     int itemcount = 0;
     Button submit, add, add1, add2;
-    Spinner renttype, commontype, electricitytype;
+    Spinner renttype, commontype, electricitytype , securitytype;
     String lann, elec, dgspa, back;
 
     ImageView image1;
 
-    TextView imagecount;
+    TextView imagecount  , monthtitle;
 
 
     TextView minimumtitle, postitle, powertitle, tenantnametitle , ordinal;
+
+    EditText securitytext , month;
 
     EditText min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, facade, tenantname, minimum, commonlumpsum, posession, power, electricity, land;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks , brands;
@@ -155,6 +157,10 @@ public class rrtm extends Fragment {
 
 
         imagecount = view.findViewById(R.id.imagecount);
+        month = view.findViewById(R.id.month);
+        monthtitle = view.findViewById(R.id.monthtitle);
+        securitytype = view.findViewById(R.id.securitytype);
+        securitytext = view.findViewById(R.id.securitytext);
         monday = view.findViewById(R.id.monday);
         ordinal = view.findViewById(R.id.ordinal);
         tuesday = view.findViewById(R.id.tuesday);
@@ -634,13 +640,17 @@ public class rrtm extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.occupied) {
-                    tenantnametitle.setVisibility(View.VISIBLE);
-                    tenantname.setVisibility(View.VISIBLE);
-                    tenantname.setText("");
+                    tenantnametitle.setText("Tenant Name");
+                    monthtitle.setText("Month/ Year of Operation Commencement");
+                    //tenantnametitle.setVisibility(View.VISIBLE);
+                    //tenantname.setVisibility(View.VISIBLE);
+                    //tenantname.setText("");
                 } else {
-                    tenantnametitle.setVisibility(View.GONE);
-                    tenantname.setVisibility(View.GONE);
-                    tenantname.setText("-");
+                    tenantnametitle.setText("Previous Tenant Name");
+                    monthtitle.setText("Month/ Year of Vacancy");
+                    //tenantnametitle.setVisibility(View.GONE);
+                    //tenantname.setVisibility(View.GONE);
+                    //tenantname.setText("-");
                 }
 
             }
@@ -665,7 +675,7 @@ public class rrtm extends Fragment {
                 final String co = covered.getText().toString();
                 final String ca = carpet.getText().toString();
                 final String re = rent.getText().toString();
-                final String se = security.getText().toString();
+                String se = security.getText().toString();
                 String com = common.getText().toString();
                 final String lcom = commonlumpsum.getText().toString();
                 final String ce = ceiling.getText().toString();
@@ -687,11 +697,23 @@ public class rrtm extends Fragment {
                 final String rem = remarks.getText().toString();
                 final String mini = minimum.getText().toString();
                 final String bra = brands.getText().toString();
+                final String mon = month.getText().toString();
                 //final String oper = opearational.getText().toString();
 
                 elec = electricity.getText().toString();
 
                 mi = mi + " " + renttype.getSelectedItem().toString();
+
+                if (securitytype.getSelectedItem().toString().equals("Negotiable"))
+                {
+                    se = se + " " + securitytype.getSelectedItem().toString() + " for " + securitytext.getText().toString() + " months";
+                }
+                else
+                {
+                    se = se + " " + securitytype.getSelectedItem().toString();
+                }
+
+
 
                 com = com + " " + commontype.getSelectedItem().toString();
 
@@ -712,9 +734,9 @@ public class rrtm extends Fragment {
                 RadioButton ab = approved.findViewById(approved.getCheckedRadioButtonId());
                 app = ab.getText().toString();
 
-                if (ten.equals("Occupied")) {
+                /*if (ten.equals("Occupied")) {
                     ten = tenantname.getText().toString();
-                }
+                }*/
 
                 RadioButton pb = partition.findViewById(partition.getCheckedRadioButtonId());
                 par = pb.getText().toString();
@@ -742,6 +764,7 @@ public class rrtm extends Fragment {
                 final String finalCom = com;
                 final String finalTen = ten;
                 final String finalFl = fl;
+                final String finalSe = se;
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -877,7 +900,7 @@ public class rrtm extends Fragment {
                                 par,
                                 mini,
                                 re,
-                                se,
+                                finalSe,
                                 finalCom,
                                 lcom,
                                 ce,
@@ -907,6 +930,7 @@ public class rrtm extends Fragment {
                                 json,
                                 app,
                                 bra,
+                                mon,
                                 String.valueOf(itemcount),
                                 body2,
                                 adapter.getList()
@@ -994,6 +1018,29 @@ public class rrtm extends Fragment {
                 } else {
                     lann = lan.get(position);
                     land.setVisibility(View.GONE);
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        securitytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 0) {
+
+                    securitytext.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    securitytext.setVisibility(View.GONE);
                 }
 
 

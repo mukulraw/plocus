@@ -305,6 +305,40 @@
         android:layout_marginEnd="16dp"
         android:text="Security Deposit  (in months of Rent)"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/security"
+            android:inputType="numberDecimal"
+            android:hint="tap to enter"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/white_back_round"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/securitytype"
+            android:entries="@array/sec"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -312,11 +346,10 @@
         android:padding="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:id="@+id/security"
+        android:id="@+id/securitytext"
         android:inputType="numberDecimal"
         android:background="@drawable/white_back_round"
-        android:hint="tap to enter"/>
-    <TextView
+        android:hint="how many months"/>    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -1096,6 +1129,28 @@
         android:layout_marginEnd="16dp"
         android:id="@+id/tenantname"
         android:inputType="textPersonName"
+        android:background="@drawable/white_back_round"
+        android:hint="tap to enter"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/monthtitle"
+        android:text="Month/ Year of Operation Commencement"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/month"
+        android:inputType="textCapCharacters"
         android:background="@drawable/white_back_round"
         android:hint="tap to enter"/>
 

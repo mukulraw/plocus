@@ -85,6 +85,7 @@ public interface AllApiIneterface {
             @Part("approved") String approved,
             @Part("brands") String brands,
             @Part("count") String count,
+            @Part("month") String month,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
