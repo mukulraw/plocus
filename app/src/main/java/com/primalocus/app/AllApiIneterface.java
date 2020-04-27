@@ -82,6 +82,9 @@ public interface AllApiIneterface {
             @Part("caretaker_email") String caretaker_email,
             @Part("remarks") String remarks,
             @Part("contact") String contact,
+            @Part("approved") String approved,
+            @Part("brands") String brands,
+            @Part("count") String count,
             @Part MultipartBody.Part file3,
             @Part List<MultipartBody.Part> files
     );
