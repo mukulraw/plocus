@@ -18,8 +18,8 @@
     </string-array>
 
     <string-array name="plot">
-        <item>₹/ sq. ft.</item>
-        <item>Lumpsum Rent</item>
+        <item>in sq. ft.</item>
+        <item>in acres</item>
         <item>Others</item>
     </string-array>
 

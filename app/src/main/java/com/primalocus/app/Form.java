@@ -115,7 +115,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
 
-    String pid, type, date;
+    String pid, pid2 , type, date;
 
     String ds, st, ci, av;
     ProgressBar progress;
@@ -130,6 +130,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
         pid = getIntent().getStringExtra("pid");
+        pid2 = getIntent().getStringExtra("pid");
         type = getIntent().getStringExtra("type");
         date = getIntent().getStringExtra("date");
 
@@ -281,7 +282,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 if (position == 0) {
 
-                    pid = pid + "-" + "RTM";
+                    pid = pid2 + "-" + "RTM";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
 
@@ -295,7 +296,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 } else if(position == 1)
                 {
 
-                    pid = pid + "-" + "UC";
+                    pid = pid2 + "-" + "UC";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
 
@@ -309,7 +310,7 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 else
                 {
-                    pid = pid + "-" + "BTS";
+                    pid = pid2 + "-" + "BTS";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
 

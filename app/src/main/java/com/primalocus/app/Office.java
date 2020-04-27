@@ -99,7 +99,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     List<String> dat, sta, cit, lan, cond, wai;
 
-    Button submit, add  , add1 , add2;
+    Button submit, add, add1, add2;
 
     double lat, lng;
 
@@ -107,25 +107,25 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mMap;
 
-    TextView change , ordinal;
+    TextView change, ordinal;
 
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
 
-    String pid, type, date;
+    String pid, pid2, type, date;
 
     String ds, st, ci, la, con;
 
     TextView minimumtitle;
 
-    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, lease, lockin , minimum , electricity;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, lease, lockin, minimum, electricity;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
-    RadioGroup partition, tenant , approved;
+    RadioGroup partition, tenant, approved;
     ProgressBar progress;
 
-    EditText workstations, cabins, conference, meeting, pantry , propid , brands ;
+    EditText workstations, cabins, conference, meeting, pantry, propid, brands;
     String work, cabi, conf, meet, pant, wait, cant, inte, elec, dgsp, back;
 
     File f1;
@@ -148,14 +148,14 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     RecyclerView contacts;
 
-    CheckBox monday , tuesday , wednesday , thursday , friday , saturday , sunday;
-    Spinner mondayfrom , mondayto;
-    Spinner tuesdayfrom , tuesdayto;
-    Spinner wednesdayfrom , wednesdayto;
-    Spinner thursdayfrom , thursdayto;
-    Spinner fridayfrom , fridayto;
-    Spinner saturdayfrom , saturdayto;
-    Spinner sundayfrom , sundayto;
+    CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    Spinner mondayfrom, mondayto;
+    Spinner tuesdayfrom, tuesdayto;
+    Spinner wednesdayfrom, wednesdayto;
+    Spinner thursdayfrom, thursdayto;
+    Spinner fridayfrom, fridayto;
+    Spinner saturdayfrom, saturdayto;
+    Spinner sundayfrom, sundayto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +170,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
         pid = getIntent().getStringExtra("pid");
+        pid2 = getIntent().getStringExtra("pid");
         type = getIntent().getStringExtra("type");
         date = getIntent().getStringExtra("date");
 
@@ -208,7 +209,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         sundayfrom = findViewById(R.id.sundayfrom);
         sundayto = findViewById(R.id.sundayto);
         electricitytype = findViewById(R.id.electricitytype);
-
 
 
         List<String> times = new ArrayList<>();
@@ -326,13 +326,12 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
         submit = findViewById(R.id.button);
         Geocoder geocoder = new Geocoder(this);
-        try
-        {
-            List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             String cii = addresses.get(0).getLocality();
             String stat = addresses.get(0).getAdminArea();
 
-            Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+            Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises() + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
 
             city.setText(cii);
             state.setText(stat);
@@ -341,7 +340,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             ci = cii;
 
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -389,8 +388,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         wai.add("Yes");
         wai.add("no");
 
-        adapter222 = new ContactAdapter(this , lll);
-        GridLayoutManager manager1 = new GridLayoutManager(this , 1);
+        adapter222 = new ContactAdapter(this, lll);
+        GridLayoutManager manager1 = new GridLayoutManager(this, 1);
         contacts.setAdapter(adapter222);
         contacts.setLayoutManager(manager1);
 
@@ -431,8 +430,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         backup.setAdapter(adapter11);
 
 
-
-
         condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -440,23 +437,19 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 con = cond.get(position);
 
                 if (position == 0) {
-                    pid = pid + "-" + "BS";
+                    pid = pid2 + "-" + "BS";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
-                } else if (position == 1)
-                {
-                    pid = pid + "-" + "WS";
+                } else if (position == 1) {
+                    pid = pid2 + "-" + "WS";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
-                } else if (position == 2)
-                {
-                    pid = pid + "-" + "SF";
+                } else if (position == 2) {
+                    pid = pid2 + "-" + "SF";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
-                }
-                else
-                {
-                    pid = pid + "-" + "FF";
+                } else {
+                    pid = pid2 + "-" + "FF";
                     toolbar.setTitle(pid);
                     propid.setText(pid);
                 }
@@ -551,7 +544,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                             dialog.dismiss();*/
 
 
-
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -577,8 +569,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                     int f = Integer.parseInt(s.toString());
                     ordinal.setText(ordinal(f));
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                     ordinal.setText("");
                 }
@@ -643,11 +634,9 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
                         String n = name.getText().toString();
 
-                        if (n.length() > 0)
-                        {
+                        if (n.length() > 0) {
 
-                            if (mobile.length() == 10)
-                            {
+                            if (mobile.length() == 10) {
                                 contactBean item = new contactBean();
                                 item.setRole(rol[0]);
                                 item.setName(n);
@@ -658,15 +647,11 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                 adapter222.addData(item);
 
                                 dialog.dismiss();
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(Office.this, "Invalid mobile", Toast.LENGTH_SHORT).show();
                             }
 
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(Office.this, "Invalid name", Toast.LENGTH_SHORT).show();
                         }
 
@@ -761,7 +746,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME , Place.Field.LAT_LNG);
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
                 Intent intent = new Autocomplete.IntentBuilder(
                         AutocompleteActivityMode.FULLSCREEN, fields)
                         .setCountries(Collections.singletonList("IN"))
@@ -879,282 +864,272 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String bra = brands.getText().toString();
 
 
-
                 work = workstations.getText().toString();
                 cabi = cabins.getText().toString();
                 meet = meeting.getText().toString();
                 conf = conference.getText().toString();
                 pant = pantry.getText().toString();
 
-                final String cpro, par, ten , app;
+                final String cpro, par, ten, app;
 
                 int paid = partition.getCheckedRadioButtonId();
-                if (paid > -1) {
-                    RadioButton pb = partition.findViewById(paid);
-                    par = pb.getText().toString();
+                //if (paid > -1) {
+                RadioButton pb = partition.findViewById(paid);
+                par = pb.getText().toString();
 
-                    if (re.length() > 0) {
+                //if (re.length() > 0) {
 
-                        if (se.length() > 0) {
-                            if (com.length() > 0) {
-                                if (ce.length() > 0) {
+                //if (se.length() > 0) {
+                //if (com.length() > 0) {
+                //if (ce.length() > 0) {
 
-                                    elec = electricity.getText().toString();
-                                    elec = elec + " " + electricitytype.getSelectedItem().toString();
+                elec = electricity.getText().toString();
+                elec = elec + " " + electricitytype.getSelectedItem().toString();
 
-                                    RadioButton ab = approved.findViewById(approved.getCheckedRadioButtonId());
-                                    app = ab.getText().toString();
+                RadioButton ab = approved.findViewById(approved.getCheckedRadioButtonId());
+                app = ab.getText().toString();
 
-                                    RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
-                                    ten = tb.getText().toString();
+                RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
+                ten = tb.getText().toString();
 
-                                    final Dialog dialog = new Dialog(Office.this);
-                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                    dialog.setCancelable(false);
-                                    dialog.setContentView(R.layout.submit_popup);
-                                    dialog.show();
+                final Dialog dialog = new Dialog(Office.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.submit_popup);
+                dialog.show();
 
-                                    ImageButton ok = dialog.findViewById(R.id.imageButton3);
-                                    ImageButton cancel = dialog.findViewById(R.id.imageButton4);
+                ImageButton ok = dialog.findViewById(R.id.imageButton3);
+                ImageButton cancel = dialog.findViewById(R.id.imageButton4);
 
-                                    cancel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
-                                    final String finalFl = fl;
-                                    ok.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
+                final String finalFl = fl;
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
 
-                                            List<hoursBean> hours = new ArrayList<>();
+                        List<hoursBean> hours = new ArrayList<>();
 
-                                            if (monday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(monday.getText().toString());
-                                                item.setFrom(mondayfrom.getSelectedItem().toString());
-                                                item.setTo(mondayto.getSelectedItem().toString());
+                        if (monday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(monday.getText().toString());
+                            item.setFrom(mondayfrom.getSelectedItem().toString());
+                            item.setTo(mondayto.getSelectedItem().toString());
 
-                                                hours.add(item);
-                                            }
-
-                                            if (tuesday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(tuesday.getText().toString());
-                                                item.setFrom(tuesdayfrom.getSelectedItem().toString());
-                                                item.setTo(tuesdayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-                                            if (wednesday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(wednesday.getText().toString());
-                                                item.setFrom(wednesdayfrom.getSelectedItem().toString());
-                                                item.setTo(wednesdayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-                                            if (thursday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(thursday.getText().toString());
-                                                item.setFrom(thursdayfrom.getSelectedItem().toString());
-                                                item.setTo(thursdayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-                                            if (friday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(friday.getText().toString());
-                                                item.setFrom(fridayfrom.getSelectedItem().toString());
-                                                item.setTo(fridayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-                                            if (saturday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(saturday.getText().toString());
-                                                item.setFrom(saturdayfrom.getSelectedItem().toString());
-                                                item.setTo(saturdayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-                                            if (sunday.isChecked())
-                                            {
-                                                hoursBean item = new hoursBean();
-                                                item.setDay(sunday.getText().toString());
-                                                item.setFrom(sundayfrom.getSelectedItem().toString());
-                                                item.setTo(sundayto.getSelectedItem().toString());
-
-                                                hours.add(item);
-                                            }
-
-
-
-
-                                            List<contactBean> reqlist = adapter222.getList();
-
-                                            Gson gson = new Gson();
-                                            String json = gson.toJson(reqlist);
-
-                                            String json2 = gson.toJson(hours);
-
-                                            Log.d("reqlist", json2);
-
-                                            MultipartBody.Part body2 = null;
-
-                                            try {
-
-                                                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
-                                                body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
-
-
-                                                adapter.addData(body2, uri2);
-
-
-                                            } catch (Exception e1) {
-                                                e1.printStackTrace();
-                                            }
-
-                                            progress.setVisibility(View.VISIBLE);
-
-                                            Bean b = (Bean) getApplicationContext();
-
-                                            Retrofit retrofit = new Retrofit.Builder()
-                                                    .baseUrl(b.baseurl)
-                                                    .addConverterFactory(ScalarsConverterFactory.create())
-                                                    .addConverterFactory(GsonConverterFactory.create())
-                                                    .build();
-
-                                            AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                            Call<loginBean> call = cr.add_office(
-                                                    SharePreferenceUtils.getInstance().getString("id"),
-                                                    type,
-                                                    date,
-                                                    pid,
-                                                    String.valueOf(lat),
-                                                    String.valueOf(lng),
-                                                    ds,
-                                                    st,
-                                                    ci,
-                                                    lo,
-                                                    la,
-                                                    ad,
-                                                    mi,
-                                                    ma,
-                                                    finalFl,
-                                                    un,
-                                                    con,
-                                                    work,
-                                                    cabi,
-                                                    conf,
-                                                    meet,
-                                                    pant,
-                                                    toi,
-                                                    wait,
-                                                    cant,
-                                                    inte,
-                                                    ch,
-                                                    co,
-                                                    ca,
-                                                    par,
-                                                    mini,
-                                                    re,
-                                                    se,
-                                                    com,
-                                                    ce,
-                                                    "",
-                                                    json2,
-                                                    leas,
-                                                    lock,
-                                                    elec,
-                                                    dgsp,
-                                                    back,
-                                                    ten,
-                                                    tn,
-                                                    la,
-                                                    ff,
-                                                    fc,
-                                                    fo,
-                                                    tf,
-                                                    tc,
-                                                    to,
-                                                    mo,
-                                                    sec,
-                                                    ow,
-                                                    em,
-                                                    car,
-                                                    cph,
-                                                    cem,
-                                                    rem,
-                                                    json,
-                                                    app,
-                                                    bra,
-                                                    body2,
-                                                    adapter.getList()
-                                            );
-
-                                            call.enqueue(new Callback<loginBean>() {
-                                                @Override
-                                                public void onResponse(Call<loginBean> call, Response<loginBean> response) {
-
-                                                    if (response.body().getStatus().equals("1")) {
-                                                        Intent intent = new Intent(Office.this, Survey.class);
-                                                        startActivity(intent);
-                                                        finishAffinity();
-                                                    }
-
-                                                    Toast.makeText(Office.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                                                    progress.setVisibility(View.GONE);
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<loginBean> call, Throwable t) {
-
-                                                    progress.setVisibility(View.GONE);
-
-                                                }
-                                            });
-
-                                        }
-                                    });
-
-                                    // validations done
-
-
-                                } else {
-                                    Toast.makeText(Office.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(Office.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(Office.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
+                            hours.add(item);
                         }
 
-                    } else {
-                        Toast.makeText(Office.this, "Invalid rent", Toast.LENGTH_SHORT).show();
-                    }
+                        if (tuesday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(tuesday.getText().toString());
+                            item.setFrom(tuesdayfrom.getSelectedItem().toString());
+                            item.setTo(tuesdayto.getSelectedItem().toString());
 
-                } else {
-                    Toast.makeText(Office.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
-                }
+                            hours.add(item);
+                        }
+
+                        if (wednesday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(wednesday.getText().toString());
+                            item.setFrom(wednesdayfrom.getSelectedItem().toString());
+                            item.setTo(wednesdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (thursday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(thursday.getText().toString());
+                            item.setFrom(thursdayfrom.getSelectedItem().toString());
+                            item.setTo(thursdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (friday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(friday.getText().toString());
+                            item.setFrom(fridayfrom.getSelectedItem().toString());
+                            item.setTo(fridayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (saturday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(saturday.getText().toString());
+                            item.setFrom(saturdayfrom.getSelectedItem().toString());
+                            item.setTo(saturdayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+                        if (sunday.isChecked()) {
+                            hoursBean item = new hoursBean();
+                            item.setDay(sunday.getText().toString());
+                            item.setFrom(sundayfrom.getSelectedItem().toString());
+                            item.setTo(sundayto.getSelectedItem().toString());
+
+                            hours.add(item);
+                        }
+
+
+                        List<contactBean> reqlist = adapter222.getList();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(reqlist);
+
+                        String json2 = gson.toJson(hours);
+
+                        Log.d("reqlist", json2);
+
+                        MultipartBody.Part body2 = null;
+
+                        try {
+
+                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                            body2 = MultipartBody.Part.createFormData("featured", f2.getName(), reqFile1);
+
+
+                            adapter.addData(body2, uri2);
+
+
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+
+                        progress.setVisibility(View.VISIBLE);
+
+                        Bean b = (Bean) getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<loginBean> call = cr.add_office(
+                                SharePreferenceUtils.getInstance().getString("id"),
+                                type,
+                                date,
+                                pid,
+                                String.valueOf(lat),
+                                String.valueOf(lng),
+                                ds,
+                                st,
+                                ci,
+                                lo,
+                                la,
+                                ad,
+                                mi,
+                                ma,
+                                finalFl,
+                                un,
+                                con,
+                                work,
+                                cabi,
+                                conf,
+                                meet,
+                                pant,
+                                toi,
+                                wait,
+                                cant,
+                                inte,
+                                ch,
+                                co,
+                                ca,
+                                par,
+                                mini,
+                                re,
+                                se,
+                                com,
+                                ce,
+                                "",
+                                json2,
+                                leas,
+                                lock,
+                                elec,
+                                dgsp,
+                                back,
+                                ten,
+                                tn,
+                                la,
+                                ff,
+                                fc,
+                                fo,
+                                tf,
+                                tc,
+                                to,
+                                mo,
+                                sec,
+                                ow,
+                                em,
+                                car,
+                                cph,
+                                cem,
+                                rem,
+                                json,
+                                app,
+                                bra,
+                                body2,
+                                adapter.getList()
+                        );
+
+                        call.enqueue(new Callback<loginBean>() {
+                            @Override
+                            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                                if (response.body().getStatus().equals("1")) {
+                                    Intent intent = new Intent(Office.this, Survey.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                }
+
+                                Toast.makeText(Office.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                progress.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onFailure(Call<loginBean> call, Throwable t) {
+
+                                progress.setVisibility(View.GONE);
+
+                            }
+                        });
+
+                    }
+                });
+
+                // validations done
+
+
+                //} else {
+                //      Toast.makeText(Office.this, "Invalid ceiling height", Toast.LENGTH_SHORT).show();
+                //  }
+                //    } else {
+                //          Toast.makeText(Office.this, "Invalid common area maintenance", Toast.LENGTH_SHORT).show();
+                //        }
+                //      } else {
+                //            Toast.makeText(Office.this, "Invalid security deposit", Toast.LENGTH_SHORT).show();
+                //          }
+
+                //          } else {
+                //               Toast.makeText(Office.this, "Invalid rent", Toast.LENGTH_SHORT).show();
+                //           }
+
+                //       } else {
+                //            Toast.makeText(Office.this, "Invalid partition lease area", Toast.LENGTH_SHORT).show();
+                //         }
 
                 /*if (la.length() > 0) {
                     if (lo.length() > 0) {
@@ -1468,13 +1443,12 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Geocoder geocoder = new Geocoder(this);
-                try
-                {
-                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
-                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises() + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
 
                     city.setText(cii);
                     state.setText(stat);
@@ -1483,7 +1457,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                     ci = cii;
 
 
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -1501,13 +1475,12 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
 
                 Geocoder geocoder = new Geocoder(this);
-                try
-                {
-                    List<Address> addresses = geocoder.getFromLocation(lat,lng, 1);
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
                     String cii = addresses.get(0).getLocality();
                     String stat = addresses.get(0).getAdminArea();
 
-                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises()  + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
+                    Log.i(TAG, "Place: " + addresses.get(0).getSubAdminArea() + ", " + addresses.get(0).getAdminArea() + " , " + addresses.get(0).getLocality() + " , " + addresses.get(0).getPremises() + " , " + addresses.get(0).getSubLocality() + " , " + addresses.get(0).getAddressLine(0));
 
                     city.setText(cii);
                     state.setText(stat);
@@ -1516,7 +1489,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                     ci = cii;
 
 
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -1550,6 +1523,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
 
+
                 Log.d("path", ypath);
                 Log.d("uri", String.valueOf(uri));
 
@@ -1577,6 +1551,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
             MultipartBody.Part body = null;
 
+
             try {
 
                 File file = new Compressor(Office.this).compressToFile(f1);
@@ -1598,21 +1573,43 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
             uri2 = data.getData();
 
-            Log.d("uri1", String.valueOf(uri));
+            Log.d("uri1", String.valueOf(uri2));
 
             String ypath = getPath(Office.this, uri2);
             assert ypath != null;
-            f2 = new File(ypath);
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f2 = new Compressor(Office.this).compressToFile(file);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             Log.d("path1", ypath);
 
             image1.setImageURI(uri2);
 
 
-
         } else if (requestCode == 3 && resultCode == RESULT_OK) {
 
             Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                File file = new Compressor(Office.this).compressToFile(f2);
+
+                f2 = file;
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
             image1.setImageURI(uri2);
 
@@ -1860,7 +1857,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView role , name , mobile , landline , email;
+            TextView role, name, mobile, landline, email;
             ImageButton delete;
 
             ViewHolder(@NonNull View itemView) {
@@ -1885,7 +1882,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public static String ordinal(int i) {
-        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        String[] sufixes = new String[]{"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
         switch (i % 100) {
             case 11:
             case 12:

@@ -1035,6 +1035,8 @@ public class rbts extends Fragment {
                     e.printStackTrace();
                 }
 
+
+
                 Log.d("path", ypath);
                 Log.d("uri", String.valueOf(uri));
 
@@ -1056,11 +1058,17 @@ public class rbts extends Fragment {
             }
 
 
+
+
+
+
+
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
             Log.d("uri", String.valueOf(uri));
 
             MultipartBody.Part body = null;
+
 
             try {
 
@@ -1071,11 +1079,12 @@ public class rbts extends Fragment {
 
                 Uri uri1 = Uri.fromFile(file);
 
-                adapter.addData(body, uri);
+                adapter.addData(body, uri1);
 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+
 
 
         }
@@ -1084,20 +1093,44 @@ public class rbts extends Fragment {
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
             uri2 = data.getData();
 
-            Log.d("uri1", String.valueOf(uri));
+            Log.d("uri1", String.valueOf(uri2));
 
             String ypath = getPath(getContext(), uri2);
             assert ypath != null;
-            f2 = new File(ypath);
+
+            File file = null;
+            file = new File(ypath);
+
+            try {
+                f2 = new Compressor(getContext()).compressToFile(file);
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             Log.d("path1", ypath);
 
             image1.setImageURI(uri2);
 
 
+
         } else if (requestCode == 3 && resultCode == RESULT_OK) {
 
             Log.d("uri1", String.valueOf(uri2));
+
+            try {
+
+                File file = new Compressor(getContext()).compressToFile(f2);
+
+                f2 = file;
+
+                uri2 = Uri.fromFile(f2);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
             image1.setImageURI(uri2);
 

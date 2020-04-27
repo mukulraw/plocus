@@ -118,7 +118,7 @@
         android:textColor="@color/white2"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Total Plot Area (in sq. ft.)"/>
+        android:text="Total Plot Area"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -198,7 +198,7 @@
         android:layout_marginStart="16dp"
         android:id="@+id/coveredtitle"
         android:layout_marginEnd="16dp"
-        android:text="Covered Area (in sq. ft.)"/>
+        android:text="Total Covered Area"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -277,7 +277,7 @@
         android:layout_marginStart="16dp"
         android:id="@+id/availabletitle"
         android:layout_marginEnd="16dp"
-        android:text="Total available area for leasing (in sq. ft.)"/>
+        android:text="Total available area for leasing"/>
 
     <LinearLayout
         android:layout_width="match_parent"
