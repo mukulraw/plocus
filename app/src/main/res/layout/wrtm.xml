@@ -180,7 +180,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:id="@+id/plotunit"
             android:hint="enter unit"
             android:layout_gravity="center_vertical"

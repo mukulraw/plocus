@@ -207,7 +207,7 @@ public class wrtm extends Fragment {
         warehouse = view.findViewById(R.id.warehouse);
         covered = view.findViewById(R.id.covered);
         construction = view.findViewById(R.id.construction);
-        rent = view.findViewById(R.id.rent);
+        rent = view.findViewById(R.id.min);
         security = view.findViewById(R.id.security);
         common = view.findViewById(R.id.common);
         plinth = view.findViewById(R.id.plinth);
@@ -672,7 +672,7 @@ public class wrtm extends Fragment {
                 }
                 else
                 {
-                    mi = mi + " " + renttype.getSelectedItem().toString();
+                    mi = re + " " + renttype.getSelectedItem().toString();
                 }
 
 

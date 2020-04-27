@@ -195,7 +195,7 @@ public class wuc extends Fragment {
         warehouse = view.findViewById(R.id.warehouse);
         covered = view.findViewById(R.id.covered);
         construction = view.findViewById(R.id.construction);
-        rent = view.findViewById(R.id.rent);
+        rent = view.findViewById(R.id.min);
         security = view.findViewById(R.id.security);
         common = view.findViewById(R.id.common);
         plinth = view.findViewById(R.id.plinth);
@@ -665,7 +665,7 @@ public class wuc extends Fragment {
                 }
                 else
                 {
-                    mi = mi + " " + renttype.getSelectedItem().toString();
+                    mi = re + " " + renttype.getSelectedItem().toString();
                 }
 
 
@@ -1253,22 +1253,11 @@ public class wuc extends Fragment {
             }
         });
 
-/*
+
         construction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position == 2)
-                {
-                    eavestitle.setText("Clear Height (in ft.) \n(Floor to below beam bottom)");
-                    center_heighttitle.setText("Centre Height (in ft.) \nFloor to centre (including beam)");
-                }
-                else
-                {
-                    eavestitle.setText("Eaves Height or Clear Height (in ft.)\n" +
-                            "(Floor to Shoulder of Ceiling)");
-                    center_heighttitle.setText("Centre Height (in ft.) \n(Floor to centre of the roofing structure)");
-                }
 
                 cond = con.get(position);
 
@@ -1279,7 +1268,7 @@ public class wuc extends Fragment {
 
             }
         });
-*/
+
 
 
         firenoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
