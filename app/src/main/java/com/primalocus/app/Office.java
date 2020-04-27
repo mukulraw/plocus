@@ -80,6 +80,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -94,7 +95,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "Form";
     Toolbar toolbar;
-    Spinner datasource, landusage, condition, waiting, canteen, intetnet, electricity, dgspace, backup;
+    Spinner datasource, landusage, condition, waiting, canteen, intetnet, electricitytype, dgspace, backup;
 
     List<String> dat, sta, cit, lan, cond, wai;
 
@@ -106,7 +107,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mMap;
 
-    TextView change;
+    TextView change , ordinal;
 
     private static final int DEFAULT_ZOOM = 15;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 12;
@@ -117,14 +118,14 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView minimumtitle;
 
-    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, lease, lockin , minimum;
+    EditText location, address, min, max, floor, unit, chargeable, covered, carpet, rent, security, common, ceiling, tenantname, landmark, toilets, lease, lockin , minimum , electricity;
     EditText fdf, fdc, fwo, tdf, tdc, two, mobile, secondary, owned, email, caretaker, caretakerphone, emailcaretaker, remarks;
     RecyclerView images;
     GridLayoutManager manager;
-    RadioGroup partition, tenant;
+    RadioGroup partition, tenant , approved;
     ProgressBar progress;
 
-    EditText workstations, cabins, conference, meeting, pantry;
+    EditText workstations, cabins, conference, meeting, pantry , propid , brands ;
     String work, cabi, conf, meet, pant, wait, cant, inte, elec, dgsp, back;
 
     File f1;
@@ -181,6 +182,10 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         lan = new ArrayList<>();
 
 
+        approved = findViewById(R.id.plan);
+        brands = findViewById(R.id.brands);
+        propid = findViewById(R.id.pid);
+        ordinal = findViewById(R.id.ordinal);
         monday = findViewById(R.id.monday);
         tuesday = findViewById(R.id.tuesday);
         wednesday = findViewById(R.id.wednesday);
@@ -202,7 +207,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         saturdayto = findViewById(R.id.saturdayto);
         sundayfrom = findViewById(R.id.sundayfrom);
         sundayto = findViewById(R.id.sundayto);
-
+        electricitytype = findViewById(R.id.electricitytype);
 
 
 
@@ -355,6 +360,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         toolbar.setTitle(pid);
+        propid.setText(pid);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -416,10 +422,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         intetnet.setAdapter(adapter8);
 
 
-        ArrayAdapter<String> adapter9 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, wai);
-        electricity.setAdapter(adapter9);
-
         ArrayAdapter<String> adapter10 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, wai);
         dgspace.setAdapter(adapter10);
@@ -436,6 +438,28 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 con = cond.get(position);
+
+                if (position == 0) {
+                    pid = pid + "-" + "BS";
+                    toolbar.setTitle(pid);
+                    propid.setText(pid);
+                } else if (position == 1)
+                {
+                    pid = pid + "-" + "WS";
+                    toolbar.setTitle(pid);
+                    propid.setText(pid);
+                } else if (position == 2)
+                {
+                    pid = pid + "-" + "SF";
+                    toolbar.setTitle(pid);
+                    propid.setText(pid);
+                }
+                else
+                {
+                    pid = pid + "-" + "FF";
+                    toolbar.setTitle(pid);
+                    propid.setText(pid);
+                }
 
                 if (position > 1) {
                     condition_hide.setVisibility(View.VISIBLE);
@@ -538,6 +562,35 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
             }
         });
+
+        floor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                try {
+
+                    int f = Integer.parseInt(s.toString());
+                    ordinal.setText(ordinal(f));
+
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    ordinal.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         add2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -755,17 +808,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        electricity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                elec = wai.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         dgspace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -801,7 +843,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String la = landmark.getText().toString();
                 final String lo = location.getText().toString();
                 final String ad = address.getText().toString();
-                final String fl = floor.getText().toString();
+                String fl = floor.getText().toString();
+                fl = fl + " " + ordinal.getText().toString();
                 final String mi = min.getText().toString();
                 final String ma = max.getText().toString();
                 final String un = unit.getText().toString();
@@ -833,6 +876,9 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 final String leas = lease.getText().toString();
                 final String lock = lockin.getText().toString();
                 final String mini = minimum.getText().toString();
+                final String bra = brands.getText().toString();
+
+
 
                 work = workstations.getText().toString();
                 cabi = cabins.getText().toString();
@@ -840,7 +886,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 conf = conference.getText().toString();
                 pant = pantry.getText().toString();
 
-                final String cpro, par, ten;
+                final String cpro, par, ten , app;
 
                 int paid = partition.getCheckedRadioButtonId();
                 if (paid > -1) {
@@ -852,6 +898,12 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                         if (se.length() > 0) {
                             if (com.length() > 0) {
                                 if (ce.length() > 0) {
+
+                                    elec = electricity.getText().toString();
+                                    elec = elec + " " + electricitytype.getSelectedItem().toString();
+
+                                    RadioButton ab = approved.findViewById(approved.getCheckedRadioButtonId());
+                                    app = ab.getText().toString();
 
                                     RadioButton tb = tenant.findViewById(tenant.getCheckedRadioButtonId());
                                     ten = tb.getText().toString();
@@ -872,6 +924,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                         }
                                     });
 
+                                    final String finalFl = fl;
                                     ok.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -949,6 +1002,9 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                                 hours.add(item);
                                             }
 
+
+
+
                                             List<contactBean> reqlist = adapter222.getList();
 
                                             Gson gson = new Gson();
@@ -1000,7 +1056,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                                     ad,
                                                     mi,
                                                     ma,
-                                                    fl,
+                                                    finalFl,
                                                     un,
                                                     con,
                                                     work,
@@ -1046,6 +1102,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                                     cem,
                                                     rem,
                                                     json,
+                                                    app,
+                                                    bra,
                                                     body2,
                                                     adapter.getList()
                                             );
@@ -1482,7 +1540,15 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                 assert ypath != null;
                 f1 = new File(ypath);
 
-                uri = Uri.fromFile(f1);
+                File file = null;
+                try {
+                    file = new Compressor(Office.this).compressToFile(f1);
+
+                    uri = Uri.fromFile(file);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 Log.d("path", ypath);
                 Log.d("uri", String.valueOf(uri));
@@ -1491,8 +1557,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
                 try {
 
-                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                    body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    body = MultipartBody.Part.createFormData("file[]", file.getName(), reqFile1);
 
 
                     adapter.addData(body, uri);
@@ -1505,12 +1571,6 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             }
 
 
-
-
-
-
-
-
         } else if (requestCode == 1 && resultCode == RESULT_OK) {
 
             Log.d("uri", String.valueOf(uri));
@@ -1519,10 +1579,14 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
             try {
 
-                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                body = MultipartBody.Part.createFormData("file[]", f1.getName(), reqFile1);
+                File file = new Compressor(Office.this).compressToFile(f1);
 
-                adapter.addData(body, uri);
+                RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("file[]", file.getName(), reqFile1);
+
+                Uri uri1 = Uri.fromFile(file);
+
+                adapter.addData(body, uri1);
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -1819,5 +1883,19 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         }
         return super.dispatchTouchEvent(ev);
     }
+
+    public static String ordinal(int i) {
+        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return "th";
+            default:
+                return sufixes[i % 10];
+
+        }
+    }
+
 
 }

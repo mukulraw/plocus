@@ -67,6 +67,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Property ID"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="10dp"
+                android:id="@+id/pid"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -219,89 +241,35 @@
                 android:text="Floor"
                 android:textColor="@color/white2" />
 
-            <EditText
-                android:id="@+id/floor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="number"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Price Range"
-                android:textColor="@color/white2" />
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="Min. Price" />
-
-                <EditText
-                    android:id="@+id/min"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@drawable/white_back_round"
-                    android:hint="tap to enter"
-                    android:inputType="number"
-                    android:padding="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="9">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/floor"
+                    android:layout_weight="8"
+                    android:inputType="text"
+                    android:background="@drawable/white_back_round"
+                    android:hint="tap to enter"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="Max. Price" />
-
-                <EditText
-                    android:id="@+id/max"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/ordinal"
+                    android:gravity="center"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@drawable/white_back_round"
-                    android:hint="tap to enter"
-                    android:inputType="number"
-                    android:padding="10dp" />
+                    />
 
             </LinearLayout>
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -658,8 +626,6 @@
 
 
             </LinearLayout>
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -811,27 +777,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Security Deposit  (in months of Rent)"
-                android:textColor="@color/white2" />
-
-            <EditText
-                android:id="@+id/security"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="number"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="Common Area Maintenance -(Rs./Sq.Ft.)"
                 android:textColor="@color/white2" />
 
@@ -853,6 +798,29 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:text="Security Deposit  (in months of Rent)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/security"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Ceiling Height (in feet) (Floor to below the beam)"
                 android:textColor="@color/white2" />
 
@@ -867,324 +835,6 @@
                 android:hint="tap to enter"
                 android:inputType="number"
                 android:padding="10dp" />
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Operational Hours - 24X7 / specific time"
-                android:textColor="@color/white2" />
-
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                layout="@layout/hours_picker"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Lease Period (in years)"
-                android:textColor="@color/white2" />
-
-            <EditText
-                android:id="@+id/lease"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="number"
-                android:padding="10dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Lockin Period (in months)"
-                android:textColor="@color/white2" />
-
-            <EditText
-                android:id="@+id/lockin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="number"
-                android:padding="10dp" />
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Electricity Load available"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/electricity"
-                    />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="DG Space available"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/dgspace"
-                    />
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Power Backup available"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                >
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/backup"
-                    />
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Images &amp; Tenants"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Tenant"
-                android:textColor="@color/white2" />
-
-            <RadioGroup
-                android:id="@+id/tenant"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-
-                >
-
-                <RadioButton
-                    android:id="@+id/occupied"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Occupied" />
-
-                <RadioButton
-                    android:id="@+id/vacant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Vacant" />
-
-
-            </RadioGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Tenant Name"
-                android:textColor="@color/white2" />
-
-            <EditText
-                android:id="@+id/tenantname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:hint="tap to enter"
-                android:inputType="textPersonName"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white2"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Featured Photo"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_margin="8dp"
-                    android:id="@+id/add1"
-                    android:text="ADD"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"/>
-
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:scaleType="fitXY"
-                    android:id="@+id/image1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/logo"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    />
-
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Property Images"
-                    android:textColor="@color/white2" />
-
-                <Button
-                    android:id="@+id/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Add Image"
-                    android:textColor="@color/white2" />
-
-
-            </RelativeLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/images"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Additional Information"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1210,6 +860,87 @@
                     android:layout_centerInParent="true" />
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:id="@+id/plantitle"
+                android:layout_marginEnd="16dp"
+                android:text="Availability of Approved Plan from Local Authorities"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:id="@+id/plan"
+
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:id="@+id/yes1"
+                    android:checked="true"
+                    />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Not Available"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/no1"
+                    />
+
+
+            </RadioGroup>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Electricity Load available"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/electricity"
+                    android:inputType="numberDecimal"
+                    android:hint="tap to enter"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/white_back_round"
+                    android:layout_weight="1"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/electricitytype"
+                    android:entries="@array/elec"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1403,6 +1134,546 @@
             </LinearLayout>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="Contacts"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/add2"
+                    android:text="Add Contact"/>
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/contacts"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Remark/ Notes"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:gravity="start"
+                android:hint="tap to enter"
+                android:lines="3"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Images &amp; Tenants"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant"
+                android:textColor="@color/white2" />
+
+            <RadioGroup
+                android:id="@+id/tenant"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+
+                >
+
+                <RadioButton
+                    android:id="@+id/occupied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Occupied" />
+
+                <RadioButton
+                    android:id="@+id/vacant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Vacant" />
+
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Tenant Name"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/tenantname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Nearby Brands"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/brands"
+                android:inputType="textPersonName"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Featured Photo"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:id="@+id/add1"
+                    android:text="ADD"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"/>
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="fitXY"
+                    android:id="@+id/image1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logo"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Property Images"
+                    android:textColor="@color/white2" />
+
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Add Image"
+                    android:textColor="@color/white2" />
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Price Range"
+                android:visibility="gone"
+                android:textColor="@color/white2" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="Min. Price" />
+
+                <EditText
+                    android:id="@+id/min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_back_round"
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="Max. Price" />
+
+                <EditText
+                    android:id="@+id/max"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_back_round"
+                    android:hint="tap to enter"
+                    android:inputType="number"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Operational Hours - 24X7 / specific time"
+                android:textColor="@color/white2" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:padding="10dp"
+                layout="@layout/hours_picker"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:text="Lease Period (in years)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/lease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:text="Lockin Period (in months)"
+                android:textColor="@color/white2" />
+
+            <EditText
+                android:id="@+id/lockin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:background="@drawable/white_back_round"
+                android:hint="tap to enter"
+                android:inputType="number"
+                android:padding="10dp" />
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:text="DG Space available"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/dgspace"
+                    />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white2"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp"
+                android:text="Power Backup available"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_back_round"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/backup"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Additional Information"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -1565,66 +1836,9 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Remark/ Notes"
-                android:textColor="@color/white2" />
-
-            <EditText
-                android:id="@+id/remarks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/white_back_round"
-                android:gravity="start"
-                android:hint="tap to enter"
-                android:lines="3"
-                android:padding="10dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
-                    android:layout_marginStart="16dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_centerVertical="true"
-                    android:text="Contacts"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white2"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:id="@+id/add2"
-                    android:text="Add Contact"/>
 
 
-            </RelativeLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/contacts"
-                />
 
             <Button
                 android:id="@+id/button"
