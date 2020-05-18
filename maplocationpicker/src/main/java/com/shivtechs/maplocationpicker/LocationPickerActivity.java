@@ -382,7 +382,7 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
                 markerOptions = new MarkerOptions().position(coordinate).title(userAddress).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_800_24dp));
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
                 mMap.moveCamera(cameraUpdate);
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.showInfoWindow();
@@ -398,7 +398,7 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.clear();
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mMap.getUiSettings().setMapToolbarEnabled(false);
         if (mMap.isIndoorEnabled()) {
             mMap.setIndoorEnabled(false);

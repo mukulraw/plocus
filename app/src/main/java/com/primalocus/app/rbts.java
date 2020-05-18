@@ -354,7 +354,7 @@ public class rbts extends Fragment {
 
                             Intent intent = new Intent(getActivity(), AlbumSelectActivity.class);
 //set limit on number of images that can be selected, default is 10
-                            intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 5);
+                            intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 30);
                             startActivityForResult(intent, 2);
 
                             /*Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
