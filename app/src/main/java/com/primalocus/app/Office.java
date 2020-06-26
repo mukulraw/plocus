@@ -157,6 +157,8 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
     Spinner saturdayfrom, saturdayto;
     Spinner sundayfrom, sundayto;
 
+    String code = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -388,6 +390,40 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
         wai.add("Yes");
         wai.add("no");
 
+
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
+
+        call.enqueue(new Callback<loginBean>() {
+            @Override
+            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                code = "-" + response.body().getMessage();
+
+                toolbar.setTitle(pid + code);
+                propid.setText(pid + code);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<loginBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+
         adapter222 = new ContactAdapter(this, lll);
         GridLayoutManager manager1 = new GridLayoutManager(this, 1);
         contacts.setAdapter(adapter222);
@@ -438,20 +474,20 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
 
                 if (position == 0) {
                     pid = pid2 + "-" + "BS";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
                 } else if (position == 1) {
                     pid = pid2 + "-" + "WS";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
                 } else if (position == 2) {
                     pid = pid2 + "-" + "SF";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
                 } else {
                     pid = pid2 + "-" + "FF";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
                 }
 
                 if (position > 1) {
@@ -1020,7 +1056,7 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
                                 SharePreferenceUtils.getInstance().getString("id"),
                                 type,
                                 date,
-                                pid,
+                                pid + code,
                                 String.valueOf(lat),
                                 String.valueOf(lng),
                                 ds,
@@ -1473,6 +1509,38 @@ public class Office extends AppCompatActivity implements OnMapReadyCallback {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+
+                progress.setVisibility(View.VISIBLE);
+
+                Bean b = (Bean) getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
+
+                call.enqueue(new Callback<loginBean>() {
+                    @Override
+                    public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                        code = "-" + response.body().getMessage();
+
+                        toolbar.setTitle(pid + code);
+                        propid.setText(pid + code);
+
+                        progress.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<loginBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                 Geocoder geocoder = new Geocoder(this);
                 try {

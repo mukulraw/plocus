@@ -20,8 +20,10 @@
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.primalocus.app.Office"></activity>
-        <activity android:name="com.primalocus.app.Warehouse" />
+        <activity android:name="com.primalocus.app.Office"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.primalocus.app.Warehouse"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.primalocus.app.Form"
             android:screenOrientation="portrait" />
@@ -49,7 +51,8 @@
 
         <activity
             android:name="com.darsh.multipleimageselect.activities.AlbumSelectActivity"
-            android:theme="@style/MultipleImageSelectTheme">
+            android:theme="@style/MultipleImageSelectTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

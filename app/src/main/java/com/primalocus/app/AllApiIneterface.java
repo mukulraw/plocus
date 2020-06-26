@@ -242,4 +242,14 @@ public interface AllApiIneterface {
     Call<stateBean> getCity(
             @Part("state") String state
     );
+
+
+    @Multipart
+    @POST("api/calculateDistance.php")
+    Call<loginBean> calculateDistance(
+            @Part("lat") String lat,
+            @Part("lng") String lng
+    );
+
+
 }

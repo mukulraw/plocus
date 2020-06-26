@@ -851,7 +851,7 @@ public class rbts extends Fragment {
                                 SharePreferenceUtils.getInstance().getString("id"),
                                 fcontext.type,
                                 fcontext.date,
-                                fcontext.pid,
+                                fcontext.pid + fcontext.code,
                                 String.valueOf(fcontext.lat),
                                 String.valueOf(fcontext.lng),
                                 fcontext.ds,

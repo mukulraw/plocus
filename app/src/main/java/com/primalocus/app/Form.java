@@ -120,6 +120,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
     String ds, st, ci, av;
     ProgressBar progress;
 
+    String code = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +276,38 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        progress.setVisibility(View.VISIBLE);
+
+        Bean b = (Bean) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
+
+        call.enqueue(new Callback<loginBean>() {
+            @Override
+            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                code = "-" + response.body().getMessage();
+
+                toolbar.setTitle(pid + code);
+                propid.setText(pid + code);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<loginBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
         availability.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -283,8 +317,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 if (position == 0) {
 
                     pid = pid2 + "-" + "RTM";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     rrtm frag = new rrtm();
 
@@ -297,8 +331,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 {
 
                     pid = pid2 + "-" + "UC";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     rrtm frag = new rrtm();
 
@@ -311,8 +345,8 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
                 else
                 {
                     pid = pid2 + "-" + "BTS";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     rbts frag = new rbts();
 
@@ -410,6 +444,37 @@ public class Form extends AppCompatActivity implements OnMapReadyCallback {
 
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+
+                progress.setVisibility(View.VISIBLE);
+
+                Bean b = (Bean) getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
+
+                call.enqueue(new Callback<loginBean>() {
+                    @Override
+                    public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                        code = "-" + response.body().getMessage();
+
+                        toolbar.setTitle(pid + code);
+                        propid.setText(pid + code);
+                        progress.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<loginBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                 Geocoder geocoder = new Geocoder(this);
                 try {

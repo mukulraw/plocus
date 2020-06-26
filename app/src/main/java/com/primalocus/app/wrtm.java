@@ -806,7 +806,7 @@ public class wrtm extends Fragment {
                                 SharePreferenceUtils.getInstance().getString("id"),
                                 wcontext.type,
                                 wcontext.date,
-                                wcontext.pid,
+                                wcontext.pid + wcontext.code,
                                 String.valueOf(wcontext.lat),
                                 String.valueOf(wcontext.lng),
                                 wcontext.ds,

@@ -130,6 +130,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
     EditText location, address;
     public ProgressBar progress;
 
+    String code = "";
 
 
     @Override
@@ -248,8 +249,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
 
 
-
-        /*progress.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.VISIBLE);
 
         Bean b = (Bean) getApplicationContext();
 
@@ -261,157 +261,25 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<stateBean> call = cr.getStates();
+        Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
 
-        call.enqueue(new Callback<stateBean>() {
+        call.enqueue(new Callback<loginBean>() {
             @Override
-            public void onResponse(Call<stateBean> call, Response<stateBean> response) {
+            public void onResponse(Call<loginBean> call, Response<loginBean> response) {
 
-                sta.clear();
+                code = "-" + response.body().getMessage();
 
-                for (int i = 0 ; i < response.body().getData().size() ; i++)
-                {
-                    sta.add(response.body().getData().get(i).getState());
-                }
-
-                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Warehouse.this,
-                        android.R.layout.simple_list_item_1, sta);
-                state.setAdapter(adapter3);
+                toolbar.setTitle(pid + code);
+                propid.setText(pid + code);
 
                 progress.setVisibility(View.GONE);
-
             }
 
             @Override
-            public void onFailure(Call<stateBean> call, Throwable t) {
+            public void onFailure(Call<loginBean> call, Throwable t) {
                 progress.setVisibility(View.GONE);
             }
-        });*/
-
-
-
-        /*try {
-
-            JSONArray array = new JSONArray(getJson());
-            //JSONArray array = jsonObject.getJSONArray("array");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                String state = object.getString("admin");
-                sta.add(state);
-            }
-
-            HashSet<String> sstt = new HashSet<>(sta);
-            sta.clear();
-            sta.addAll(sstt);
-            Collections.sort(sta, new Comparator<String>() {
-                @Override
-                public int compare(String text1, String text2) {
-                    return text1.compareToIgnoreCase(text2);
-                }
-            });
-
-            ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(Warehouse.this,
-                    android.R.layout.simple_list_item_1, sta);
-            state.setAdapter(adapter3);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-*/
-
-        /*state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                st = sta.get(position);
-
-                Log.d("state", st);
-
-
-                progress.setVisibility(View.VISIBLE);
-
-                Bean b = (Bean) getApplicationContext();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(b.baseurl)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                Call<stateBean> call = cr.getCity(st);
-
-                call.enqueue(new Callback<stateBean>() {
-                    @Override
-                    public void onResponse(Call<stateBean> call, Response<stateBean> response) {
-
-                        cit.clear();
-
-                        for (int i = 0 ; i < response.body().getData().size() ; i++)
-                        {
-                            cit.add(response.body().getData().get(i).getCityName());
-                        }
-
-                        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Warehouse.this,
-                                android.R.layout.simple_list_item_1, cit);
-                        city.setAdapter(adapter4);
-
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<stateBean> call, Throwable t) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
-
-
-                *//*try {
-
-                    cit.clear();
-
-                    JSONArray array = new JSONArray(getJson());
-                    //JSONArray array = jsonObject.getJSONArray("array");
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        String state = object.getString("admin");
-
-                        if (st.equals(state)) {
-                            String name = object.getString("city");
-                            cit.add(name);
-                        }
-
-
-                    }
-
-                    HashSet<String> sstt1 = new HashSet<>(cit);
-                    cit.clear();
-                    cit.addAll(sstt1);
-                    Collections.sort(cit, new Comparator<String>() {
-                        @Override
-                        public int compare(String text1, String text2) {
-                            return text1.compareToIgnoreCase(text2);
-                        }
-                    });
-
-
-                    ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(Warehouse.this,
-                            android.R.layout.simple_list_item_1, cit);
-                    city.setAdapter(adapter4);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*//*
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
+        });
 
         city.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -492,8 +360,8 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                 {
 
                     pid = pid2 + "-" + "UC";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     wuc frag = new wuc();
 
@@ -504,82 +372,14 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     fragmentTransaction.commit();
 
 
-                   /* posession.setText("-");
-                    posession.setVisibility(View.GONE);
-                    postitle.setVisibility(View.GONE);
-                    postitle.setText("Date of Possession");
-
-                    under_construction.setVisibility(View.VISIBLE);
-                    under_constructiontitle.setVisibility(View.VISIBLE);
-                    under_constructionlayout.setVisibility(View.VISIBLE);
-                    construction.setVisibility(View.VISIBLE);
-                    constructiontitle.setVisibility(View.VISIBLE);
-                    constructionlayout.setVisibility(View.VISIBLE);
-                    price.setVisibility(View.VISIBLE);
-                    pricetitle.setVisibility(View.VISIBLE);
-                    covered.setVisibility(View.VISIBLE);
-                    coveredtitle.setVisibility(View.VISIBLE);
-                    available.setVisibility(View.VISIBLE);
-                    availabletitle.setVisibility(View.VISIBLE);
-                    partition.setVisibility(View.VISIBLE);
-                    partitiontitle.setVisibility(View.VISIBLE);
-                    rent.setVisibility(View.GONE);
-                    renttitle.setVisibility(View.GONE);
-                    security.setVisibility(View.VISIBLE);
-                    securitytitle.setVisibility(View.VISIBLE);
-                    common.setVisibility(View.VISIBLE);
-                    commontitle.setVisibility(View.VISIBLE);
-                    commontype.setVisibility(View.VISIBLE);
-                    minimum.setVisibility(View.VISIBLE);
-                    minimumtitle.setVisibility(View.VISIBLE);
-                    minimum.setText("");
-                    eaves.setVisibility(View.VISIBLE);
-                    eavestitle.setVisibility(View.VISIBLE);
-                    center_height.setVisibility(View.VISIBLE);
-                    center_heighttitle.setVisibility(View.VISIBLE);
-                    opening_docks.setVisibility(View.VISIBLE);
-                    opening_dockstitle.setVisibility(View.VISIBLE);
-                    plinth.setVisibility(View.VISIBLE);
-                    plinthtitle.setVisibility(View.VISIBLE);
-                    plan.setVisibility(View.VISIBLE);
-                    plantitle.setVisibility(View.VISIBLE);
-                    firenoc.setVisibility(View.VISIBLE);
-                    firenoclayout.setVisibility(View.VISIBLE);
-                    firenoctitle.setVisibility(View.VISIBLE);
-                    safety.setVisibility(View.VISIBLE);
-                    safetylayout.setVisibility(View.VISIBLE);
-                    safetytitle.setVisibility(View.VISIBLE);
-                    ventilation.setVisibility(View.VISIBLE);
-                    ventilationlayout.setVisibility(View.VISIBLE);
-                    ventilationtitle.setVisibility(View.VISIBLE);
-                    insulation.setVisibility(View.VISIBLE);
-                    insulationtitle.setVisibility(View.VISIBLE);
-                    insulationlayout.setVisibility(View.VISIBLE);
-                    leveler.setVisibility(View.VISIBLE);
-                    levelertitle.setVisibility(View.VISIBLE);
-                    levelerlayout.setVisibility(View.VISIBLE);
-                    dockleverernumber.setVisibility(View.VISIBLE);
-                    dockleverernumbertitle.setVisibility(View.VISIBLE);
-
-                    min.setText("");
-                    max.setText("");
-                    covered.setText("");
-                    available.setText("");
-                    rent.setText("");
-                    security.setText("");
-                    common.setText("");
-                    eaves.setText("");
-                    center_height.setText("");
-                    opening_docks.setText("");
-                    dockleverernumber.setText("");*/
 
                 }
                 else if(position == 1)
                 {
 
                     pid = pid2 + "-" + "RTM";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     wrtm frag = new wrtm();
 
@@ -588,128 +388,15 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     fragmentTransaction.replace(R.id.replace, frag);
                     fragmentTransaction.commit();
 
-                    /*posession.setText("");
-                    posession.setVisibility(View.VISIBLE);
-                    postitle.setVisibility(View.VISIBLE);
-                    postitle.setText("Date of Possession");
 
-                    under_construction.setVisibility(View.GONE);
-                    under_constructiontitle.setVisibility(View.GONE);
-                    under_constructionlayout.setVisibility(View.GONE);
-                    construction.setVisibility(View.VISIBLE);
-                    constructiontitle.setVisibility(View.VISIBLE);
-                    constructionlayout.setVisibility(View.VISIBLE);
-                    price.setVisibility(View.VISIBLE);
-                    pricetitle.setVisibility(View.VISIBLE);
-                    covered.setVisibility(View.VISIBLE);
-                    coveredtitle.setVisibility(View.VISIBLE);
-                    available.setVisibility(View.VISIBLE);
-                    availabletitle.setVisibility(View.VISIBLE);
-                    partition.setVisibility(View.VISIBLE);
-                    partitiontitle.setVisibility(View.VISIBLE);
-                    rent.setVisibility(View.GONE);
-                    renttitle.setVisibility(View.GONE);
-                    security.setVisibility(View.VISIBLE);
-                    securitytitle.setVisibility(View.VISIBLE);
-                    common.setVisibility(View.VISIBLE);
-                    commontitle.setVisibility(View.VISIBLE);
-                    commontype.setVisibility(View.VISIBLE);
-                    eaves.setVisibility(View.VISIBLE);
-                    eavestitle.setVisibility(View.VISIBLE);
-                    center_height.setVisibility(View.VISIBLE);
-                    center_heighttitle.setVisibility(View.VISIBLE);
-                    opening_docks.setVisibility(View.VISIBLE);
-                    opening_dockstitle.setVisibility(View.VISIBLE);
-                    plinth.setVisibility(View.VISIBLE);
-                    plinthtitle.setVisibility(View.VISIBLE);
-                    minimum.setVisibility(View.VISIBLE);
-                    minimumtitle.setVisibility(View.VISIBLE);
-                    minimum.setText("");
-                    plan.setVisibility(View.VISIBLE);
-                    plantitle.setVisibility(View.VISIBLE);
-                    firenoc.setVisibility(View.VISIBLE);
-                    firenoclayout.setVisibility(View.VISIBLE);
-                    firenoctitle.setVisibility(View.VISIBLE);
-                    safety.setVisibility(View.VISIBLE);
-                    safetylayout.setVisibility(View.VISIBLE);
-                    safetytitle.setVisibility(View.VISIBLE);
-                    ventilation.setVisibility(View.VISIBLE);
-                    ventilationlayout.setVisibility(View.VISIBLE);
-                    ventilationtitle.setVisibility(View.VISIBLE);
-                    insulation.setVisibility(View.VISIBLE);
-                    insulationtitle.setVisibility(View.VISIBLE);
-                    insulationlayout.setVisibility(View.VISIBLE);
-                    leveler.setVisibility(View.VISIBLE);
-                    levelertitle.setVisibility(View.VISIBLE);
-                    levelerlayout.setVisibility(View.VISIBLE);
-                    dockleverernumber.setVisibility(View.VISIBLE);
-                    dockleverernumbertitle.setVisibility(View.VISIBLE);
-
-                    min.setText("");
-                    max.setText("");
-                    covered.setText("");
-                    available.setText("");
-                    rent.setText("");
-                    security.setText("");
-                    common.setText("");
-                    eaves.setText("");
-                    center_height.setText("");
-                    opening_docks.setText("");
-                    dockleverernumber.setText("");*/
-
-                    /*posession.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (avai.equals("Ready to move in (RTM)"))
-                            {
-                                final Dialog dialog = new Dialog(Warehouse.this);
-                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                dialog.setCancelable(true);
-                                dialog.setContentView(R.layout.date_dialog);
-                                dialog.show();
-
-
-                                final DatePicker picker = dialog.findViewById(R.id.date);
-                                Button ok = dialog.findViewById(R.id.ok);
-
-                                long now = System.currentTimeMillis() - 1000;
-                                picker.setMinDate(now);
-
-                                ok.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        int year = picker.getYear();
-                                        int month = picker.getMonth();
-                                        int day = picker.getDayOfMonth();
-
-                                        Calendar calendar = Calendar.getInstance();
-                                        calendar.set(year, month, day);
-
-                                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd, YYYY");
-                                        String strDate = format.format(calendar.getTime());
-
-                                        posession.setText(strDate);
-
-                                        dialog.dismiss();
-
-                                    }
-                                });
-                            }
-
-
-
-                        }
-                    });*/
 
                 }
                 else
                 {
 
                     pid = pid2 + "-" + "BTS";
-                    toolbar.setTitle(pid);
-                    propid.setText(pid);
+                    toolbar.setTitle(pid + code);
+                    propid.setText(pid + code);
 
                     wbts frag = new wbts();
 
@@ -718,88 +405,7 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
                     fragmentTransaction.replace(R.id.replace, frag);
                     fragmentTransaction.commit();
 
-                    /*posession.setText("");
-                    posession.setVisibility(View.VISIBLE);
-                    postitle.setVisibility(View.VISIBLE);
-                    postitle.setText("Estimated Time of Possession");
 
-
-                    under_construction.setVisibility(View.GONE);
-                    under_constructiontitle.setVisibility(View.GONE);
-                    under_constructionlayout.setVisibility(View.GONE);
-                    construction.setVisibility(View.GONE);
-                    constructiontitle.setVisibility(View.GONE);
-                    constructionlayout.setVisibility(View.GONE);
-                    price.setVisibility(View.GONE);
-                    pricetitle.setVisibility(View.GONE);
-                    covered.setVisibility(View.GONE);
-                    coveredtitle.setVisibility(View.GONE);
-                    available.setVisibility(View.GONE);
-                    availabletitle.setVisibility(View.GONE);
-                    partition.setVisibility(View.GONE);
-                    minimum.setVisibility(View.GONE);
-                    minimumtitle.setVisibility(View.GONE);
-                    minimum.setText("-");
-                    partitiontitle.setVisibility(View.GONE);
-                    rent.setVisibility(View.VISIBLE);
-                    renttitle.setVisibility(View.VISIBLE);
-                    security.setVisibility(View.GONE);
-                    securitytitle.setVisibility(View.GONE);
-                    common.setVisibility(View.GONE);
-                    commontitle.setVisibility(View.GONE);
-                    commontype.setVisibility(View.GONE);
-                    eaves.setVisibility(View.GONE);
-                    eavestitle.setVisibility(View.GONE);
-                    center_height.setVisibility(View.GONE);
-                    center_heighttitle.setVisibility(View.GONE);
-                    opening_docks.setVisibility(View.GONE);
-                    opening_dockstitle.setVisibility(View.GONE);
-                    plinth.setVisibility(View.GONE);
-                    plinthtitle.setVisibility(View.GONE);
-                    plan.setVisibility(View.GONE);
-                    plantitle.setVisibility(View.GONE);
-                    firenoc.setVisibility(View.GONE);
-                    firenoclayout.setVisibility(View.GONE);
-                    firenoctitle.setVisibility(View.GONE);
-                    safety.setVisibility(View.GONE);
-                    safetylayout.setVisibility(View.GONE);
-                    safetytitle.setVisibility(View.GONE);
-                    ventilation.setVisibility(View.GONE);
-                    ventilationlayout.setVisibility(View.GONE);
-                    ventilationtitle.setVisibility(View.GONE);
-                    insulation.setVisibility(View.GONE);
-                    insulationtitle.setVisibility(View.GONE);
-                    insulationlayout.setVisibility(View.GONE);
-                    leveler.setVisibility(View.GONE);
-                    levelertitle.setVisibility(View.GONE);
-                    levelerlayout.setVisibility(View.GONE);
-                    dockleverernumber.setVisibility(View.GONE);
-                    dockleverernumbertitle.setVisibility(View.GONE);
-
-
-                    min.setText("-");
-                    max.setText("-");
-                    covered.setText("-");
-                    available.setText("-");
-                    //rent.setText("-");
-                    security.setText("-");
-                    common.setText("-");
-                    eaves.setText("-");
-                    center_height.setText("-");
-                    opening_docks.setText("-");
-                    dockleverernumber.setText("-");
-
-
-                    unde = "-";
-                    cond = "-";
-                    plin = "-";
-                    fire = "-";
-                    safe = "-";
-                    vent = "-";
-                    insu = "-";
-                    leve = "-";
-
-                    posession.setOnClickListener(null);*/
 
                 }
 
@@ -896,6 +502,37 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
 
                 lat = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                 lng = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
+
+                progress.setVisibility(View.VISIBLE);
+
+                Bean b = (Bean) getApplicationContext();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<loginBean> call = cr.calculateDistance(String.valueOf(lat) , String.valueOf(lng));
+
+                call.enqueue(new Callback<loginBean>() {
+                    @Override
+                    public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                        code = "-" + response.body().getMessage();
+
+                        toolbar.setTitle(pid + code);
+                        propid.setText(pid + code);
+                        progress.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<loginBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                    }
+                });
 
                 Geocoder geocoder = new Geocoder(this);
                 try
