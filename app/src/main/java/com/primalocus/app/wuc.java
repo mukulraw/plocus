@@ -368,6 +368,7 @@ public class wuc extends Fragment {
         flo.add("Others");
 
         flo1.add("Basement");
+        flo1.add("Ground");
         flo1.add("1st");
         flo1.add("2nd");
         flo1.add("3rd");
