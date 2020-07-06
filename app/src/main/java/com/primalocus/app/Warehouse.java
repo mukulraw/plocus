@@ -57,7 +57,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -431,6 +434,10 @@ public class Warehouse extends AppCompatActivity implements OnMapReadyCallback{
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(lat,
                         lng), DEFAULT_ZOOM));
+
+        LatLng coordinate = new LatLng(lat, lng);
+        MarkerOptions markerOptions = new MarkerOptions().position(coordinate).icon(BitmapDescriptorFactory.fromResource(com.shivtechs.maplocationpicker.R.drawable.ic_place_red_800_24dp));
+        Marker marker = mMap.addMarker(markerOptions);
 
     }
 

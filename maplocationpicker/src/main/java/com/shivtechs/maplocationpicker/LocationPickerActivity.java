@@ -84,7 +84,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LocationPickerActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class LocationPickerActivity extends AppCompatActivity implements OnMapReadyCallback , GoogleMap.OnMapLongClickListener{
     private static final int REQUEST_CHECK_SETTINGS = 2;
     private final String TAG = LocationPickerActivity.class.getSimpleName();
     private String userAddress = "";
@@ -108,6 +108,8 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
     private double currentLongitude;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+
+    static String toggle = "satelite";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -404,6 +406,8 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
             mMap.setIndoorEnabled(false);
         }
 
+        mMap.setOnMapLongClickListener(this);
+
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
@@ -625,6 +629,21 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
             GetLatLngFromAddress asyncTask = new GetLatLngFromAddress();
             filterTaskList.add(asyncTask);
             asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userAddress);
+        }
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        switch (toggle)
+        {
+            case "normal":mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                Log.d("asdasasd","satelite toggled");
+                toggle = "satelite";
+                break;
+            case "satelite":mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                Log.d("asdasasd","normal toggled");
+                toggle="normal";
+                break;
         }
     }
 
